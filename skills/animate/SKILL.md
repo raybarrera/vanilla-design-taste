@@ -12,13 +12,13 @@ description: >
 
 Turn a motion request into an implementation that would pass a strict review — or correctly refuse to animate.
 
-**Stack authority:** [references/stack.md](../../references/stack.md)  
-**Tokens:** [references/motion-tokens.md](../../references/motion-tokens.md)  
+**Stack authority:** [references/stack.md](references/stack.md)  
+**Tokens:** [references/motion-tokens.md](references/motion-tokens.md)  
 **Recipes:** [RECIPES.md](./RECIPES.md)
 
 ## Inspiration and attribution
 
-Build sequence, frequency gate, tool ladder idea, and “never ship” list are **inspired by** Emil Kowalski’s `animate` skill and public animation writing ([emilkowalski/skills](https://github.com/emilkowalski/skills), [animations.dev](https://animations.dev/)). Implementation targets CSS, WAAPI, and custom elements instead of Motion/React. See [ATTRIBUTION.md](../../ATTRIBUTION.md).
+Build sequence, frequency gate, tool ladder idea, and “never ship” list are **inspired by** Emil Kowalski’s `animate` skill and public animation writing ([emilkowalski/skills](https://github.com/emilkowalski/skills), [animations.dev](https://animations.dev/)). Implementation targets CSS, WAAPI, and custom elements instead of Motion/React. See [ATTRIBUTION.md](references/ATTRIBUTION.md).
 
 ## Operating posture
 
@@ -53,7 +53,7 @@ Keyboard-initiated actions: always stop.
 
 ### 2. Purpose
 
-Name one word-set from [motion-tokens.md](../../references/motion-tokens.md). Cannot name it → do not build.
+Name one word-set from [motion-tokens.md](references/motion-tokens.md). Cannot name it → do not build.
 
 ### 3. Tool (vanilla ladder)
 
@@ -78,7 +78,7 @@ If the request is really “install a toast package,” refuse the package path 
 
 ### 5. Easing and duration
 
-Use [motion-tokens.md](../../references/motion-tokens.md). UI usually **under 300ms**.
+Use [motion-tokens.md](references/motion-tokens.md). UI usually **under 300ms**.
 
 ### 6. Interruption and exit
 

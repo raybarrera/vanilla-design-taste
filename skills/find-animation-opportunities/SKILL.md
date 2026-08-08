@@ -11,19 +11,19 @@ description: >
 
 Find high-conviction motion opportunities. **Reject most candidates.**
 
-**Tokens:** [references/motion-tokens.md](../../references/motion-tokens.md)  
-**Stack:** [references/stack.md](../../references/stack.md)
+**Tokens:** [references/motion-tokens.md](references/motion-tokens.md)  
+**Stack:** [references/stack.md](references/stack.md)
 
 ## Inspiration and attribution
 
-Restraint-first opportunity hunting is **inspired by** Emil Kowalski’s essay [You Don't Need Animations](https://emilkowal.ski/ui/you-dont-need-animations) and the `find-animation-opportunities` skill in [emilkowalski/skills](https://github.com/emilkowalski/skills). Recipes here are vanilla CSS / WAAPI. See [ATTRIBUTION.md](../../ATTRIBUTION.md).
+Restraint-first opportunity hunting is **inspired by** Emil Kowalski’s essay [You Don't Need Animations](https://emilkowal.ski/ui/you-dont-need-animations) and the `find-animation-opportunities` skill in [emilkowalski/skills](https://github.com/emilkowalski/skills). Recipes here are vanilla CSS / WAAPI. See [ATTRIBUTION.md](references/ATTRIBUTION.md).
 
 ## Hard rules
 
 1. Do not modify source code. Report only.  
 2. Every suggestion must pass the full Gate.  
 3. Cap output: **at most 5–7** suggestions for a whole app; fewer for one view.  
-4. Suggest only tools allowed by [stack.md](../../references/stack.md).
+4. Suggest only tools allowed by [stack.md](references/stack.md).
 
 ## The Gate (all four)
 

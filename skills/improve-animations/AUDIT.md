@@ -1,8 +1,8 @@
 # Motion Audit Categories
 
 Use during `improve-animations` Phase 2.  
-Standards from [references/motion-tokens.md](../../references/motion-tokens.md) and [review-animations/STANDARDS.md](../review-animations/STANDARDS.md).  
-Doctrine inspired by Emil Kowalski; stack constraints are this pack’s. [ATTRIBUTION.md](../../ATTRIBUTION.md).
+Standards from [references/motion-tokens.md](references/motion-tokens.md) and [review-animations/STANDARDS.md](../review-animations/STANDARDS.md).  
+Doctrine inspired by Emil Kowalski; stack constraints are this pack’s. [ATTRIBUTION.md](references/ATTRIBUTION.md).
 
 ## 1. Purpose and frequency
 

@@ -13,12 +13,12 @@ disable-model-invocation: true
 Review motion only. Decline general code review and point to a general review skill.
 
 **Standards:** [STANDARDS.md](./STANDARDS.md)  
-**Stack:** [references/stack.md](../../references/stack.md)  
-**Tokens:** [references/motion-tokens.md](../../references/motion-tokens.md)
+**Stack:** [references/stack.md](references/stack.md)  
+**Tokens:** [references/motion-tokens.md](references/motion-tokens.md)
 
 ## Inspiration and attribution
 
-Review posture, non-negotiable standards, and Before/After/Why tables are **inspired by** Emil Kowalski’s `review-animations` skill in [emilkowalski/skills](https://github.com/emilkowalski/skills). Rules are re-expressed for CSS/WAAPI/hypermedia stacks. See [ATTRIBUTION.md](../../ATTRIBUTION.md).
+Review posture, non-negotiable standards, and Before/After/Why tables are **inspired by** Emil Kowalski’s `review-animations` skill in [emilkowalski/skills](https://github.com/emilkowalski/skills). Rules are re-expressed for CSS/WAAPI/hypermedia stacks. See [ATTRIBUTION.md](references/ATTRIBUTION.md).
 
 ## Operating posture
 

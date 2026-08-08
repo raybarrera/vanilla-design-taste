@@ -2,9 +2,9 @@
 
 Precise values for reviews. Prefer host project tokens when they exist.
 
-**Attribution:** Frequency gates, easing tables, duration bands, and physical rules are craft standards taught publicly by [Emil Kowalski](https://emilkowal.ski/) and reflected in [emilkowalski/skills](https://github.com/emilkowalski/skills). This file states them for vanilla CSS stacks. See [ATTRIBUTION.md](../../ATTRIBUTION.md).
+**Attribution:** Frequency gates, easing tables, duration bands, and physical rules are craft standards taught publicly by [Emil Kowalski](https://emilkowal.ski/) and reflected in [emilkowalski/skills](https://github.com/emilkowalski/skills). This file states them for vanilla CSS stacks. See [ATTRIBUTION.md](references/ATTRIBUTION.md).
 
-Also read [references/motion-tokens.md](../../references/motion-tokens.md) and [references/stack.md](../../references/stack.md).
+Also read [references/motion-tokens.md](references/motion-tokens.md) and [references/stack.md](references/stack.md).
 
 ## Frequency
 
