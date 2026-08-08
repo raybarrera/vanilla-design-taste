@@ -9,18 +9,34 @@
 # Each skill directory is self-contained (SKILL.md + its own references/).
 # This matches how harnesses discover skills: scan ~/.agents/skills/*/SKILL.md
 #
-# Usage:
-#   ./install.sh                 # install/update into ~/.agents/skills
-#   ./install.sh --dir PATH      # custom skills directory
-#   ./install.sh --uninstall     # remove skills installed by this script
-#   ./install.sh --dry-run       # print actions only
-#   ./install.sh --force         # replace existing skills not owned by this pack
+# Local:
+#   ./install.sh
+#
+# Remote one-liner (curl is the common form):
+#   curl -fsSL https://raw.githubusercontent.com/raybarrera/vanilla-design-taste/master/install.sh | bash
+#
+# With flags when piped:
+#   curl -fsSL …/install.sh | bash -s -- --force
 set -euo pipefail
 
 PACK_NAME="vanilla-design-taste"
 MANAGED_MARKER=".vanilla-design-taste-managed"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SOURCE_SKILLS_DIR="${SCRIPT_DIR}/skills"
+REPO_URL="${VDT_REPO_URL:-https://github.com/raybarrera/vanilla-design-taste.git}"
+REPO_REF="${VDT_REF:-master}"
+
+# Resolve script location. When piped via curl|bash, BASH_SOURCE may be /dev/fd/*
+# or similar and skills/ will not sit next to the script — we clone instead.
+SOURCE_ROOT=""
+SOURCE_SKILLS_DIR=""
+CLONE_DIR=""
+CLEANUP_CLONE=0
+
+if [[ -n "${BASH_SOURCE[0]:-}" && "${BASH_SOURCE[0]}" != "bash" && "${BASH_SOURCE[0]}" != "-" ]]; then
+  _src="${BASH_SOURCE[0]}"
+  if [[ -f "$_src" ]]; then
+    SOURCE_ROOT="$(cd "$(dirname "$_src")" && pwd)"
+  fi
+fi
 
 # agentskills.io cross-client user scope: ~/.agents/skills
 # Optional override: AGENTS_SKILLS_DIR (full path to the skills directory)
@@ -40,8 +56,13 @@ Default destination (agentskills.io cross-client convention):
 Usage:
   ./install.sh [options]
 
+  # Remote (no clone required):
+  curl -fsSL https://raw.githubusercontent.com/raybarrera/vanilla-design-taste/master/install.sh | bash
+  curl -fsSL …/install.sh | bash -s -- --force
+
 Options:
   --dir PATH       Skills directory (default: $AGENTS_SKILLS_DIR or ~/.agents/skills)
+  --ref REF        Git ref to fetch when installing remotely (default: master, or $VDT_REF)
   --uninstall      Remove skills previously installed by this script
   --force          Replace skill names not marked as managed by this pack
   --dry-run        Show what would happen without writing
@@ -49,6 +70,8 @@ Options:
 
 Environment:
   AGENTS_SKILLS_DIR   Override default skills directory (same as --dir)
+  VDT_REF             Default git ref for remote install (same as --ref)
+  VDT_REPO_URL        Override git remote (default: github.com/raybarrera/vanilla-design-taste.git)
 EOF
 }
 
@@ -59,11 +82,23 @@ die() {
   exit 1
 }
 
+cleanup() {
+  if [[ "$CLEANUP_CLONE" -eq 1 && -n "$CLONE_DIR" && -d "$CLONE_DIR" ]]; then
+    rm -rf "$CLONE_DIR"
+  fi
+}
+trap cleanup EXIT
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --dir)
       [[ $# -ge 2 ]] || die "--dir needs a path"
       SKILLS_DIR="$2"
+      shift 2
+      ;;
+    --ref)
+      [[ $# -ge 2 ]] || die "--ref needs a git ref"
+      REPO_REF="$2"
       shift 2
       ;;
     --uninstall)
@@ -94,6 +129,35 @@ SKILLS_DIR="${SKILLS_DIR/#\~/${HOME}}"
 if [[ "$SKILLS_DIR" != /* ]]; then
   SKILLS_DIR="$(pwd)/${SKILLS_DIR}"
 fi
+
+resolve_source() {
+  if [[ -n "$SOURCE_ROOT" && -d "${SOURCE_ROOT}/skills" ]]; then
+    SOURCE_SKILLS_DIR="${SOURCE_ROOT}/skills"
+    log "Using local skills: ${SOURCE_SKILLS_DIR}"
+    return 0
+  fi
+
+  command -v git >/dev/null 2>&1 || die "git is required for remote install"
+
+  if [[ "$DRY_RUN" -eq 1 ]]; then
+    log "DRY-RUN: would git clone --depth 1 --branch ${REPO_REF} ${REPO_URL}"
+    # Still need a real tree for dry-run skill listing if possible — clone for accuracy
+  fi
+
+  CLONE_DIR="$(mktemp -d "${TMPDIR:-/tmp}/vdt-install.XXXXXX")"
+  CLEANUP_CLONE=1
+  log "Fetching ${REPO_URL} @ ${REPO_REF}"
+  if [[ "$DRY_RUN" -eq 1 ]]; then
+    # Clone anyway so dry-run can list skills; temp dir is removed on exit
+    :
+  fi
+  git clone --depth 1 --branch "$REPO_REF" "$REPO_URL" "$CLONE_DIR/repo" >/dev/null 2>&1 \
+    || die "failed to clone ${REPO_URL} (ref ${REPO_REF})"
+  SOURCE_ROOT="${CLONE_DIR}/repo"
+  SOURCE_SKILLS_DIR="${SOURCE_ROOT}/skills"
+  [[ -d "$SOURCE_SKILLS_DIR" ]] || die "clone missing skills/: ${SOURCE_SKILLS_DIR}"
+  log "Using fetched skills: ${SOURCE_SKILLS_DIR}"
+}
 
 list_skill_names() {
   local dir="$1"
@@ -140,8 +204,6 @@ sync_skill() {
   fi
   mkdir -p "$dest"
   if command -v rsync >/dev/null 2>&1; then
-    # Do not delete the managed marker if we write it after; --delete is fine
-    # because we rewrite the marker after sync.
     rsync -a --delete \
       --exclude "${MANAGED_MARKER}" \
       "${src}/" "${dest}/"
@@ -160,12 +222,15 @@ write_marker() {
   fi
   {
     printf 'pack=%s\n' "$PACK_NAME"
-    printf 'source=%s\n' "$SCRIPT_DIR"
+    printf 'source=%s\n' "${SOURCE_ROOT:-remote}"
+    printf 'ref=%s\n' "$REPO_REF"
     printf 'installed_at=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   } >"${dest}/${MANAGED_MARKER}"
 }
 
 uninstall_skills() {
+  resolve_source
+
   log "Uninstalling ${PACK_NAME} from ${SKILLS_DIR}"
 
   local names=()
@@ -197,7 +262,8 @@ uninstall_skills() {
 }
 
 install_skills() {
-  [[ -d "$SOURCE_SKILLS_DIR" ]] || die "skills/ not found next to install.sh (${SOURCE_SKILLS_DIR})"
+  resolve_source
+  [[ -d "$SOURCE_SKILLS_DIR" ]] || die "skills/ not found (${SOURCE_SKILLS_DIR})"
 
   local skill_names=()
   local name
@@ -247,7 +313,7 @@ install_skills() {
   log ""
   log "Skills directory: ${SKILLS_DIR}"
   log "Each skill is a self-contained agentskills.io directory (SKILL.md + references/)."
-  log "Re-run ./install.sh after pulling updates."
+  log "Update later with the same install command (local or curl one-liner)."
 }
 
 if [[ "$MODE" == "uninstall" ]]; then

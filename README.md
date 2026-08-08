@@ -23,17 +23,38 @@ Installs into the **cross-client user skills path** documented by [Agent Skills]
 ~/.agents/skills/<skill-name>/SKILL.md
 ```
 
-From a clone of this repo:
+### One-liner (no clone)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/raybarrera/vanilla-design-taste/master/install.sh | bash
+```
+
+With flags (note `bash -s --`):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/raybarrera/vanilla-design-taste/master/install.sh | bash -s -- --force
+```
+
+`wget` equivalent:
+
+```bash
+wget -qO- https://raw.githubusercontent.com/raybarrera/vanilla-design-taste/master/install.sh | bash
+```
+
+The script shallow-clones this repo (ref `master`, or `$VDT_REF` / `--ref`) into a temp dir, copies each skill into `~/.agents/skills/`, then removes the clone.
+
+### From a local clone
 
 ```bash
 ./install.sh
 ```
 
-Each skill is a **self-contained** directory (agentskills.io layout): `SKILL.md` plus optional `references/`. The installer copies those trees into `~/.agents/skills/`. Re-run after pulls to refresh.
+Each skill is a **self-contained** directory (agentskills.io layout): `SKILL.md` plus optional `references/`. Re-run the same command to refresh.
 
 | Flag | Meaning |
 | --- | --- |
 | `--dir PATH` | Skills directory (default: `$AGENTS_SKILLS_DIR` or `~/.agents/skills`) |
+| `--ref REF` | Git ref for remote fetch (default: `master` or `$VDT_REF`) |
 | `--force` | Replace skill names not already managed by this pack |
 | `--uninstall` | Remove only skills this pack installed |
 | `--dry-run` | Print actions without writing |
