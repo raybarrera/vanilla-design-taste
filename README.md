@@ -8,14 +8,20 @@ Inspired by [Emil Kowalski](https://emilkowal.ski/)'s design-engineering teachin
 
 Emil's skills teach excellent taste: frequency-aware motion, strong easing, interruptibility, restraint. His pack also steers agents toward Motion, Base UI, Tailwind-adjacent tooling, and curated React libraries.
 
-Many products (including [Brighter](https://github.com/pangobit)-style apps) want that **taste** without that **stack**:
+Many products want that **taste** without that **stack**:
 
 - Vanilla CSS only
-- Templ / HTMX / forms / progressive enhancement
+- Server-rendered HTML, forms, and progressive enhancement (for example HTMX)
 - Minimal JavaScript; custom elements when needed
 - No default path to npm animation kits
 
-## Install (global `~/.agents`)
+## Install
+
+Installs into the **cross-client user skills path** documented by [Agent Skills](https://agentskills.io/client-implementation/adding-skills-support):
+
+```text
+~/.agents/skills/<skill-name>/SKILL.md
+```
 
 From a clone of this repo:
 
@@ -23,47 +29,30 @@ From a clone of this repo:
 ./install.sh
 ```
 
-That installs into `$AGENTS_HOME` or `~/.agents` by default:
-
-```text
-~/.agents/
-  packs/vanilla-design-taste/     # skills, references, attribution
-  skills/<name> → ../packs/vanilla-design-taste/skills/<name>
-```
-
-Symlinks keep skill-relative links to `references/` and `ATTRIBUTION.md` working. Re-run `./install.sh` after pulls to refresh.
+Each skill is a **self-contained** directory (agentskills.io layout): `SKILL.md` plus optional `references/`. The installer copies those trees into `~/.agents/skills/`. Re-run after pulls to refresh.
 
 | Flag | Meaning |
 | --- | --- |
-| `--dir PATH` | Custom agents root (same as `AGENTS_HOME`) |
-| `--copy` | Copy skill trees instead of symlinking |
-| `--force` | Replace skill names not already owned by this pack |
-| `--uninstall` | Remove this pack and its skill entries only |
+| `--dir PATH` | Skills directory (default: `$AGENTS_SKILLS_DIR` or `~/.agents/skills`) |
+| `--force` | Replace skill names not already managed by this pack |
+| `--uninstall` | Remove only skills this pack installed |
 | `--dry-run` | Print actions without writing |
 
 ```bash
 ./install.sh --dry-run
-./install.sh --dir ~/.agents
 ./install.sh --uninstall
 ```
 
-### Other harness paths
+### Other harness locations
 
-For project-local or non-`.agents` hosts, copy or symlink `skills/<name>/` yourself:
+If your agent only scans a vendor path, copy or symlink the same skill directories there (or point the harness at `~/.agents/skills`):
 
 ```text
-# Project-local agent-resources style
-.agents/skills/<skill-name>/SKILL.md
-
-# Grok
-.grok/skills/<skill-name>/SKILL.md
+~/.claude/skills/<skill-name>/
+~/.grok/skills/<skill-name>/
+.agents/skills/<skill-name>/          # project-local
 ```
 
-If you only copy skill folders, also place `references/` so `../../references/` from a skill resolves (same layout as the pack install).
-
-## Contributing
-
-Default branch is **`master`**. Open a **pull request** for every change — do not push commits straight to `master`.
 ## Skills
 
 | Skill | Use when |
@@ -77,7 +66,7 @@ Default branch is **`master`**. Open a **pull request** for every change — do 
 | [fluid-interfaces](./skills/fluid-interfaces/SKILL.md) | Gesture-driven UI, sheets, drag, momentum (CSS/WAAPI first) |
 | [prototype](./skills/prototype/SKILL.md) | Explore multiple vanilla HTML/CSS variants behind a picker |
 
-Shared doctrine:
+Shared doctrine (also vendored into each skill’s `references/`):
 
 - [references/stack.md](./references/stack.md) — hard stack rules (wins over any recipe)
 - [references/motion-tokens.md](./references/motion-tokens.md) — curves, durations, press feedback
@@ -95,6 +84,10 @@ Shared doctrine:
 | Framer Motion / Motion as the spring default | Replaced with CSS + WAAPI + optional custom elements |
 | Tailwind / CVA styling path | Vanilla CSS tokens only |
 | JSX mount-flag patterns as primary entry | Prefer `@starting-style`, server HTML, class toggles |
+
+## Contributing
+
+Default branch is **`master`**. Open a **pull request** for every change — do not push commits straight to `master`.
 
 ## License
 

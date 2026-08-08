@@ -12,8 +12,8 @@ description: >
 
 Make interactive surfaces feel continuous and physical using **pointer events, CSS, and WAAPI**.
 
-**Stack:** [references/stack.md](../../references/stack.md)  
-**Tokens:** [references/motion-tokens.md](../../references/motion-tokens.md)
+**Stack:** [references/stack.md](references/stack.md)  
+**Tokens:** [references/motion-tokens.md](references/motion-tokens.md)
 
 ## Inspiration and attribution
 
@@ -22,7 +22,7 @@ Fluid-interface principles (response on press, 1:1 tracking, interruptibility, m
 - Apple WWDC design talks, especially *Designing Fluid Interfaces* (2018)  
 - Emil Kowalski’s distillation of those ideas for the web in [emilkowalski/skills](https://github.com/emilkowalski/skills) (`apple-design`) and his animation writing  
 
-This skill **re-implements the web advice** with CSS/WAAPI/custom elements instead of Motion/Framer. See [ATTRIBUTION.md](../../ATTRIBUTION.md).
+This skill **re-implements the web advice** with CSS/WAAPI/custom elements instead of Motion/Framer. See [ATTRIBUTION.md](references/ATTRIBUTION.md).
 
 ## Core idea
 

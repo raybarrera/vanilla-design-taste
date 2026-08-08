@@ -12,13 +12,13 @@ disable-model-invocation: true
 
 Diverge on purpose: several shippable directions, one picker, no production edits until a human picks.
 
-**Stack:** [references/stack.md](../../references/stack.md)  
+**Stack:** [references/stack.md](references/stack.md)  
 **Picker chrome:** [PICKER.md](./PICKER.md)  
-**Craft bar:** [references/motion-tokens.md](../../references/motion-tokens.md)
+**Craft bar:** [references/motion-tokens.md](references/motion-tokens.md)
 
 ## Inspiration and attribution
 
-Divergence workflow (named axes, isolated surface, promote-on-choice) is **inspired by** Emil Kowalski’s `prototype` skill in [emilkowalski/skills](https://github.com/emilkowalski/skills). This version builds **static HTML/CSS** (or host template partials) without React/Tailwind defaults. See [ATTRIBUTION.md](../../ATTRIBUTION.md).
+Divergence workflow (named axes, isolated surface, promote-on-choice) is **inspired by** Emil Kowalski’s `prototype` skill in [emilkowalski/skills](https://github.com/emilkowalski/skills). This version builds **static HTML/CSS** (or host template partials) without React/Tailwind defaults. See [ATTRIBUTION.md](references/ATTRIBUTION.md).
 
 ## Operating posture
 

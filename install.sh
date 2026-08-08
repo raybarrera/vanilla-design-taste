@@ -1,49 +1,54 @@
 #!/usr/bin/env bash
-# Install vanilla-design-taste skills into a global .agents directory.
+# Install vanilla-design-taste skills into the user-level agents skills directory.
 #
-# Default layout (relative links in skills keep working):
+# Follows the cross-client Agent Skills convention (agentskills.io):
 #
-#   ~/.agents/
-#     packs/vanilla-design-taste/   # full pack (skills, references, attribution)
-#     skills/<name> -> ../packs/vanilla-design-taste/skills/<name>
+#   ~/.agents/skills/<skill-name>/SKILL.md
+#   ~/.agents/skills/<skill-name>/references/   # optional per-skill docs
+#
+# Each skill directory is self-contained (SKILL.md + its own references/).
+# This matches how harnesses discover skills: scan ~/.agents/skills/*/SKILL.md
 #
 # Usage:
-#   ./install.sh                 # install/update into ~/.agents
-#   ./install.sh --dir PATH      # custom agents root
-#   ./install.sh --copy          # copy skill trees instead of symlinking
-#   ./install.sh --uninstall     # remove this pack and its skill links
+#   ./install.sh                 # install/update into ~/.agents/skills
+#   ./install.sh --dir PATH      # custom skills directory
+#   ./install.sh --uninstall     # remove skills installed by this script
 #   ./install.sh --dry-run       # print actions only
-#   ./install.sh --force         # replace existing skill entries that are not ours
+#   ./install.sh --force         # replace existing skills not owned by this pack
 set -euo pipefail
 
 PACK_NAME="vanilla-design-taste"
+MANAGED_MARKER=".vanilla-design-taste-managed"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_SKILLS_DIR="${SCRIPT_DIR}/skills"
-SOURCE_REFS_DIR="${SCRIPT_DIR}/references"
 
-AGENTS_DIR="${AGENTS_HOME:-${HOME}/.agents}"
+# agentskills.io cross-client user scope: ~/.agents/skills
+# Optional override: AGENTS_SKILLS_DIR (full path to the skills directory)
+SKILLS_DIR="${AGENTS_SKILLS_DIR:-${HOME}/.agents/skills}"
 MODE="install"
-LINK_MODE="symlink"
 DRY_RUN=0
 FORCE=0
 
 usage() {
   cat <<'EOF'
-Install vanilla-design-taste into a global .agents tree.
+Install vanilla-design-taste into a user-level Agent Skills directory.
+
+Default destination (agentskills.io cross-client convention):
+
+  ~/.agents/skills/<skill-name>/
 
 Usage:
   ./install.sh [options]
 
 Options:
-  --dir PATH       Agents root (default: $AGENTS_HOME or ~/.agents)
-  --copy           Copy skill directories instead of symlinking into packs/
-  --uninstall      Remove pack files and skill entries installed by this script
-  --force          Replace conflicting skill names not owned by this pack
+  --dir PATH       Skills directory (default: $AGENTS_SKILLS_DIR or ~/.agents/skills)
+  --uninstall      Remove skills previously installed by this script
+  --force          Replace skill names not marked as managed by this pack
   --dry-run        Show what would happen without writing
   -h, --help       Show this help
 
 Environment:
-  AGENTS_HOME      Override default agents root (same as --dir)
+  AGENTS_SKILLS_DIR   Override default skills directory (same as --dir)
 EOF
 }
 
@@ -58,12 +63,8 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --dir)
       [[ $# -ge 2 ]] || die "--dir needs a path"
-      AGENTS_DIR="$2"
+      SKILLS_DIR="$2"
       shift 2
-      ;;
-    --copy)
-      LINK_MODE="copy"
-      shift
       ;;
     --uninstall)
       MODE="uninstall"
@@ -89,14 +90,10 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-AGENTS_DIR="${AGENTS_DIR/#\~/${HOME}}"
-if [[ "$AGENTS_DIR" != /* ]]; then
-  AGENTS_DIR="$(pwd)/${AGENTS_DIR}"
+SKILLS_DIR="${SKILLS_DIR/#\~/${HOME}}"
+if [[ "$SKILLS_DIR" != /* ]]; then
+  SKILLS_DIR="$(pwd)/${SKILLS_DIR}"
 fi
-
-PACK_DIR="${AGENTS_DIR}/packs/${PACK_NAME}"
-SKILLS_DIR="${AGENTS_DIR}/skills"
-MARKER_FILE="${PACK_DIR}/.install-source"
 
 list_skill_names() {
   local dir="$1"
@@ -111,22 +108,9 @@ list_skill_names() {
   done | sort
 }
 
-is_our_skill_entry() {
+is_managed_entry() {
   local entry="$1"
-  local target
-
-  if [[ -L "$entry" ]]; then
-    target="$(readlink "$entry" || true)"
-    [[ "$target" == *"/packs/${PACK_NAME}/skills/"* ]] && return 0
-    [[ "$target" == *"packs/${PACK_NAME}/skills/"* ]] && return 0
-    return 1
-  fi
-
-  if [[ -d "$entry" && -f "${entry}/.vanilla-design-taste-managed" ]]; then
-    return 0
-  fi
-
-  return 1
+  [[ -e "${entry}/${MANAGED_MARKER}" || -L "${entry}/${MANAGED_MARKER}" ]]
 }
 
 remove_path() {
@@ -147,7 +131,7 @@ ensure_dir() {
   mkdir -p "$path"
 }
 
-sync_tree() {
+sync_skill() {
   local src="$1"
   local dest="$2"
   if [[ "$DRY_RUN" -eq 1 ]]; then
@@ -156,7 +140,11 @@ sync_tree() {
   fi
   mkdir -p "$dest"
   if command -v rsync >/dev/null 2>&1; then
-    rsync -a --delete "${src}/" "${dest}/"
+    # Do not delete the managed marker if we write it after; --delete is fine
+    # because we rewrite the marker after sync.
+    rsync -a --delete \
+      --exclude "${MANAGED_MARKER}" \
+      "${src}/" "${dest}/"
   else
     rm -rf "$dest"
     mkdir -p "$(dirname "$dest")"
@@ -164,44 +152,51 @@ sync_tree() {
   fi
 }
 
-uninstall_pack() {
-  log "Uninstalling ${PACK_NAME} from ${AGENTS_DIR}"
+write_marker() {
+  local dest="$1"
+  if [[ "$DRY_RUN" -eq 1 ]]; then
+    log "DRY-RUN: write ${dest}/${MANAGED_MARKER}"
+    return 0
+  fi
+  {
+    printf 'pack=%s\n' "$PACK_NAME"
+    printf 'source=%s\n' "$SCRIPT_DIR"
+    printf 'installed_at=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  } >"${dest}/${MANAGED_MARKER}"
+}
+
+uninstall_skills() {
+  log "Uninstalling ${PACK_NAME} from ${SKILLS_DIR}"
 
   local names=()
   local name entry
   while IFS= read -r name; do
     [[ -n "$name" ]] || continue
     names+=("$name")
-  done < <({
-    list_skill_names "${PACK_DIR}/skills" 2>/dev/null || true
-    list_skill_names "$SOURCE_SKILLS_DIR" 2>/dev/null || true
-  } | sort -u)
+  done < <(list_skill_names "$SOURCE_SKILLS_DIR" 2>/dev/null || true)
 
-  if [[ -d "$SKILLS_DIR" || -L "$SKILLS_DIR" ]]; then
-    for name in "${names[@]+"${names[@]}"}"; do
-      entry="${SKILLS_DIR}/${name}"
-      if [[ -e "$entry" || -L "$entry" ]]; then
-        if is_our_skill_entry "$entry"; then
-          log "  remove skill entry: ${entry}"
-          remove_path "$entry"
-        else
-          log "  skip skill entry (not ours): ${entry}"
-        fi
+  if [[ ! -d "$SKILLS_DIR" ]]; then
+    log "  skills directory not present: ${SKILLS_DIR}"
+    log "Done."
+    return 0
+  fi
+
+  for name in "${names[@]+"${names[@]}"}"; do
+    entry="${SKILLS_DIR}/${name}"
+    if [[ -e "$entry" || -L "$entry" ]]; then
+      if is_managed_entry "$entry"; then
+        log "  remove: ${entry}"
+        remove_path "$entry"
+      else
+        log "  skip (not managed by this pack): ${entry}"
       fi
-    done
-  fi
-
-  if [[ -e "$PACK_DIR" || -L "$PACK_DIR" ]]; then
-    log "  remove pack: ${PACK_DIR}"
-    remove_path "$PACK_DIR"
-  else
-    log "  pack not present: ${PACK_DIR}"
-  fi
+    fi
+  done
 
   log "Done."
 }
 
-install_pack() {
+install_skills() {
   [[ -d "$SOURCE_SKILLS_DIR" ]] || die "skills/ not found next to install.sh (${SOURCE_SKILLS_DIR})"
 
   local skill_names=()
@@ -213,19 +208,17 @@ install_pack() {
 
   [[ ${#skill_names[@]} -gt 0 ]] || die "no skills with SKILL.md found under ${SOURCE_SKILLS_DIR}"
 
-  log "Installing ${PACK_NAME} → ${AGENTS_DIR}"
-  log "  mode: ${LINK_MODE}"
+  log "Installing ${PACK_NAME} → ${SKILLS_DIR}"
   log "  skills: ${skill_names[*]}"
 
   for name in "${skill_names[@]}"; do
     local entry="${SKILLS_DIR}/${name}"
     if [[ -e "$entry" || -L "$entry" ]]; then
-      if is_our_skill_entry "$entry"; then
+      if is_managed_entry "$entry"; then
         continue
       fi
       if [[ "$FORCE" -eq 1 ]]; then
-        log "  replace conflicting skill: ${entry}"
-        remove_path "$entry"
+        log "  will replace conflicting skill: ${entry}"
       else
         die "skill name already exists and is not managed by this pack: ${entry}
   re-run with --force to replace, or remove it manually"
@@ -234,76 +227,32 @@ install_pack() {
   done
 
   ensure_dir "$SKILLS_DIR"
-  ensure_dir "$PACK_DIR"
-  ensure_dir "${PACK_DIR}/skills"
-
-  sync_tree "$SOURCE_SKILLS_DIR" "${PACK_DIR}/skills"
-  if [[ -d "$SOURCE_REFS_DIR" ]]; then
-    sync_tree "$SOURCE_REFS_DIR" "${PACK_DIR}/references"
-  fi
-
-  if [[ "$DRY_RUN" -eq 0 ]]; then
-    for f in README.md ATTRIBUTION.md LICENSE; do
-      if [[ -f "${SCRIPT_DIR}/${f}" ]]; then
-        cp -a "${SCRIPT_DIR}/${f}" "${PACK_DIR}/${f}"
-      fi
-    done
-    {
-      printf 'source=%s\n' "$SCRIPT_DIR"
-      printf 'installed_at=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-      printf 'link_mode=%s\n' "$LINK_MODE"
-    } >"$MARKER_FILE"
-  else
-    log "DRY-RUN: write ${MARKER_FILE}"
-  fi
 
   for name in "${skill_names[@]}"; do
-    local entry="${SKILLS_DIR}/${name}"
-    local pack_skill="${PACK_DIR}/skills/${name}"
-
-    if [[ -e "$entry" || -L "$entry" ]]; then
-      remove_path "$entry"
-    fi
-
-    if [[ "$LINK_MODE" == "symlink" ]]; then
-      local rel_target="../packs/${PACK_NAME}/skills/${name}"
-      log "  link ${entry} → ${rel_target}"
-      if [[ "$DRY_RUN" -eq 0 ]]; then
-        ln -s "$rel_target" "$entry"
-      fi
-    else
-      log "  copy ${pack_skill} → ${entry}"
-      if [[ "$DRY_RUN" -eq 0 ]]; then
-        cp -a "$pack_skill" "$entry"
-        touch "${entry}/.vanilla-design-taste-managed"
-        # From ~/.agents/skills/<name>, ../../references → ~/.agents/references
-        mkdir -p "${AGENTS_DIR}/references"
-        if command -v rsync >/dev/null 2>&1; then
-          rsync -a "${PACK_DIR}/references/" "${AGENTS_DIR}/references/"
-        else
-          cp -a "${PACK_DIR}/references/." "${AGENTS_DIR}/references/"
-        fi
-        if [[ -f "${PACK_DIR}/ATTRIBUTION.md" ]]; then
-          cp -a "${PACK_DIR}/ATTRIBUTION.md" "${AGENTS_DIR}/ATTRIBUTION.md"
-        fi
+    local src="${SOURCE_SKILLS_DIR}/${name}"
+    local dest="${SKILLS_DIR}/${name}"
+    log "  install ${name}"
+    if [[ -e "$dest" || -L "$dest" ]]; then
+      if is_managed_entry "$dest" || [[ "$FORCE" -eq 1 ]]; then
+        remove_path "$dest"
+      else
+        die "refusing to overwrite unmanaged skill: ${dest}"
       fi
     fi
+    sync_skill "$src" "$dest"
+    write_marker "$dest"
   done
 
   log "Done."
   log ""
-  log "Skills available under: ${SKILLS_DIR}"
-  log "Pack files:             ${PACK_DIR}"
-  if [[ "$LINK_MODE" == "symlink" ]]; then
-    log "Skill entries are symlinks into the pack (re-run ./install.sh to update)."
-  else
-    log "Skill entries are copies (re-run ./install.sh --copy to refresh)."
-  fi
+  log "Skills directory: ${SKILLS_DIR}"
+  log "Each skill is a self-contained agentskills.io directory (SKILL.md + references/)."
+  log "Re-run ./install.sh after pulling updates."
 }
 
 if [[ "$MODE" == "uninstall" ]]; then
-  uninstall_pack
+  uninstall_skills
   exit 0
 fi
 
-install_pack
+install_skills

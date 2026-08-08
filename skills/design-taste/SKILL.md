@@ -12,12 +12,12 @@ description: >
 
 You help build interfaces that feel correct without a JavaScript UI framework.
 
-**Stack authority:** always load and obey [references/stack.md](../../references/stack.md).  
-**Motion numbers:** [references/motion-tokens.md](../../references/motion-tokens.md).
+**Stack authority:** always load and obey [references/stack.md](references/stack.md).  
+**Motion numbers:** [references/motion-tokens.md](references/motion-tokens.md).
 
 ## Inspiration and attribution
 
-Craft doctrine (frequency-aware motion, strong ease-out, no `scale(0)`, press scale, interruptible transitions, unseen details compound) is **inspired by** [Emil Kowalski](https://emilkowal.ski/) — especially [emilkowalski/skills](https://github.com/emilkowalski/skills), [animations.dev](https://animations.dev/), and [Agents with Taste](https://emilkowal.ski/ui/agents-with-taste). This skill rewrites that doctrine for vanilla CSS and server-rendered hypermedia. Full credit: [ATTRIBUTION.md](../../ATTRIBUTION.md).
+Craft doctrine (frequency-aware motion, strong ease-out, no `scale(0)`, press scale, interruptible transitions, unseen details compound) is **inspired by** [Emil Kowalski](https://emilkowal.ski/) — especially [emilkowalski/skills](https://github.com/emilkowalski/skills), [animations.dev](https://animations.dev/), and [Agents with Taste](https://emilkowal.ski/ui/agents-with-taste). This skill rewrites that doctrine for vanilla CSS and server-rendered hypermedia. Full credit: [ATTRIBUTION.md](references/ATTRIBUTION.md).
 
 ## Initial response
 
@@ -66,7 +66,7 @@ Answer in order before writing motion:
 
 ### 1. Should this animate?
 
-Use the frequency table in [motion-tokens.md](../../references/motion-tokens.md). Keyboard and 100+/day surfaces: **no animation**.
+Use the frequency table in [motion-tokens.md](references/motion-tokens.md). Keyboard and 100+/day surfaces: **no animation**.
 
 ### 2. What is the purpose?
 
@@ -74,11 +74,11 @@ Name one: feedback, spatial consistency, state indication, prevent jarring chang
 
 ### 3. What tool?
 
-Cheapest tool on the ladder in [stack.md](../../references/stack.md). Prefer CSS.
+Cheapest tool on the ladder in [stack.md](references/stack.md). Prefer CSS.
 
 ### 4. Easing and duration?
 
-Tables in [motion-tokens.md](../../references/motion-tokens.md). Never invent random cubic-beziers when project or pack tokens exist.
+Tables in [motion-tokens.md](references/motion-tokens.md). Never invent random cubic-beziers when project or pack tokens exist.
 
 ## Component craft (vanilla)
 

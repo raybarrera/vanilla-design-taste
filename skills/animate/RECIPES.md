@@ -1,9 +1,9 @@
 # Animation Recipes (Vanilla CSS / WAAPI)
 
 Ready patterns for common cases. Adapt to host tokens.  
-Craft defaults inspired by Emil Kowalski’s teaching; implementations are plain CSS/JS for hypermedia stacks. See [ATTRIBUTION.md](../../ATTRIBUTION.md).
+Craft defaults inspired by Emil Kowalski’s teaching; implementations are plain CSS/JS for hypermedia stacks. See [ATTRIBUTION.md](references/ATTRIBUTION.md).
 
-Curves: `var(--ease-out)`, `var(--ease-in-out)`, `var(--ease-drawer)` from [motion-tokens.md](../../references/motion-tokens.md).
+Curves: `var(--ease-out)`, `var(--ease-in-out)`, `var(--ease-drawer)` from [motion-tokens.md](references/motion-tokens.md).
 
 ---
 

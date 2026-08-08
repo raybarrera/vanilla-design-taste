@@ -13,7 +13,7 @@ Map a felt description to a precise term.
 
 ## Inspiration and attribution
 
-Glossary structure and many term definitions are **inspired by** Emil Kowalski’s `animation-vocabulary` skill in [emilkowalski/skills](https://github.com/emilkowalski/skills) and the public vocabulary used in his animation teaching. Wording here is adapted for this pack; when in doubt, prefer Emil’s public explanations at [animations.dev](https://animations.dev/). See [ATTRIBUTION.md](../../ATTRIBUTION.md).
+Glossary structure and many term definitions are **inspired by** Emil Kowalski’s `animation-vocabulary` skill in [emilkowalski/skills](https://github.com/emilkowalski/skills) and the public vocabulary used in his animation teaching. Wording here is adapted for this pack; when in doubt, prefer Emil’s public explanations at [animations.dev](https://animations.dev/). See [ATTRIBUTION.md](references/ATTRIBUTION.md).
 
 ## Output format
 
