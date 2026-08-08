@@ -15,22 +15,55 @@ Many products (including [Brighter](https://github.com/pangobit)-style apps) wan
 - Minimal JavaScript; custom elements when needed
 - No default path to npm animation kits
 
-## Install
+## Install (global `~/.agents`)
 
-Copy or symlink the skills into your agent skills directory, or add this repo as a skill source the way your agent host supports.
+From a clone of this repo:
 
-Example layouts:
+```bash
+./install.sh
+```
+
+That installs into `$AGENTS_HOME` or `~/.agents` by default:
 
 ```text
-# Claude / agent-resources style
+~/.agents/
+  packs/vanilla-design-taste/     # skills, references, attribution
+  skills/<name> → ../packs/vanilla-design-taste/skills/<name>
+```
+
+Symlinks keep skill-relative links to `references/` and `ATTRIBUTION.md` working. Re-run `./install.sh` after pulls to refresh.
+
+| Flag | Meaning |
+| --- | --- |
+| `--dir PATH` | Custom agents root (same as `AGENTS_HOME`) |
+| `--copy` | Copy skill trees instead of symlinking |
+| `--force` | Replace skill names not already owned by this pack |
+| `--uninstall` | Remove this pack and its skill entries only |
+| `--dry-run` | Print actions without writing |
+
+```bash
+./install.sh --dry-run
+./install.sh --dir ~/.agents
+./install.sh --uninstall
+```
+
+### Other harness paths
+
+For project-local or non-`.agents` hosts, copy or symlink `skills/<name>/` yourself:
+
+```text
+# Project-local agent-resources style
 .agents/skills/<skill-name>/SKILL.md
 
 # Grok
 .grok/skills/<skill-name>/SKILL.md
 ```
 
-Each skill is a folder under `skills/` with a `SKILL.md` frontmatter `name` and `description`.
+If you only copy skill folders, also place `references/` so `../../references/` from a skill resolves (same layout as the pack install).
 
+## Contributing
+
+Default branch is **`master`**. Open a **pull request** for every change — do not push commits straight to `master`.
 ## Skills
 
 | Skill | Use when |
