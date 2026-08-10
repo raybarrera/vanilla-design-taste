@@ -164,8 +164,7 @@
               </div>
             </fieldset>
             <p class="filter-hint">
-              Filters use CSS <code>:has()</code> (no script). Production: same controls as
-              <code>GET</code> → server partial.
+              CSS <code>:has()</code> filters · table is the work surface · APCA contrast (not WCAG ratios)
             </p>
           </form>
 
@@ -195,7 +194,7 @@
                     <th class="num" scope="col">Progress</th>
                     <th scope="col">Status</th>
                     <th scope="col">Last active</th>
-                    <th scope="col"><span class="visually-hidden">Actions</span></th>
+                    <th class="col-actions" scope="col"><span class="visually-hidden">Actions</span></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -208,9 +207,10 @@
                     </td>
                     <td>
                       <span class="learner-name">Jordan Blake</span>
+                      <span class="learner-id" title="lrn_8f3a2c">lrn_8f3a2c</span>
                       <span class="learner-email">jordan.blake@example.com</span>
                     </td>
-                    <td>Spring A</td>
+                    <td class="cohort-cell">Spring A</td>
                     <td class="num">
                       <div class="progress">
                         <div class="progress__bar" aria-hidden="true">
@@ -220,8 +220,8 @@
                       </div>
                     </td>
                     <td><span class="status status--active">Active</span></td>
-                    <td>Today, 9:14 AM</td>
-                    <td>
+                    <td class="time-cell">Today, 9:14 AM</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
@@ -237,9 +237,10 @@
                     </td>
                     <td>
                       <span class="learner-name">Priya Nair</span>
+                      <span class="learner-id" title="lrn_1b9e44">lrn_1b9e44</span>
                       <span class="learner-email">priya.nair@example.com</span>
                     </td>
-                    <td>Spring A</td>
+                    <td class="cohort-cell">Spring A</td>
                     <td class="num">
                       <div class="progress">
                         <div class="progress__bar" aria-hidden="true">
@@ -249,8 +250,8 @@
                       </div>
                     </td>
                     <td><span class="status status--at-risk">At risk</span></td>
-                    <td>5 days ago</td>
-                    <td>
+                    <td class="time-cell">5 days ago</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
@@ -266,9 +267,10 @@
                     </td>
                     <td>
                       <span class="learner-name">Sam Okonkwo</span>
+                      <span class="learner-id" title="lrn_c0d712">lrn_c0d712</span>
                       <span class="learner-email">sam.okonkwo@example.com</span>
                     </td>
-                    <td>Spring B</td>
+                    <td class="cohort-cell">Spring B</td>
                     <td class="num">
                       <div class="progress">
                         <div class="progress__bar" aria-hidden="true">
@@ -278,8 +280,8 @@
                       </div>
                     </td>
                     <td><span class="status status--completed">Completed</span></td>
-                    <td>Yesterday</td>
-                    <td>
+                    <td class="time-cell">Yesterday</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
@@ -295,9 +297,10 @@
                     </td>
                     <td>
                       <span class="learner-name">Elena Rossi</span>
+                      <span class="learner-id" title="lrn_55aa01">lrn_55aa01</span>
                       <span class="learner-email">elena.rossi@example.com</span>
                     </td>
-                    <td>Evening</td>
+                    <td class="cohort-cell">Evening</td>
                     <td class="num">
                       <div class="progress">
                         <div class="progress__bar" aria-hidden="true">
@@ -307,8 +310,8 @@
                       </div>
                     </td>
                     <td><span class="status status--at-risk">At risk</span></td>
-                    <td>8 days ago</td>
-                    <td>
+                    <td class="time-cell">8 days ago</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
@@ -324,9 +327,10 @@
                     </td>
                     <td>
                       <span class="learner-name">Chris Park</span>
+                      <span class="learner-id" title="lrn_9e2f18">lrn_9e2f18</span>
                       <span class="learner-email">chris.park@example.com</span>
                     </td>
-                    <td>Spring B</td>
+                    <td class="cohort-cell">Spring B</td>
                     <td class="num">
                       <div class="progress">
                         <div class="progress__bar" aria-hidden="true">
@@ -336,8 +340,8 @@
                       </div>
                     </td>
                     <td><span class="status status--active">Active</span></td>
-                    <td>Today, 11:02 AM</td>
-                    <td>
+                    <td class="time-cell">Today, 11:02 AM</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
@@ -353,9 +357,10 @@
                     </td>
                     <td>
                       <span class="learner-name">Amina Diallo</span>
+                      <span class="learner-id" title="lrn_d4c880">lrn_d4c880</span>
                       <span class="learner-email">amina.diallo@example.com</span>
                     </td>
-                    <td>Evening</td>
+                    <td class="cohort-cell">Evening</td>
                     <td class="num">
                       <div class="progress">
                         <div class="progress__bar" aria-hidden="true">
@@ -365,8 +370,8 @@
                       </div>
                     </td>
                     <td><span class="status status--invited">Invited</span></td>
-                    <td>Never</td>
-                    <td>
+                    <td class="time-cell">Never</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
@@ -382,9 +387,10 @@
                     </td>
                     <td>
                       <span class="learner-name">Noah Berg</span>
+                      <span class="learner-id" title="lrn_2a11ef">lrn_2a11ef</span>
                       <span class="learner-email">noah.berg@example.com</span>
                     </td>
-                    <td>Spring A</td>
+                    <td class="cohort-cell">Spring A</td>
                     <td class="num">
                       <div class="progress">
                         <div class="progress__bar" aria-hidden="true">
@@ -394,8 +400,8 @@
                       </div>
                     </td>
                     <td><span class="status status--active">Active</span></td>
-                    <td>Today, 8:40 AM</td>
-                    <td>
+                    <td class="time-cell">Today, 8:40 AM</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
@@ -411,9 +417,10 @@
                     </td>
                     <td>
                       <span class="learner-name">Lina Ortiz</span>
+                      <span class="learner-id" title="lrn_77b3c9">lrn_77b3c9</span>
                       <span class="learner-email">lina.ortiz@example.com</span>
                     </td>
-                    <td>Spring B</td>
+                    <td class="cohort-cell">Spring B</td>
                     <td class="num">
                       <div class="progress">
                         <div class="progress__bar" aria-hidden="true">
@@ -423,8 +430,8 @@
                       </div>
                     </td>
                     <td><span class="status status--at-risk">At risk</span></td>
-                    <td>3 days ago</td>
-                    <td>
+                    <td class="time-cell">3 days ago</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>

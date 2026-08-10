@@ -8,6 +8,80 @@ Shared visual design doctrine for this pack. Stack law still lives in [stack.md]
 
 If the host app already defines surfaces, type ramps, spacing, and radii — **use those**. Extend tokens; do not invent a parallel palette beside a working system.
 
+## Theme consistency (non-negotiable on host projects)
+
+When editing UI **inside an existing app**, the project’s established theme wins.
+
+| Do | Do not |
+| --- | --- |
+| Reuse host semantic tokens (`--surface-*`, `--content-*`, `--accent`, spacing, radius) | Invent a second palette “because this screen is special” |
+| Map new roles onto existing names (extend, don’t fork) | Drop random hex next to tokenized components |
+| Match depth strategy already in use (borders vs shadow) | Switch to glassmorphism or hard shadows mid-product |
+| Match type ramp and weight roles | Introduce a display face only used once in admin chrome |
+| If both light and dark exist, implement **both** with the same token roles | Hard-code light-only grays that break dark mode |
+
+**Greenfield / pack samples** may define a self-contained theme, but still: one hue family, semantic roles, and no one-off hex spray.
+
+**Litmus:** Diff the CSS variables — new screens should mostly *consume* tokens, not declare a private mini-system.
+
+## Light / dark legibility check (APCA, polarity-aware)
+
+This pack does **not** use WCAG 2 contrast ratios as the design bar. WCAG 2 overstates contrast for dark pairs, under-predicts some light pairs, and often forces muddy “compliant” combos that still read poorly — especially in dark mode.
+
+Use **APCA** (Accessible Perceptual Contrast Algorithm): polarity-aware lightness contrast reported as **Lc** (positive = dark text on light background; negative = light text on dark). Absolute value is what you compare to targets.
+
+**Tool:** [apcacontrast.com](https://apcacontrast.com/) — enter **text/icon color** and **background** in the correct slots (polarity matters; swap is not free). See also [Myndex APCA docs](https://git.myndex.com/).
+
+### Polarity rules
+
+1. Always measure **foreground on its actual background** (not “these two hexes abstractly”).  
+2. Light-on-dark is **not** the same as dark-on-light at the same WCAG ratio — APCA’s sign and magnitude capture that.  
+3. When a control has multiple layers (button label on accent on page), check the **painted pair the eye reads** (label vs button fill).  
+4. Alpha text: blend against the real background first, then measure.  
+5. Verify **each mode** the product ships (light and dark tokens), not only the one you designed in.
+
+### Bronze Lc targets (pack default)
+
+Simplified from APCA Bronze guidance (size/weight matter; when unsure, go higher Lc or larger/heavier type):
+
+| Use | Target | Notes |
+| --- | --- | --- |
+| Body / fluent columns | **\|Lc\| ≥ 75** preferred; **90** for small body | e.g. ≥14px/400 or ≥18px/300 for Lc 90 body-ish use |
+| Readable UI content (not dense body columns) | **\|Lc\| ≥ 60** | Primary labels, nav text, table primary cells |
+| Large headlines / big metrics | **\|Lc\| ≥ 45** | Heavier/larger type; don’t crank contrast until it glares |
+| Spot-readable / secondary | **\|Lc\| ≥ 30** | Meta, timestamps; avoid for primary content |
+| Placeholder / disabled copy | **\|Lc\| ≥ 30** absolute floor for any text you still expect to read | Below ~15 treat as decorative/invisible |
+| Non-text chrome (borders, dividers that must be seen) | **\|Lc\| ≥ 15** vs adjacent surface | Fine details/icons need more (often ≥30–45) |
+| Primary button label | **\|Lc\| ≥ 60** on the button fill | Prefer 75 when type is small |
+
+These are **readability targets**, not a mandate to desaturate the brand into gray sludge. Prefer adjusting **weight/size** or **surface steps** before killing hue.
+
+### Do not
+
+- Use WCAG 2 **4.5:1 / 3:1** as the pass bar in this pack (or axe/Lighthouse contrast as gospel)  
+- Force near-black text on near-black “dark mode” because a ratio tool said pass  
+- Assume the same muted gray hex works on light and dark surfaces  
+- Check only resting state — include hover, focus, selected, error, disabled  
+
+### Mode-specific traps
+
+| Mode | Common failure | Fix |
+| --- | --- | --- |
+| Light | Washed secondary text; invisible hairlines | Raise \|Lc\| for secondary; slightly stronger border token |
+| Dark | WCAG-pass pairs that still look milky or crush | Measure with APCA; often need different lightness steps than light mode |
+| Dark | Shadows as only elevation | Surface step + hairline (shadows vanish) |
+| Both | One hard-coded gray for “muted” | Separate semantic tokens per polarity |
+| Both | Status color-only | Text/icon + color; check Lc of the **label**, not only the swatch |
+
+### How to verify
+
+1. Toggle host theme (or `.theme-dark` / `prefers-color-scheme`)  
+2. For each critical pair, run [apcacontrast.com](https://apcacontrast.com/) with correct polarity  
+3. Spot-check primary text, muted text, links, button labels, status text, focus ring against its background  
+4. Squint test still applies — structure without harsh noise  
+
+If the product has only one mode, say so; still meet APCA targets in that polarity.
+
 ## Brand vs product modes
 
 Name the mode before designing. A landing page and a dashboard live by contradictory rules.
@@ -37,6 +111,24 @@ AI-generated UI clusters. Unless the brief *asks* for one of these, do not ship 
 | Shadow stacks on every card | Noise and cost | One depth strategy (borders *or* subtle shadow *or* surface shift) |
 | Lorem / fake metrics | Hides overflow and wrapping | Realistic copy and numbers |
 | Color as the only status signal | Fails a11y | Icon + text + color |
+| **Inset lip / rail** — `box-shadow: inset 2px 0 0 …` (or `3px`) on nav items, cards, or rows as a “selected” tell | Looks like AI chrome; harsh edge; breaks on rounded corners and RTL | Soft background change, full `border`, or full-height `border-inline-start` on the **row/container** with matching radius — never a partial inner lip |
+| Random parallel palette beside host tokens | Theme drift | Extend host semantic tokens only |
+
+**Inset lip (explicit ban):** Do **not** use `box-shadow: inset Npx 0 0 var(--*)` as a selected/active marker on list rows, nav links, or cards. It reads as generic agent slop and creates ugly “capped” ends on boxes. Prefer:
+
+```css
+/* Good: surface change */
+.nav-link[aria-current="page"] {
+  background: var(--surface-inset);
+  color: var(--content-primary);
+}
+
+/* Good: full-height edge on the row, not an inset lip */
+.row--risk {
+  border-inline-start: 3px solid var(--warning);
+  background: color-mix(in srgb, var(--warning) 8%, var(--surface-raised));
+}
+```
 
 **Litmus:** If another model given a similar prompt would produce substantially the same UI, you have defaulted. Revise until direction is specific to *this* subject and mode.
 
@@ -72,6 +164,37 @@ Do not mix tool-tight and brochure-airy on the same screen without a reason (e.g
 - Base unit **4px or 8px** (match host). Multiples only — no `13px` one-offs.
 - Scale by context: micro (icon gaps) → component → section → major regions.
 - Related things sit close; unrelated groups get real air. Monotone equal gaps read as “no one decided.”
+
+## Alignment
+
+Alignment is hierarchy’s quieter twin. Misalignment is the fastest “unfinished” tell after missing states.
+
+### Rules
+
+1. **Pick a column system and hold it.** Page content, tables, and form labels share edges — not “almost aligned.”  
+2. **Same start edge for labels** in a form column (`grid-template-columns: max-content 1fr` or fixed label column).  
+3. **Numbers right-align** in columns that are compared (money, counts, %). Labels and names stay start-aligned.  
+4. **Action columns** share one end edge (usually trailing). Do not scatter Open / Edit at random x-positions.  
+5. **Vertical rhythm:** row heights consistent within a table; form fields share control height (e.g. 36px).  
+6. **Optical, not only mathematical:** icons next to text often need 1–2px nudge; large display type may need tracking, not more margin.  
+7. **Don’t mix centering strategies** on one toolbar (some items `margin: auto`, some absolute) without a grid.  
+8. **RTL-safe edges:** prefer `inline-start` / `inline-end` (and logical borders) over hard `left` / `right` when the product supports RTL.
+
+### Admin quick map
+
+| Surface | Align |
+| --- | --- |
+| Page title block | Start; actions end on same row baseline |
+| Filter bar | Controls baseline-align; labels above or inline consistently — not mixed |
+| Data table | Sticky header cells match body column alignment |
+| Metric strip | Values baseline or top-aligned as a set — not mixed per card |
+| Modal / popover | Title, body, actions share one content width |
+
+### Anti-patterns
+
+- Cascading indent with no grid (“this field is 12px further in because why not”)  
+- Columns that look aligned at 1440px and collapse into a jagged stack at 768px with no plan  
+- Icon buttons of different hit-box widths making the action column wobble  
 
 ## Surfaces and depth
 
@@ -115,7 +238,7 @@ Prefer roles over raw hex in components:
 
 - Extend host names if they already exist.
 - Dark mode: prefer borders over deep shadows; keep one hue family and shift lightness.
-- Contrast: aim WCAG AA (4.5:1 normal text, 3:1 large / UI chrome).
+- Contrast: **APCA Lc**, polarity-aware — [apcacontrast.com](https://apcacontrast.com/). Do **not** optimize for WCAG 2 ratios. Run the **light / dark legibility check** above.
 
 ## Accessibility floor
 
@@ -237,13 +360,15 @@ State briefly before writing UI:
 Mode:       brand | product | admin
 Intent:     who / task verb / feel (concrete)
 Hierarchy:  focal element + how it wins
-Palette:    tokens or named colors + why
+Palette:    host tokens first; named colors only if greenfield
 Type:       roles + scale
 Density:    tight | default | airy + px band
 Depth:      one strategy
+Alignment:  edges / number columns / action column
 Signature:  one memorable element (Brand) or “quiet competence” (Admin)
 Material:   finish from the subject’s world (paper, chalk, steel, …)
 Elevation:  which 2–3 wow levers we are using
+Modes:      light / dark checked with APCA (or single-mode stated)
 ```
 
 If you cannot answer **why** for a row, you are defaulting.

@@ -2,10 +2,10 @@
 name: admin-ui
 description: >
   Dense admin panels, dashboards, CRMs, settings, and data-heavy internal tools on
-  vanilla CSS and server-rendered hypermedia. Hierarchy, density, app shells, tables,
-  filters, metrics, and loading/empty/error states. Use when building or reviewing
-  admin UI, back-office screens, or /admin-ui. Not for marketing or landing pages
-  (use frontend-design).
+  vanilla CSS and server-rendered hypermedia. Hierarchy, density, rows vs cards,
+  alignment, field-type presentation, app shells, tables, filters, and states. Use
+  when building or reviewing admin UI, back-office screens, or /admin-ui. Not for
+  marketing or landing pages (use frontend-design).
 ---
 
 # Admin UI (Vanilla / Hypermedia)
@@ -43,28 +43,60 @@ Before layout:
 2. **Verb** — what they must accomplish on this screen
 3. **Density** — tool-tight (default for tables) vs product-default vs airy (rare in admin)
 4. **Feel** — concrete (“dense like a trading desk”, “calm ops console”) — not “modern”
+5. **Theme** — host tokens only; light/dark via **APCA** (polarity-aware), not WCAG 2 ratios
 
 If the prompt is only “make a dashboard,” narrow to the highest-leverage job (e.g. “triage failed payments”) before inventing KPI cards.
 
-## Hierarchy for data
+## Visual hierarchy (required)
 
-- **One focal task** per view (the table, the queue, the form — not three competing heroes)
-- Labels demoted (small, muted, tracked); **values** lead (weight + size + `tabular-nums`)
-- Status: text or icon **and** color — never color alone
-- Squint test: structure readable, nothing harsh
+Full tables: [admin-patterns.md](references/admin-patterns.md) § *Visual hierarchy*.
 
-Full hierarchy and anti-slop rules: [visual-craft.md](references/visual-craft.md).
+**Scan order:** task title → one primary action → attention (if any) → filters → **work surface** (most pixels) → meta.
+
+**Within a record/row:** identity → status → measure (tabular) → meta → trailing actions.
+
+| Do | Do not |
+| --- | --- |
+| Demote labels; promote values | Everything the same weight |
+| One `h1`; quieter breadcrumbs | Three title sizes competing |
+| Compact status + clear name | Huge status pills, tiny identity |
+| Quiet metric strip above the queue | Six equal marketing KPI cards |
+
+## Rows vs cards
+
+Decide the container before styling. Full table: [admin-patterns.md](references/admin-patterns.md) § *Rows vs cards*.
+
+| Default | When |
+| --- | --- |
+| **Table rows** | Homogeneous records, compare columns, sort/filter/bulk |
+| **Key-value** | Single record detail / settings |
+| **Cards** | Few objects with multi-line “poster” content (rare in admin) |
+| **Metric strip** | Summary above a table — not instead of one |
+
+Indexes and queues: **table first**. Card grids of stats are almost always wrong.
+
+## Alignment
+
+Numbers **end-align** + `tabular-nums`. Names **start-align**. Actions in one trailing column. Filters share one label pattern. See [visual-craft.md](references/visual-craft.md) § Alignment and admin-patterns § Alignment.
+
+## Field types
+
+Present data by kind — [admin-patterns.md](references/admin-patterns.md) § *Field types*:
+
+- Labels muted; titles/names stronger  
+- Ints/floats/money/% → tabular, consistent decimals, end-align in columns  
+- GUIDs → mono, muted, truncate with full value in `title`  
+- Status → text + color (never color alone)  
+- Empty → “—” or “Not set”, one convention  
 
 ## Shell and navigation
 
 - Sidebar and canvas: **same surface** + subtle border (not a second colorful world)
-- Nav width states relationship (~220–280px usually serves content)
+- Nav width ~220–280px; current item via **background**, not inset box-shadow lip
 - Page header: title + optional description + **one** primary action
 - Skip link to `#main`
 
-Recipes: [admin-patterns.md](references/admin-patterns.md).
-
-## Core patterns (use the reference)
+## Core patterns
 
 | Pattern | Key rule |
 | --- | --- |
@@ -76,8 +108,6 @@ Recipes: [admin-patterns.md](references/admin-patterns.md).
 | Bulk / delete | Confirm irreversible; POST + host CSRF |
 | Loading / empty / error | Skeleton geometry; empty invites next step; error offers retry |
 
-Implement with semantic HTML and the smallest HTMX partial that keeps the shell stable.
-
 ## States are mandatory
 
 | Region | Required |
@@ -86,63 +116,51 @@ Implement with semantic HTML and the smallest HTMX partial that keeps the shell 
 | Lists / tables | loading, empty, error, populated |
 | Destructive | confirm path |
 
-Missing states read as unfinished software.
-
 ## Motion
 
-Admin chrome is high-frequency. Default to **no animation** on sort, filter, pagination, row select. Allow short feedback (button press scale, occasional toast, modal enter) per [motion-tokens.md](references/motion-tokens.md). Prefer motion skills only when a specific transition is in scope.
+Admin chrome is high-frequency. Default to **no animation** on sort, filter, pagination, row select. Allow short feedback (button press scale, occasional toast, modal enter) per [motion-tokens.md](references/motion-tokens.md).
 
-## Operator polish (wow as competence)
-
-Spectacle belongs on Brand landings. Here, elevation is **speed, scan, trust**. After structure works, apply [admin-patterns.md](references/admin-patterns.md) § *Operator polish*:
+## Operator polish
 
 | Polish | Example |
 | --- | --- |
-| Attention strip | “14 need a nudge” → applies at-risk filter |
-| Row emphasis | Soft tint / left rule on at-risk rows + status text |
-| Toolchrome | Command-style search, sticky headers, `/` hint optional |
-| Action affordance | Row actions on hover/focus-within; always keyboard-reachable |
-| Feedback | Quiet toast after nudge/export; dialog focus return |
-| Empty | Domain SVG/CSS + one CTA — not a blank void |
+| Attention strip | “14 need a nudge” → applies filter |
+| Row emphasis | Soft tint + optional full-height border-inline-start — **never** inset lip shadow |
+| Toolchrome | Command-style search, sticky headers |
+| Actions | focus-within / hover reveal; keyboard always |
+| Feedback | Quiet toast; dialog focus return |
 
-**Anti-patterns:** hero gradients in the shell, staggered row entrances, confetti, glassmorphism KPI walls.
-
-**Self-check:** Would a power user feel *faster* after your polish, or only see more chrome?
+**Anti-patterns:** hero gradients, card-stat walls, inset `box-shadow` lips, parallel palettes, confetti.
 
 ## Implementation posture
 
 | Do | Do not |
 | --- | --- |
+| Host theme tokens; both modes if they exist | Invent a private admin palette |
 | Server-rendered tables and forms | Client-only filter state as source of truth |
-| Vanilla CSS tokens; extend host | Tailwind / React admin kits by default |
-| Native `<dialog>` / `popover`, `<table>`, labeled inputs | Div grids as tables; unlabeled icon buttons |
-| CSS `:has()` / GET forms for filter demos | A JS table framework for basic show/hide |
-| Host partials; custom elements only when required | New SPA router for admin chrome |
+| Native dialog/popover, real tables | Div grids as tables; unlabeled icon buttons |
+| CSS `:has()` / GET forms for demos | JS table frameworks for basic show/hide |
 
-**JS:** none by default. Filters, bulk-bar visibility, confirm, and mobile nav should use HTML/CSS (or server GET) first — [stack.md](references/stack.md) + [admin-patterns.md](references/admin-patterns.md) § *Zero-JS*.
+**JS:** none by default — [stack.md](references/stack.md).
 
-If the host already uses another stack, match the host; still apply density, hierarchy, and state rules.
-
-## Review format (required for UI reviews)
-
-Single markdown table:
+## Review format (required)
 
 | Before | After | Why |
 | --- | --- | --- |
-| Dashboard of six equal gradient cards | Metric strip + primary queue table | Operator job was triage, not decoration |
-| Div rows with no header cells | `<table>` + sticky `th` | Semantics, alignment, assistive tech |
-| Filters only in JS memory | `method="get"` + query params | Shareable, back-button, no-JS path |
+| Six equal gradient KPI cards | Metric strip + primary queue table | Work surface must win |
+| `box-shadow: inset 2px 0 0` on nav | Background on current item | Inset lips are agent slop |
+| GUID as body-primary text | Mono muted truncated + `title` | Type-appropriate presentation |
+| Money left-aligned, mixed decimals | End-align, tabular, fixed fractions | Compare and scan |
 
 ## Checklist
 
-- [ ] Scope is admin/product-dense (not Brand)
 - [ ] Operator + verb + density stated
-- [ ] Focal task wins the layout
-- [ ] Shell and primary action clear
-- [ ] Tables real; numbers tabular
-- [ ] Filters in URL/form
-- [ ] Loading, empty, error present
-- [ ] Destructive confirmed
-- [ ] Operator polish applied where it speeds the job
+- [ ] Host theme; light/dark APCA polarity check if both modes
+- [ ] Hierarchy: work surface wins; labels vs values clear
+- [ ] Rows vs cards (or key-value) justified
+- [ ] Alignment rules held
+- [ ] Field types correct (tabular, mono GUID, etc.)
+- [ ] No inset lip shadows
+- [ ] Table/filters/states/destructive paths complete
 - [ ] High-frequency chrome not animated
 - [ ] Stack rules respected

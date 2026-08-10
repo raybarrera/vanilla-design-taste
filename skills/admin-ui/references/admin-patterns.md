@@ -11,6 +11,133 @@ Dense, task-first patterns for dashboards, CRMs, internal tools, and settings on
 3. **Same chrome everywhere.** Shell, table density, button sizes, and filter placement should feel like one product.
 4. **High frequency → still.** Nav toggles, row selection, pagination: no animation theater (see frequency gate in motion-tokens).
 5. **Server owns business state.** Filters, sort, page, selection that must survive refresh: URL or form fields, not a client store by default.
+6. **Theme is the host’s.** Consume project tokens; do not invent a second admin palette ([visual-craft.md](./visual-craft.md) § theme consistency + light/dark check).
+
+## Visual hierarchy (admin)
+
+Admin hierarchy is **scan order for a job**, not “make the header pretty.”
+
+### Page levels (top → bottom)
+
+| Layer | Role | Typical treatment |
+| --- | --- | --- |
+| 1. Task | What am I doing? | `h1` page title — one per view |
+| 2. Orientation | Where am I? | Breadcrumb / section nav — muted, smaller |
+| 3. Primary action | What can I do now? | One solid primary button |
+| 4. Attention | What needs me? | Quiet strip or filter chip — not a second hero |
+| 5. Controls | How do I narrow? | Filter bar — secondary weight |
+| 6. Work surface | Where do I act? | **Table or form** — most pixels live here |
+| 7. Meta | Context only | Timestamps, ids, counts — muted, tabular where numeric |
+
+If layers 1–5 compete with layer 6 for attention, demote 1–5 (smaller type, less chrome), not the work surface.
+
+### Within a row or record
+
+1. **Identity** first (name, job id + short route) — medium/semibold primary  
+2. **State** second (status text + color) — scannable, not huge  
+3. **Measure** third (money, %, ETA) — tabular, end-aligned  
+4. **Meta** last (last active, secondary email) — muted, smaller  
+5. **Actions** trailing — consistent column; ghost/text buttons  
+
+### Density of hierarchy signals
+
+Prefer **weight + color/opacity** over size jumps. A 14px table can hold three tiers without 20px titles inside every cell.
+
+### Admin hierarchy failures
+
+| Failure | Fix |
+| --- | --- |
+| Six equal KPI cards above a tiny table | Quiet metric strip; enlarge the table |
+| Every label bold | Labels muted; values stronger |
+| Page title, section title, and card titles all same size | Step the type scale; one clear `h1` |
+| Status as a huge pill that steals the row | Compact status; identity stays lead |
+| Inset “selected” lip on nav/rows | Background or full-height edge — ban inset box-shadow lips ([visual-craft.md](./visual-craft.md)) |
+
+## Rows vs cards vs other surfaces
+
+Choose the **container** from the job, not from fashion.
+
+| Pattern | Use when | Avoid when |
+| --- | --- | --- |
+| **Data table (rows)** | Many homogeneous records; compare columns; sort/filter/bulk; dense scanning | Few items with long narrative; highly heterogeneous fields per item |
+| **Definition list / key-value** | Single record detail; settings; metadata sidebar | Long browsable inventories (use table or list) |
+| **Stacked list rows** (full-width rows, not `<table>`) | Mobile-first feeds; 2–4 fields per item; optional swipe actions | Wide desktop compare-across-columns jobs |
+| **Cards in a grid** | Few objects (≤ ~12) with distinct media or multi-line content; picker galleries | Default for “dashboard”; bulk triage; spreadsheet-shaped data |
+| **Metric strip** | 3–6 summary measures above a work surface | Replacing the work surface; icon-stat marketing cards |
+| **Kanban / columns** | Explicit workflow stages operators move between | Flat filterable indexes better as a table |
+| **Timeline** | Ordered events for one entity | Primary inventory of all entities |
+
+### Defaults
+
+- **Indexes / queues / CRMs:** table first.  
+- **Record detail:** key-value + sections; optional small related table.  
+- **Dashboards:** metric strip **plus** the primary queue (table or list) — not a wall of cards alone.  
+- **Cards in admin** only when each object needs a multi-line “poster” (e.g. template gallery). If you can put it in columns, prefer a table.
+
+### Card slop in admin
+
+Refuse: equal card grids of stats, gradient tiles, large icons per metric, “feature cards” for navigation that should be a sidebar link.
+
+## Alignment (admin)
+
+See also [visual-craft.md](./visual-craft.md) § Alignment. Admin-specific:
+
+| Context | Rule |
+| --- | --- |
+| Table numbers | `text-align: end` + `tabular-nums` |
+| Table text | `text-align: start` |
+| Checkbox column | Fixed narrow width; centered control |
+| Actions column | End-aligned; same control order every row |
+| Filters | One alignment system: all labels above **or** all inline — don’t mix on one bar |
+| Forms | Label column width shared; controls share start edge |
+| Page header | Title block start, actions end, vertically centered as a group |
+| Sticky header | Column alignment must match body when scrolled |
+
+**Grid beat:** if the filter bar, table, and footer don’t share a content start/end edge, fix the layout shell before polishing colors.
+
+## Field types and presentation
+
+Present data by **type and role**, not all as the same 14px string.
+
+| Kind | Presentation | CSS / markup notes |
+| --- | --- | --- |
+| **Page / section title** | Strong, larger, tight tracking | One `h1` per view; sections `h2` |
+| **Column / form label** | Small, medium weight, muted | Never rely on placeholder alone |
+| **Person / object name** | Primary weight; link if navigable | Second line for email/meta muted |
+| **Short id / code** (SKU, job no.) | Mono or tabular; often medium weight | Keep copyable; don’t oversize |
+| **GUID / UUID** | Mono, muted, smaller; truncate middle or show last segment + full `title` | Never display as a hero metric; allow copy |
+| **Integer count** | Tabular nums; end-align in columns | No unnecessary decimals |
+| **Float / decimal** | Tabular; fixed fraction digits per column (e.g. always 2) | Align decimal columns consistently |
+| **Money** | Tabular; end-align; currency symbol consistent (column header or per cell, not mixed) | Same fraction digits in a column |
+| **Percent** | Tabular; end-align; include `%`; optional bar only if it helps compare | Don’t animate bars on load |
+| **Date / time** | Consistent format per product; relative only if unambiguous (`title` = absolute) | Don’t mix `01/02` locales in one table |
+| **Email / URL** | Secondary line or mono small; link with clear text | Break long strings (`overflow-wrap`) |
+| **Enum / status** | Short label + color + optional icon | Never color alone |
+| **Boolean** | Explicit words or labeled switch (“Active”), not bare ✓/✗ only | |
+| **Empty / null** | Em dash or “—” muted, or “Not set” — one convention | Don’t leave blank cells that look broken |
+| **Long text** | Clamp with expand, or detail page — not huge table cells | `title` or detail link for full text |
+
+### Form controls by type
+
+| Input | Notes |
+| --- | --- |
+| Text | Visible label; hint under; error next to field |
+| Number | `inputmode` / step as needed; right-align value in dense tables when displayed read-only |
+| Money | Explicit currency; avoid float surprises in copy (server formats) |
+| Select / enum | Native or host partial; don’t invent custom without keyboard |
+| Date | Prefer native or host date control; show format expectation in hint |
+| GUID search | Mono input; paste-friendly; don’t uppercase unless the system requires |
+
+### Type scale reminder for data
+
+```text
+label / meta:  12–12.5px, muted, weight 500
+body / name:   13–14px, primary, weight 500–600
+metric value:  22–28px, semibold, tabular
+guid / code:   12px, mono, muted
+```
+
+Match host tokens when they exist.
 
 ## App shell
 
@@ -383,7 +510,7 @@ Admin delight is **feeling fast, clear, and trustworthy** — not landing-page t
 ### Attention and scanning
 
 - **Needs-attention strip** above the table when count > 0: plain language (“14 learners need a nudge”), link that applies the filter, not a second dashboard  
-- **Row emphasis:** left ink bar or soft tint for `at-risk` / failed / overdue — still show status text  
+- **Row emphasis:** soft tint and/or **full-height** `border-inline-start` for `at-risk` / failed / overdue — still show status text. **Never** `box-shadow: inset 2px 0 0` lips  
 - **Primary column weight:** name/id medium-strong; meta muted on a second line  
 - **Action reveal:** row actions visible on focus-within / hover (fine pointer); always available to keyboard (never `display:none` only)
 
@@ -403,7 +530,7 @@ Admin delight is **feeling fast, clear, and trustworthy** — not landing-page t
 ### Material (quiet)
 
 - Hairline borders, inset inputs, same-hue surfaces  
-- Optional **dark rail / light canvas** only if contrast stays AA and both stay in one hue family  
+- Optional **dark rail / light canvas** only if APCA Lc holds for text/chrome in both polarities and both stay in one hue family  
 - Metric values use `tabular-nums` and a clear unit; avoid icon-stat cards  
 
 ### Do not
@@ -411,14 +538,23 @@ Admin delight is **feeling fast, clear, and trustworthy** — not landing-page t
 - Hero gradients, glassmorphism stacks, 3D product spins in the admin shell  
 - Stagger-animate every table row on load  
 - Confetti, celebration for routine saves  
+- Inset box-shadow “lips” on nav or rows  
+- Parallel color theme that ignores host tokens  
+- Card grids as the default inventory pattern  
 
 ## Checklist
 
 - [ ] Mode is admin/product-dense, not Brand
 - [ ] Task verb and operator persona stated
 - [ ] Density chosen and held (tool-tight default for tables)
+- [ ] Visual hierarchy: work surface wins; labels demoted vs values
+- [ ] Container choice justified (table vs cards vs key-value)
+- [ ] Alignment: numbers end, text start, actions column consistent
+- [ ] Field types presented correctly (tabular money/%, mono GUID, etc.)
+- [ ] Host theme tokens used; light/dark legibility checked if both modes exist
+- [ ] No inset lip shadows for selection/emphasis
 - [ ] Shell: nav + main + clear primary action
-- [ ] Tabular data in a real table; numbers tabular and aligned
+- [ ] Tabular data in a real table when comparing records
 - [ ] Filters shareable via URL/form
 - [ ] Loading, empty, error present
 - [ ] Destructive paths confirmed

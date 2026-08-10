@@ -169,7 +169,9 @@ Match motion to product personality:
 - [ ] Frequency gate passed
 - [ ] Purpose named
 - [ ] Stack ladder respected (no surprise deps)
+- [ ] Host theme tokens used; light/dark APCA polarity check if both modes
 - [ ] Tokens extended, not forked
+- [ ] No inset box-shadow lips for selection chrome
 - [ ] `transform`/`opacity` preferred
 - [ ] Reduced motion + hover gating considered
 - [ ] Press feedback on primary actions

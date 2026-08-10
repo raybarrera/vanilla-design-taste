@@ -96,11 +96,13 @@ Tidy anti-slop layouts can still feel **forgettable**. Raise elevation with 2–
 Details live in [visual-craft.md](references/visual-craft.md). Non-negotiables:
 
 - One focal point per view; weight and color hierarchy beat size mush
-- Spacing on a 4/8px scale; uneven rhythm between groups
+- Spacing on a 4/8px scale; uneven rhythm between groups; **alignment** held (see visual-craft § Alignment)
 - One depth strategy (borders / subtle shadow / surface steps)
-- Semantic tokens; extend the host system
+- **Theme consistency:** host semantic tokens; no parallel palette
+- **Light/dark legibility** checked for every mode the product supports
+- No inset box-shadow “lips” (`inset 2px 0 0`) as selected markers
 - States: default, hover (fine pointer), active, focus-visible, disabled; data regions need loading/empty/error
-- Accessibility floor: real controls, keyboard, focus-visible, contrast, no color-only status
+- Accessibility floor: real controls, keyboard, focus-visible; **APCA Lc** contrast (not WCAG 2 ratios); no color-only status
 
 ### Brand-specific
 
@@ -158,13 +160,13 @@ One table, one row per issue.
 
 - [ ] Mode named (Brand / Product)
 - [ ] Intent brief answered
-- [ ] Plan critiqued against anti-slop list
+- [ ] Plan critiqued against anti-slop list (including no inset lips)
 - [ ] Signature + material finish named (Brand)
 - [ ] Elevation levers chosen (2–3); anti-flat check passed
-- [ ] Focal point and hierarchy clear
-- [ ] Tokens extended, not forked
+- [ ] Focal point, hierarchy, and alignment clear
+- [ ] Host theme tokens; light/dark APCA polarity check
 - [ ] Spacing scale and one depth strategy
 - [ ] Realistic copy; empty/error considered
-- [ ] A11y floor met
+- [ ] A11y floor met (keyboard/semantics + APCA, not WCAG 2 ratios)
 - [ ] Motion purposeful, budgeted, reduced-motion safe
 - [ ] Stack ladder respected

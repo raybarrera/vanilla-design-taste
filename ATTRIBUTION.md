@@ -43,7 +43,8 @@ The pack’s broader design-taste skills (`frontend-design`, `admin-ui`, shared 
 | Source | What we drew from |
 | --- | --- |
 | [Anthropic `frontend-design`](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | Distinctive direction; ground in subject/audience/job; type as personality; plan-before-code; signature restraint; copy as design material; resisting templated AI aesthetics |
-| [Addy Osmani `frontend-ui-engineering`](https://github.com/addyosmani/agent-skills) (and similar production UI guidance) | Anti-AI-aesthetic failure modes; spacing and token discipline; WCAG floor; loading/empty/error; responsive and production-quality bar |
+| [Addy Osmani `frontend-ui-engineering`](https://github.com/addyosmani/agent-skills) (and similar production UI guidance) | Anti-AI-aesthetic failure modes; spacing and token discipline; loading/empty/error; production-quality bar (contrast in this pack uses APCA, not WCAG 2 ratios) |
+| [APCA / apcacontrast.com](https://apcacontrast.com/) (Myndex) | Polarity-aware perceptual contrast (Lc); Bronze targets by use case; dark-mode-capable readability checks |
 | [Dammyjay93 `interface-design`](https://github.com/Dammyjay93/interface-design) | Craft-first product/admin scope; intent-first briefs; hierarchy and density as decisions; subtle surfaces; states as mandatory; operator-focused UI |
 | [Impeccable](https://github.com/pbakaus/impeccable) / Paul Bakaus | Brand (persuade) vs product (operate) mode split so marketing and tools do not share one aesthetic vocabulary |
 

@@ -160,7 +160,7 @@
               </div>
             </fieldset>
             <p class="filter-hint">
-              Alternate admin theme · CSS <code>:has()</code> filters · no script
+              Night polarity · APCA Lc · table work surface · CSS <code>:has()</code> filters
             </p>
           </form>
 
@@ -188,7 +188,7 @@
                     <th class="num" scope="col">ETA</th>
                     <th scope="col">Status</th>
                     <th scope="col">Driver</th>
-                    <th scope="col"><span class="visually-hidden">Actions</span></th>
+                    <th class="col-actions" scope="col"><span class="visually-hidden">Actions</span></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -203,12 +203,13 @@
                       <span class="job-id">LH-2401</span>
                       <span class="job-route">SEA → PDX reefer</span>
                       <span class="job-meta">Dock 4 · seal mismatch</span>
+                      <span class="job-guid" title="3f2a9c1e-8b44-4d0a-9c2e-11a0b7d4e801">3f2a9c1e…e801</span>
                     </td>
-                    <td>North</td>
-                    <td class="num eta">—</td>
+                    <td class="yard-cell">North</td>
+                    <td class="num eta eta--none">—</td>
                     <td><span class="status status--blocked">Blocked</span></td>
-                    <td>Unassigned</td>
-                    <td>
+                    <td class="driver-cell driver-cell--empty">Unassigned</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>
@@ -226,12 +227,13 @@
                       <span class="job-id">LH-2398</span>
                       <span class="job-route">PORT → BOI dry van</span>
                       <span class="job-meta">Mile 142 · on schedule</span>
+                      <span class="job-guid" title="91c0e2b4-55aa-4f18-8d3c-02b9e771a002">91c0e2b4…a002</span>
                     </td>
-                    <td>Port</td>
+                    <td class="yard-cell">Port</td>
                     <td class="num eta">14:20</td>
                     <td><span class="status status--en-route">En route</span></td>
-                    <td>Kim Ortega</td>
-                    <td>
+                    <td class="driver-cell">Kim Ortega</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>
@@ -249,12 +251,13 @@
                       <span class="job-id">LH-2410</span>
                       <span class="job-route">PDX → EUG LTL</span>
                       <span class="job-meta">Priority · customer window 16:00</span>
+                      <span class="job-guid" title="c7d11820-0ef1-4a2b-b901-88cc44110003">c7d11820…0003</span>
                     </td>
-                    <td>South</td>
+                    <td class="yard-cell">South</td>
                     <td class="num eta">16:00</td>
                     <td><span class="status status--open">Open</span></td>
-                    <td>Unassigned</td>
-                    <td>
+                    <td class="driver-cell driver-cell--empty">Unassigned</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>
@@ -272,12 +275,13 @@
                       <span class="job-id">LH-2388</span>
                       <span class="job-route">PORT → SLC hazmat</span>
                       <span class="job-meta">Scale hold · docs pending</span>
+                      <span class="job-guid" title="a01bb902-77c3-4e90-a112-dd0099000004">a01bb902…0004</span>
                     </td>
-                    <td>Port</td>
-                    <td class="num eta">—</td>
+                    <td class="yard-cell">Port</td>
+                    <td class="num eta eta--none">—</td>
                     <td><span class="status status--blocked">Blocked</span></td>
-                    <td>Devon Hale</td>
-                    <td>
+                    <td class="driver-cell">Devon Hale</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>
@@ -295,12 +299,13 @@
                       <span class="job-id">LH-2371</span>
                       <span class="job-route">SEA → YVR cross-dock</span>
                       <span class="job-meta">Arrived 02:14</span>
+                      <span class="job-guid" title="55ee0011-2233-44aa-bbcc-ddeeff000005">55ee0011…0005</span>
                     </td>
-                    <td>North</td>
+                    <td class="yard-cell">North</td>
                     <td class="num eta">02:14</td>
                     <td><span class="status status--done">Done</span></td>
-                    <td>Sam Okonkwo</td>
-                    <td>
+                    <td class="driver-cell">Sam Okonkwo</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                       </div>
@@ -317,12 +322,13 @@
                       <span class="job-id">LH-2405</span>
                       <span class="job-route">EUG → MED flatbed</span>
                       <span class="job-meta">Weather delay +18m</span>
+                      <span class="job-guid" title="deadbeef-0001-4000-8000-000000000006">deadbeef…0006</span>
                     </td>
-                    <td>South</td>
+                    <td class="yard-cell">South</td>
                     <td class="num eta">15:45</td>
                     <td><span class="status status--en-route">En route</span></td>
-                    <td>Priya Nair</td>
-                    <td>
+                    <td class="driver-cell">Priya Nair</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>
@@ -340,12 +346,13 @@
                       <span class="job-id">LH-2412</span>
                       <span class="job-route">SEA → GEG team</span>
                       <span class="job-meta">Needs sleeper team</span>
+                      <span class="job-guid" title="0f0f0f0f-1111-4222-8333-444455556667">0f0f0f0f…6667</span>
                     </td>
-                    <td>North</td>
+                    <td class="yard-cell">North</td>
                     <td class="num eta">22:00</td>
                     <td><span class="status status--open">Open</span></td>
-                    <td>Unassigned</td>
-                    <td>
+                    <td class="driver-cell driver-cell--empty">Unassigned</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>
@@ -363,12 +370,13 @@
                       <span class="job-id">LH-2390</span>
                       <span class="job-route">PDX → RDM bulk</span>
                       <span class="job-meta">Equipment not ready</span>
+                      <span class="job-guid" title="abcdef01-2345-4678-89ab-cdef01230008">abcdef01…0008</span>
                     </td>
-                    <td>South</td>
-                    <td class="num eta">—</td>
+                    <td class="yard-cell">South</td>
+                    <td class="num eta eta--none">—</td>
                     <td><span class="status status--blocked">Blocked</span></td>
-                    <td>Unassigned</td>
-                    <td>
+                    <td class="driver-cell driver-cell--empty">Unassigned</td>
+                    <td class="col-actions">
                       <div class="row-actions">
                         <a class="button button--ghost button--sm" href="#">Open</a>
                         <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>

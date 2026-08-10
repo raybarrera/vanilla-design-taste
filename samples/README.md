@@ -6,14 +6,14 @@ Static demos that exercise pack skills. Open HTML files in a browser — **no bu
 
 | Sample | Skill | Theme |
 | --- | --- | --- |
-| [learner-admin/](./learner-admin/) | `admin-ui` | Warm classroom console — teal on paper |
+| [learner-admin/](./learner-admin/) | `admin-ui` | Warm classroom console — light polarity, APCA-tuned, table work surface |
 | [course-ops-landing/](./course-ops-landing/) | `frontend-design` (Brand) | Ruled paper, Fraunces, chalk-green board bands |
 
 ## Linehaul Dispatch (alternate theme)
 
 | Sample | Skill | Theme |
 | --- | --- | --- |
-| [dispatch-admin/](./dispatch-admin/) | `admin-ui` | Night yard — steel panels, high-viz amber, mono labels |
+| [dispatch-admin/](./dispatch-admin/) | `admin-ui` | Night yard — dark polarity, APCA-tuned, steel + amber, mono codes/GUIDs |
 | [dispatch-landing/](./dispatch-landing/) | `frontend-design` (Brand) | Blueprint grid, stencil type, amber signal |
 
 Same craft rules (hierarchy, zero-JS filters/`popover`/`:target`, Brand elevation) — **different material and personality** so agents see how doctrine travels across domains.
