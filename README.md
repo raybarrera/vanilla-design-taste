@@ -1,19 +1,21 @@
 # Vanilla Design Taste
 
-Agent skills for **UI craft and motion** on a **vanilla CSS + server-rendered HTML** stack.
+Agent skills for **frontend design taste**, **admin UI craft**, and **motion** on a **vanilla CSS + server-rendered HTML** stack.
 
-Inspired by [Emil Kowalski](https://emilkowal.ski/)'s design-engineering teaching and the public skill pack [emilkowalski/skills](https://github.com/emilkowalski/skills). This is a deliberate rewrite for hypermedia apps — not a fork of his React-oriented recipes. See [ATTRIBUTION.md](./ATTRIBUTION.md).
+Inspired by [Emil Kowalski](https://emilkowal.ski/)'s design-engineering teaching and the public skill pack [emilkowalski/skills](https://github.com/emilkowalski/skills), plus durable ideas from widely used frontend and product/admin design skills — rewritten for hypermedia apps, not forked. See [ATTRIBUTION.md](./ATTRIBUTION.md).
 
 ## Why this exists
 
-Emil's skills teach excellent taste: frequency-aware motion, strong easing, interruptibility, restraint. His pack also steers agents toward Motion, Base UI, Tailwind-adjacent tooling, and curated React libraries.
+Popular design skills teach useful taste: distinctive direction, anti-slop defaults, dense product hierarchy, frequency-aware motion. Many of them also steer agents toward React, Tailwind, Motion, and npm UI kits.
 
 Many products want that **taste** without that **stack**:
 
 - Vanilla CSS only
 - Server-rendered HTML, forms, and progressive enhancement (for example HTMX)
-- Minimal JavaScript; custom elements when needed
-- No default path to npm animation kits
+- **No JavaScript by default** — HTML/CSS/hypermedia first; script only when native affordances fall short
+- No default path to npm animation or component kits
+
+This pack is that adaptation: general frontend craft, admin/data UI patterns, and motion skills that share one stack doctrine.
 
 ## Install
 
@@ -78,7 +80,9 @@ If your agent only scans a vendor path, copy or symlink the same skill directori
 
 | Skill | Use when |
 | --- | --- |
-| [design-taste](./skills/design-taste/SKILL.md) | General UI polish, component feel, design-engineering review |
+| [design-taste](./skills/design-taste/SKILL.md) | General UI polish, component feel, craft review; routes to specialists |
+| [frontend-design](./skills/frontend-design/SKILL.md) | Distinctive visual design for product **and** marketing; anti-slop; type, hierarchy, copy |
+| [admin-ui](./skills/admin-ui/SKILL.md) | Dense admin panels, dashboards, tables, filters, settings, internal tools |
 | [animate](./skills/animate/SKILL.md) | Build a specific animation or transition from scratch |
 | [review-animations](./skills/review-animations/SKILL.md) | Strict review of motion in a diff or surface |
 | [find-animation-opportunities](./skills/find-animation-opportunities/SKILL.md) | Hunt places that should (and should not) move |
@@ -87,24 +91,36 @@ If your agent only scans a vendor path, copy or symlink the same skill directori
 | [fluid-interfaces](./skills/fluid-interfaces/SKILL.md) | Gesture-driven UI, sheets, drag, momentum (CSS/WAAPI first) |
 | [prototype](./skills/prototype/SKILL.md) | Explore multiple vanilla HTML/CSS variants behind a picker |
 
+### Which skill?
+
+| Need | Skill |
+| --- | --- |
+| Distinctive page/component look, anti-slop, type, marketing or general product chrome | `frontend-design` |
+| Admin panel, CRM, dashboard, dense table, settings IA, internal tool | `admin-ui` |
+| Build, review, or audit a specific animation | motion skills (`animate`, `review-animations`, …) |
+| Component press/feel + general craft without a full redesign | `design-taste` |
+
 Shared doctrine (also vendored into each skill’s `references/`):
 
 - [references/stack.md](./references/stack.md) — hard stack rules (wins over any recipe)
 - [references/motion-tokens.md](./references/motion-tokens.md) — curves, durations, press feedback
-- [ATTRIBUTION.md](./ATTRIBUTION.md) — credit and relationship to Emil's work
+- [references/visual-craft.md](./references/visual-craft.md) — hierarchy, density, anti-slop, brand vs product modes
+- [references/admin-patterns.md](./references/admin-patterns.md) — shells, tables, filters, data states
+- [ATTRIBUTION.md](./ATTRIBUTION.md) — credit and relationship to source inspirations
 
 ## Stack in one line
 
-**HTML + vanilla CSS first. Hypermedia second. Tiny JS third. Motion libraries only with human approval.**
+**HTML + vanilla CSS first. Hypermedia second. JS only when native affordances fall short. Motion libraries only with human approval.**
 
 ## What we intentionally omit
 
-| Emil pack idea | Why omitted / replaced |
+| Common skill-pack idea | Why omitted / replaced |
 | --- | --- |
-| `pick-ui-library` (Sonner, base-ui, zustand, cva, …) | Pushes React/npm defaults; contradicts this pack |
+| Emil `pick-ui-library` (Sonner, base-ui, zustand, cva, …) | Pushes React/npm defaults; contradicts this pack |
 | Framer Motion / Motion as the spring default | Replaced with CSS + WAAPI + optional custom elements |
 | Tailwind / CVA styling path | Vanilla CSS tokens only |
 | JSX mount-flag patterns as primary entry | Prefer `@starting-style`, server HTML, class toggles |
+| Shipping third-party skills verbatim | We rewrite popular FE/admin craft for hypermedia; see ATTRIBUTION |
 
 ## Contributing
 
@@ -113,4 +129,4 @@ Default branch is **`master`**. Open a **pull request** for every change — do 
 ## License
 
 MIT — see [LICENSE](./LICENSE).  
-Doctrine inspired by Emil Kowalski; original skill text in this repo is authored for vanilla/hypermedia stacks. Attribution details in [ATTRIBUTION.md](./ATTRIBUTION.md).
+Doctrine inspired by Emil Kowalski and other public design skills; original skill text in this repo is authored for vanilla/hypermedia stacks. Attribution details in [ATTRIBUTION.md](./ATTRIBUTION.md).

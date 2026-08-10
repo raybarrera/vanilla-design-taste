@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Course ops — Know who needs you before class starts</title>
+    <meta
+      name="description"
+      content="Course ops is the instructor console for finding stuck learners, nudging the right people, and running cohorts without spreadsheet chaos."
+    />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link
+      href="https://fonts.bunny.net/css?family=fraunces:500,600,700,italic|ibm-plex-mono:500,600|source-sans-3:400,600,700"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!--
+      frontend-design · Brand mode · elevation bar
+      Signature: chalk grain + brass margin rule + Fraunces thesis + 3D gradebook frame
+      Material: chalkboard green, warm paper, brass
+      Levers: material, type drama, depth (perspective frame), light (board band)
+      Motion: scroll reveal once, hover lift CTAs, frame tilt
+    -->
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap site-header__inner">
+        <a class="logo" href="#">
+          <span class="logo__mark">Course ops</span>
+          <span class="logo__sub">For instructors</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#how">How it works</a>
+          <a href="#product">Product</a>
+          <a href="#stories">Stories</a>
+          <a class="button button--ghost" href="../learner-admin/index.html">Open the app</a>
+          <a class="button button--ghost" href="../dispatch-landing/index.html">Dispatch theme</a>
+          <a class="button button--primary" href="#try">Start free trial</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="wrap hero__grid">
+          <div class="reveal reveal--hero">
+            <p class="eyebrow">
+              <span class="eyebrow__dot" aria-hidden="true"></span>
+              Instructor console
+            </p>
+            <h1 class="hero__title">
+              Know who needs you <em>before</em> class starts.
+            </h1>
+            <p class="hero__lede">
+              Course ops is the calm place to see who is stuck, filter a cohort, and send a
+              nudge — without rebuilding the same spreadsheet every Monday.
+            </p>
+            <div class="hero__actions">
+              <a class="button button--primary button--lg" href="#try">Start free trial</a>
+              <a class="button button--secondary button--lg" href="../learner-admin/index.html">
+                Browse the learner list
+              </a>
+            </div>
+            <p class="hero__note">Static sample · no card · pairs with the live admin UI.</p>
+            <div class="hero__stats" aria-label="Sample outcomes">
+              <div>
+                <span class="val">14</span>
+                <span class="lbl">At risk flagged</span>
+              </div>
+              <div>
+                <span class="val">2 min</span>
+                <span class="lbl">Typical triage</span>
+              </div>
+              <div>
+                <span class="val">0</span>
+                <span class="lbl">Mystery spreadsheets</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="frame-stage reveal reveal--hero reveal-delay-2">
+            <div class="frame-stage__glow" aria-hidden="true"></div>
+            <div class="float-badge" aria-hidden="true">
+              Needs a nudge
+              <strong>14</strong>
+            </div>
+            <div class="product-frame" aria-hidden="true">
+              <div class="product-frame__chrome">
+                <div class="product-frame__dots">
+                  <span class="product-frame__dot"></span>
+                  <span class="product-frame__dot"></span>
+                  <span class="product-frame__dot"></span>
+                </div>
+                <span>course-ops.app / learners</span>
+              </div>
+              <div class="product-frame__body">
+                <div class="product-frame__nav">
+                  <strong>Course ops</strong>
+                  <span>Overview</span>
+                  <span data-active>Learners</span>
+                  <span>Cohorts</span>
+                  <span>Assignments</span>
+                </div>
+                <div class="product-frame__main">
+                  <h3>Learners</h3>
+                  <p class="meta">Spring cohort · synced 2 min ago</p>
+                  <div class="mini-metrics">
+                    <div>
+                      <p class="lbl">Active</p>
+                      <p class="val">128</p>
+                    </div>
+                    <div>
+                      <p class="lbl">At risk</p>
+                      <p class="val val--warn">14</p>
+                    </div>
+                    <div>
+                      <p class="lbl">Avg</p>
+                      <p class="val">62%</p>
+                    </div>
+                  </div>
+                  <table class="mini-table">
+                    <thead>
+                      <tr>
+                        <th>Learner</th>
+                        <th class="num">%</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="is-risk">
+                        <td>Priya Nair</td>
+                        <td class="num">34</td>
+                        <td><span class="pill">At risk</span></td>
+                      </tr>
+                      <tr class="is-risk">
+                        <td>Elena Rossi</td>
+                        <td class="num">12</td>
+                        <td><span class="pill">At risk</span></td>
+                      </tr>
+                      <tr>
+                        <td>Jordan Blake</td>
+                        <td class="num">78</td>
+                        <td><span class="pill pill--ok">Active</span></td>
+                      </tr>
+                      <tr>
+                        <td>Sam Okonkwo</td>
+                        <td class="num">100</td>
+                        <td><span class="pill pill--ok">Done</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <p class="product-frame__caption">
+              Same roster as the live sample —
+              <a href="../learner-admin/index.html">open the full admin UI</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span>Spring A</span><span>Spring B</span><span>Evening workshop</span>
+          <span>Corporate cohort</span><span>Office hours queue</span><span>At-risk filter</span>
+          <span>Bulk nudge</span><span>Export CSV</span>
+          <span>Spring A</span><span>Spring B</span><span>Evening workshop</span>
+          <span>Corporate cohort</span><span>Office hours queue</span><span>At-risk filter</span>
+          <span>Bulk nudge</span><span>Export CSV</span>
+        </div>
+      </div>
+
+      <section class="band band--board" id="how" aria-labelledby="how-title">
+        <div class="wrap">
+          <p class="section-kicker reveal">The weekly rhythm</p>
+          <h2 class="section-title reveal" id="how-title">From roll call to the right conversation</h2>
+          <p class="section-lede reveal">
+            Built for people who teach in public and grade in private. Three moves, every week.
+          </p>
+          <ol class="process">
+            <li class="process__item reveal">
+              <h3>Scan the roster</h3>
+              <p>
+                Quiet metrics show active, at-risk, and completed — then the table does the real
+                work. No rainbow card collage.
+              </p>
+            </li>
+            <li class="process__item reveal reveal-delay-1">
+              <h3>Filter to the stuck few</h3>
+              <p>
+                Cohort, status, and name search stay in the URL so you can share a view with a
+                co-instructor before office hours.
+              </p>
+            </li>
+            <li class="process__item reveal reveal-delay-2">
+              <h3>Nudge, then move on</h3>
+              <p>
+                Bulk-select who needs a poke. Confirm removes carefully. Tools used daily should
+                not animate at you.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="band" id="product" aria-labelledby="product-title">
+        <div class="wrap">
+          <p class="section-kicker reveal">Why it feels different</p>
+          <h2 class="section-title reveal" id="product-title">Dense when it helps. Quiet when it doesn’t.</h2>
+          <p class="section-lede reveal">
+            Course ops is an operator tool, not a marketing site wearing a dashboard costume.
+          </p>
+          <div class="features">
+            <article class="feature feature--wide reveal">
+              <span class="feature__label">Triage</span>
+              <h3>At-risk learners rise to the top of your morning</h3>
+              <p>
+                Status is text and color. Progress is tabular. Sort who has gone quiet without
+                decoding a chart first — then jump straight into the same list in the app sample.
+              </p>
+            </article>
+            <article class="feature reveal reveal-delay-1">
+              <span class="feature__label">Cohorts</span>
+              <h3>Named the way you already talk</h3>
+              <p>
+                Spring A, Evening, Thursday workshop. Filters match real groups; export when
+                leadership wants a CSV.
+              </p>
+            </article>
+            <article class="feature reveal reveal-delay-2">
+              <span class="feature__label">Trust</span>
+              <h3>Destructive actions ask once</h3>
+              <p>
+                Removing access is a real confirm step — not a toast that vanishes while you blink.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band--board" id="stories" aria-labelledby="stories-title">
+        <div class="wrap">
+          <p class="section-kicker reveal">From the front of the room</p>
+          <h2 class="section-title reveal" id="stories-title">Fewer tabs. More teaching.</h2>
+          <figure class="quote-block reveal">
+            <blockquote>
+              “I used to open three tabs and a spreadsheet before every session. Now I filter
+              ‘at risk’, send four nudges, and walk into class knowing who to check on.”
+            </blockquote>
+            <figcaption>
+              <strong>Maya Chen</strong>
+              Lead instructor · Acme Learning
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="cta band--raised" id="try" aria-labelledby="try-title">
+        <div class="wrap">
+          <p class="section-kicker reveal">Try it</p>
+          <h2 class="section-title reveal" id="try-title">Open the roster. Keep your Monday.</h2>
+          <p class="section-lede reveal">
+            The admin sample is the real product surface — filters, bulk nudge, confirm remove.
+            This page is the handshake.
+          </p>
+          <div class="cta__actions reveal">
+            <a class="button button--primary button--lg" href="../learner-admin/index.html">
+              Open learner admin sample
+            </a>
+            <a class="button button--secondary button--lg" href="../dispatch-landing/index.html">
+              See Dispatch theme
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap site-footer__inner">
+        <p>© Course ops sample · Vanilla Design Taste</p>
+        <p>
+          <a href="../learner-admin/index.html">Admin UI sample</a>
+          ·
+          <a href="../README.md">All samples</a>
+        </p>
+      </div>
+      <div class="wrap">
+        <p class="sample-note">
+          Sample for <code>frontend-design</code> (Brand · elevation · zero JS) · pairs with
+          <code>learner-admin</code> · open <code>index.html</code> in a browser
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

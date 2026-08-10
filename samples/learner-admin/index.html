@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Learners · Course ops</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="admin">
+    <!--
+      admin-ui · zero JS
+      Filters: radios + :has()
+      Bulk bar: :has(.row-check:checked)
+      Confirm: popover API
+      Mobile nav: details/summary
+      Empty demo: checkbox + :has()
+      Toast: :target
+    -->
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="admin-shell">
+      <details class="nav-drawer">
+        <summary class="nav-drawer__summary">Menu</summary>
+        <aside class="admin-nav" aria-label="Primary">
+          <div class="admin-nav__brand">
+            <span class="admin-nav__mark">Course ops</span>
+            <span class="admin-nav__sub">Acme Learning · Spring cohort</span>
+          </div>
+          <nav>
+            <ul class="admin-nav__list">
+              <li><a class="admin-nav__link" href="#">Overview</a></li>
+              <li>
+                <a class="admin-nav__link" href="#" aria-current="page">Learners</a>
+              </li>
+              <li><a class="admin-nav__link" href="#">Cohorts</a></li>
+              <li><a class="admin-nav__link" href="#">Assignments</a></li>
+            </ul>
+            <p class="admin-nav__section">Workspace</p>
+            <ul class="admin-nav__list">
+              <li><a class="admin-nav__link" href="#">Settings</a></li>
+              <li><a class="admin-nav__link" href="#">Export logs</a></li>
+            </ul>
+          </nav>
+          <div class="admin-nav__footer">
+            Signed in as <strong>Maya Chen</strong><br />
+            Instructor
+          </div>
+        </aside>
+      </details>
+
+      <aside class="admin-nav admin-nav--desktop" aria-label="Primary">
+        <div class="admin-nav__brand">
+          <span class="admin-nav__mark">Course ops</span>
+          <span class="admin-nav__sub">Acme Learning · Spring cohort</span>
+        </div>
+        <nav>
+          <ul class="admin-nav__list">
+            <li><a class="admin-nav__link" href="#">Overview</a></li>
+            <li>
+              <a class="admin-nav__link" href="#" aria-current="page">Learners</a>
+            </li>
+            <li><a class="admin-nav__link" href="#">Cohorts</a></li>
+            <li><a class="admin-nav__link" href="#">Assignments</a></li>
+          </ul>
+          <p class="admin-nav__section">Workspace</p>
+          <ul class="admin-nav__list">
+            <li><a class="admin-nav__link" href="#">Settings</a></li>
+            <li><a class="admin-nav__link" href="#">Export logs</a></li>
+          </ul>
+        </nav>
+        <div class="admin-nav__footer">
+          Signed in as <strong>Maya Chen</strong><br />
+          Instructor
+        </div>
+      </aside>
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <p class="admin-topbar__meta">Last synced 2 min ago · Static sample · no JavaScript</p>
+          <div class="admin-topbar__actions">
+            <input type="checkbox" id="demo-empty" class="visually-hidden" />
+            <label class="button button--ghost button--sm" for="demo-empty">Toggle empty state</label>
+            <a class="button button--ghost button--sm" href="../course-ops-landing/index.html">Marketing landing</a>
+            <a class="button button--ghost button--sm" href="../dispatch-admin/index.html">Dispatch theme</a>
+          </div>
+        </header>
+
+        <main id="main" class="admin-content">
+          <header class="page-header">
+            <div class="page-header__text">
+              <ol class="breadcrumb" aria-label="Breadcrumb">
+                <li><a href="#">Course ops</a></li>
+                <li aria-current="page">Learners</li>
+              </ol>
+              <h1 class="page-title">Learners</h1>
+              <p class="page-desc">
+                Find who is stuck, filter by cohort or status, and send a nudge before the next session.
+              </p>
+            </div>
+            <div class="page-header__actions">
+              <a class="button button--secondary" href="#">Export CSV</a>
+              <a class="button button--primary" href="#">Invite learner</a>
+            </div>
+          </header>
+
+          <section class="metric-strip" aria-label="Summary">
+            <div class="metric">
+              <p class="metric__label">Active</p>
+              <p class="metric__value">128</p>
+              <p class="metric__delta metric__delta--up">↑ 6 vs last week</p>
+            </div>
+            <div class="metric">
+              <p class="metric__label">At risk</p>
+              <p class="metric__value">14</p>
+              <p class="metric__delta metric__delta--warn">Needs review today</p>
+            </div>
+            <div class="metric">
+              <p class="metric__label">Avg progress</p>
+              <p class="metric__value">62%</p>
+              <p class="metric__delta">Across open modules</p>
+            </div>
+            <div class="metric">
+              <p class="metric__label">Completed</p>
+              <p class="metric__value">23</p>
+              <p class="metric__delta metric__delta--up">↑ 4 this week</p>
+            </div>
+          </section>
+
+          <div class="attention" role="status">
+            <p>
+              <strong>3 on this page</strong> are at risk.
+              <label class="attention__link" for="status-at-risk">Show at risk only</label>
+            </p>
+          </div>
+
+          <!-- Filters: production would be GET → server; static demo uses radios + :has() -->
+          <form class="filter-bar" id="filters" method="get" action="#">
+            <fieldset class="field field--grow">
+              <legend class="field-legend">Status</legend>
+              <div class="segmented" role="presentation">
+                <input type="radio" name="status" id="status-all" value="" checked />
+                <label for="status-all">All</label>
+                <input type="radio" name="status" id="status-active" value="active" />
+                <label for="status-active">Active</label>
+                <input type="radio" name="status" id="status-at-risk" value="at-risk" />
+                <label for="status-at-risk">At risk</label>
+                <input type="radio" name="status" id="status-completed" value="completed" />
+                <label for="status-completed">Completed</label>
+                <input type="radio" name="status" id="status-invited" value="invited" />
+                <label for="status-invited">Invited</label>
+              </div>
+            </fieldset>
+            <fieldset class="field">
+              <legend class="field-legend">Cohort</legend>
+              <div class="segmented" role="presentation">
+                <input type="radio" name="cohort" id="cohort-all" value="" checked />
+                <label for="cohort-all">All</label>
+                <input type="radio" name="cohort" id="cohort-a" value="spring-a" />
+                <label for="cohort-a">Spring A</label>
+                <input type="radio" name="cohort" id="cohort-b" value="spring-b" />
+                <label for="cohort-b">Spring B</label>
+                <input type="radio" name="cohort" id="cohort-eve" value="evening" />
+                <label for="cohort-eve">Evening</label>
+              </div>
+            </fieldset>
+            <p class="filter-hint">
+              Filters use CSS <code>:has()</code> (no script). Production: same controls as
+              <code>GET</code> → server partial.
+            </p>
+          </form>
+
+          <div class="bulk-bar" data-bulk-bar>
+            <p class="bulk-bar__count">Selection active</p>
+            <a class="button button--secondary button--sm" href="#toast-nudge">Send nudge</a>
+            <button
+              type="button"
+              class="button button--danger-outline button--sm"
+              popovertarget="confirm-remove"
+              popovertargetaction="show"
+            >
+              Remove…
+            </button>
+          </div>
+
+          <div class="table-panel" id="results">
+            <div class="table-wrap" role="region" aria-label="Learners" tabindex="0">
+              <table class="data-table" id="learners-table">
+                <thead>
+                  <tr>
+                    <th class="col-check" scope="col">
+                      <span class="visually-hidden">Select</span>
+                    </th>
+                    <th scope="col">Learner</th>
+                    <th scope="col">Cohort</th>
+                    <th class="num" scope="col">Progress</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Last active</th>
+                    <th scope="col"><span class="visually-hidden">Actions</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-status="active" data-cohort="spring-a">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" name="id" value="1" />
+                        <span class="visually-hidden">Select Jordan Blake</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="learner-name">Jordan Blake</span>
+                      <span class="learner-email">jordan.blake@example.com</span>
+                    </td>
+                    <td>Spring A</td>
+                    <td class="num">
+                      <div class="progress">
+                        <div class="progress__bar" aria-hidden="true">
+                          <div class="progress__fill" style="width: 78%"></div>
+                        </div>
+                        <span>78%</span>
+                      </div>
+                    </td>
+                    <td><span class="status status--active">Active</span></td>
+                    <td>Today, 9:14 AM</td>
+                    <td>
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="at-risk" data-cohort="spring-a" class="row--risk">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" name="id" value="2" />
+                        <span class="visually-hidden">Select Priya Nair</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="learner-name">Priya Nair</span>
+                      <span class="learner-email">priya.nair@example.com</span>
+                    </td>
+                    <td>Spring A</td>
+                    <td class="num">
+                      <div class="progress">
+                        <div class="progress__bar" aria-hidden="true">
+                          <div class="progress__fill progress__fill--warn" style="width: 34%"></div>
+                        </div>
+                        <span>34%</span>
+                      </div>
+                    </td>
+                    <td><span class="status status--at-risk">At risk</span></td>
+                    <td>5 days ago</td>
+                    <td>
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="completed" data-cohort="spring-b">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" name="id" value="3" />
+                        <span class="visually-hidden">Select Sam Okonkwo</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="learner-name">Sam Okonkwo</span>
+                      <span class="learner-email">sam.okonkwo@example.com</span>
+                    </td>
+                    <td>Spring B</td>
+                    <td class="num">
+                      <div class="progress">
+                        <div class="progress__bar" aria-hidden="true">
+                          <div class="progress__fill" style="width: 100%"></div>
+                        </div>
+                        <span>100%</span>
+                      </div>
+                    </td>
+                    <td><span class="status status--completed">Completed</span></td>
+                    <td>Yesterday</td>
+                    <td>
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="at-risk" data-cohort="evening" class="row--risk">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" name="id" value="4" />
+                        <span class="visually-hidden">Select Elena Rossi</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="learner-name">Elena Rossi</span>
+                      <span class="learner-email">elena.rossi@example.com</span>
+                    </td>
+                    <td>Evening</td>
+                    <td class="num">
+                      <div class="progress">
+                        <div class="progress__bar" aria-hidden="true">
+                          <div class="progress__fill progress__fill--low" style="width: 12%"></div>
+                        </div>
+                        <span>12%</span>
+                      </div>
+                    </td>
+                    <td><span class="status status--at-risk">At risk</span></td>
+                    <td>8 days ago</td>
+                    <td>
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="active" data-cohort="spring-b">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" name="id" value="5" />
+                        <span class="visually-hidden">Select Chris Park</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="learner-name">Chris Park</span>
+                      <span class="learner-email">chris.park@example.com</span>
+                    </td>
+                    <td>Spring B</td>
+                    <td class="num">
+                      <div class="progress">
+                        <div class="progress__bar" aria-hidden="true">
+                          <div class="progress__fill" style="width: 56%"></div>
+                        </div>
+                        <span>56%</span>
+                      </div>
+                    </td>
+                    <td><span class="status status--active">Active</span></td>
+                    <td>Today, 11:02 AM</td>
+                    <td>
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="invited" data-cohort="evening">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" name="id" value="6" />
+                        <span class="visually-hidden">Select Amina Diallo</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="learner-name">Amina Diallo</span>
+                      <span class="learner-email">amina.diallo@example.com</span>
+                    </td>
+                    <td>Evening</td>
+                    <td class="num">
+                      <div class="progress">
+                        <div class="progress__bar" aria-hidden="true">
+                          <div class="progress__fill progress__fill--low" style="width: 0%"></div>
+                        </div>
+                        <span>0%</span>
+                      </div>
+                    </td>
+                    <td><span class="status status--invited">Invited</span></td>
+                    <td>Never</td>
+                    <td>
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="active" data-cohort="spring-a">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" name="id" value="7" />
+                        <span class="visually-hidden">Select Noah Berg</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="learner-name">Noah Berg</span>
+                      <span class="learner-email">noah.berg@example.com</span>
+                    </td>
+                    <td>Spring A</td>
+                    <td class="num">
+                      <div class="progress">
+                        <div class="progress__bar" aria-hidden="true">
+                          <div class="progress__fill" style="width: 91%"></div>
+                        </div>
+                        <span>91%</span>
+                      </div>
+                    </td>
+                    <td><span class="status status--active">Active</span></td>
+                    <td>Today, 8:40 AM</td>
+                    <td>
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="at-risk" data-cohort="spring-b" class="row--risk">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" name="id" value="8" />
+                        <span class="visually-hidden">Select Lina Ortiz</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="learner-name">Lina Ortiz</span>
+                      <span class="learner-email">lina.ortiz@example.com</span>
+                    </td>
+                    <td>Spring B</td>
+                    <td class="num">
+                      <div class="progress">
+                        <div class="progress__bar" aria-hidden="true">
+                          <div class="progress__fill progress__fill--warn" style="width: 41%"></div>
+                        </div>
+                        <span>41%</span>
+                      </div>
+                    </td>
+                    <td><span class="status status--at-risk">At risk</span></td>
+                    <td>3 days ago</td>
+                    <td>
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-nudge">Nudge</a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="empty-state" id="empty-state" role="status">
+              <h2>No learners match</h2>
+              <p>Adjust filters or invite someone new to this cohort.</p>
+              <a class="button button--primary" href="#">Invite learner</a>
+            </div>
+
+            <div class="filter-empty" role="status">
+              <h2>No rows for this filter</h2>
+              <p>
+                <label for="status-all">Clear status</label>
+                or
+                <label for="cohort-all">clear cohort</label>
+                to see everyone again.
+              </p>
+            </div>
+
+            <footer class="table-footer" id="table-footer">
+              <p>Showing filtered page · 8 in sample data</p>
+              <div class="pagination">
+                <button type="button" class="button button--secondary button--sm" disabled>
+                  Previous
+                </button>
+                <button type="button" class="button button--secondary button--sm" disabled>
+                  Next
+                </button>
+              </div>
+            </footer>
+          </div>
+        </main>
+
+        <p class="sample-note">
+          Sample for <code>admin-ui</code> · zero JS ·
+          <a href="../course-ops-landing/index.html">Marketing landing</a>
+        </p>
+      </div>
+    </div>
+
+    <div id="confirm-remove" popover class="dialog-popover">
+      <div class="dialog__body">
+        <h2 class="dialog__title" id="confirm-title">Remove selected learners?</h2>
+        <p class="dialog__text">
+          They lose access to this course. Progress is kept for 30 days if you re-invite them.
+        </p>
+      </div>
+      <div class="dialog__actions">
+        <button
+          type="button"
+          class="button button--secondary"
+          popovertarget="confirm-remove"
+          popovertargetaction="hide"
+        >
+          Cancel
+        </button>
+        <a class="button button--danger" href="#toast-removed" popovertarget="confirm-remove" popovertargetaction="hide">
+          Remove learners
+        </a>
+      </div>
+    </div>
+
+    <div id="toast-nudge" class="toast" tabindex="-1">
+      <p><strong>Nudge queued</strong> for the selected learners. (Static sample — no server.)</p>
+      <a class="toast__close" href="#" aria-label="Dismiss">Close</a>
+    </div>
+    <div id="toast-removed" class="toast" tabindex="-1">
+      <p><strong>Remove requested.</strong> List unchanged in this static sample.</p>
+      <a class="toast__close" href="#" aria-label="Dismiss">Close</a>
+    </div>
+  </body>
+</html>
