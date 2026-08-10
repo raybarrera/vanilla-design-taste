@@ -41,17 +41,91 @@ If layers 1–5 compete with layer 6 for attention, demote 1–5 (smaller type, 
 
 ### Density of hierarchy signals
 
-Prefer **weight + color/opacity** over size jumps. A 14px table can hold three tiers without 20px titles inside every cell.
+Prefer **weight + color/opacity** over size jumps. Table **body** stays at a readable size (see § Type size floors) — do not achieve hierarchy by crushing data to ~11–12px.
+
+### Multi-panel screens (required decision)
+
+When a view has **more than one table or pane**, name the **primary work surface** out loud before layout:
+
+| Role | Treatment |
+| --- | --- |
+| **Primary** | Most vertical space; strongest section title; first/largest in the main column |
+| **Secondary** | Smaller chrome, tighter padding, quieter headings; may sit in a side column or above the primary in a compact band |
+| **Meta / orientation** | Counts, selected id, “on this account” — thin strip, not equal posters |
+
+**Ban:** three or more peer “product cards” of equal weight above a squeezed table (“debug dashboard”).
+
+**Rhythm:** related secondary panes sit **closer** to each other; leave real air before the primary table so it reads as the next major region.
 
 ### Admin hierarchy failures
 
 | Failure | Fix |
 | --- | --- |
 | Six equal KPI cards above a tiny table | Quiet metric strip; enlarge the table |
+| Five equal stat posters (Users / Selected / Counts…) | One thin meta row; smaller type; not a second hero |
+| Three peer cards above the real queue | One primary work surface; demote the rest |
 | Every label bold | Labels muted; values stronger |
 | Page title, section title, and card titles all same size | Step the type scale; one clear `h1` |
 | Status as a huge pill that steals the row | Compact status; identity stays lead |
-| Inset “selected” lip on nav/rows | Background or full-height edge — ban inset box-shadow lips ([visual-craft.md](./visual-craft.md)) |
+| All strings same weight (ids, prose, numbers) | Field-type presentation (below) |
+| Fingernail lip on nav/rows (curved rail ends) | Background and/or **straight** stripe — ban the look ([visual-craft.md](./visual-craft.md)) |
+| Data at ~11–12px so more columns fit | Raise body to ≥13–14px; fewer columns or horizontal scroll |
+
+## Debug & internal tools
+
+Genre: QA consoles, profile debuggers, radar inspectors, ops tools. Same admin rules, **stricter hierarchy**.
+
+### Default flow
+
+1. **Load identity** — account/user id field (mono) + **one** primary action (`Load`)  
+2. **Select entity** — compact list (users, jobs) with clear selected state  
+3. **Primary evidence table** — majority of the viewport (diary, events, attempts)  
+4. **Secondary context** — topic marks, concept progress, related 0–3 row panes  
+
+Lede: one line of **verb** + one constraint (“names omitted”). Long explanation → docs, not the page hero.
+
+### Loader pattern
+
+```html
+<label for="account-id">Account id</label>
+<input id="account-id" class="input-mono" name="account_id" spellcheck="false" />
+<button type="submit" class="button button--primary">Load</button>
+```
+
+- One primary control for the load path; demote “User management” / settings to ghost or nav.  
+- Full GUID in the field is fine; don’t also hero the same id in five metrics.
+
+### Metric / summary strip (orientation only)
+
+| Do | Do not |
+| --- | --- |
+| Single quiet row of counts/labels | Five equal stat tiles competing with the table |
+| Small uppercase labels + modest tabular values | 28px marketing metrics on a debug page |
+| Meta that answers “what did I load?” | A second dashboard |
+
+If the strip disappeared, the operator should still complete the verb using the primary table.
+
+### Named anti-patterns (avoid)
+
+| Name | What it looks like | Fix |
+| --- | --- | --- |
+| **Debug dashboard** | Stats + cards everywhere; evidence table starved | Primary table wins the viewport |
+| **Every subsection is a product card** | Badge counts, equal frames, poster padding | Tight panes or plain tables |
+| **All strings same weight** | GUID = prose = score | Field-type table |
+| **Accent spray** | Purple primary + purple chrome + purple chips | One accent for primary actions |
+| **Fingernail rail** | Curved side lip on selected/failure rows | Tint ± straight stripe |
+| **Microtype density** | 11–12px table body on a large display | ≥13–14px body; accept scroll or fewer columns |
+
+### Review examples (bad → good)
+
+| Before | After | Why |
+| --- | --- | --- |
+| Equal metric posters over diary | Thin meta strip; diary is largest block | Work surface must win |
+| Users + topic + concept as peer cards above diary | Diary primary; others secondary/compact | Multi-panel hierarchy |
+| Topic sentence full-width in a “table” cell | Clamp / max-width; full text via expand or `title` | Preserve column scan |
+| Selected user as dim gray pill | Selected surface + weight (not disabled look) | Selection ≠ disabled |
+| Incorrect rows with curved accent lip | Soft tint + square-end stripe | Fingernail ban |
+| Table body `0.72rem` (~11.5px) | `0.875rem` (14px) or host body token | Legibility over packing |
 
 ## Rows vs cards vs other surfaces
 
@@ -72,7 +146,9 @@ Choose the **container** from the job, not from fashion.
 - **Indexes / queues / CRMs:** table first.  
 - **Record detail:** key-value + sections; optional small related table.  
 - **Dashboards:** metric strip **plus** the primary queue (table or list) — not a wall of cards alone.  
-- **Cards in admin** only when each object needs a multi-line “poster” (e.g. template gallery). If you can put it in columns, prefer a table.
+- **Debug multi-pane:** one primary evidence table; side lists and 0–3 row context panes stay compact (not peer product cards).  
+- **Cards in admin** only when each object needs a multi-line “poster” (e.g. template gallery). If you can put it in columns, prefer a table.  
+- **Small result sets (0–3 rows):** tight table or key-value — not a marketing card with a large count badge.
 
 ### Card slop in admin
 
@@ -128,16 +204,59 @@ Present data by **type and role**, not all as the same 14px string.
 | Date | Prefer native or host date control; show format expectation in hint |
 | GUID search | Mono input; paste-friendly; don’t uppercase unless the system requires |
 
+### Type size floors (legibility over packing)
+
+**Compact is not the same as microscopic.** On large displays, admin/debug tables often resolve to ~11–12px because agents set `0.7–0.75rem` on a 16px root. That fails APCA usefulness and operator fatigue even when the theme is “dense.”
+
+| Role | Minimum (CSS px, reference) | Notes |
+| --- | --- | --- |
+| **Table / list body** (names, primary cells) | **14px** preferred; **13px** absolute floor | Prefer `0.875rem` if root is 16px; do not use 0.72rem body |
+| **Form control text** | **14px** | Match body; inputs smaller than body feel broken |
+| **Column headers / field labels** | **12px** floor | Muted, weight 500–600, tracked; not tinier than 12 |
+| **Meta / timestamps / secondary** | **12px** floor | Muted; never smaller than headers without reason |
+| **GUID / mono code in tables** | **12px** floor | Mono; muted; truncate + `title` — still ≥12px |
+| **Status chips** | **12px** label | Compact padding; chip text not larger than body identity |
+| **Quiet metric values** (debug meta strip) | **16–18px** | Not 28px posters; not 11px either |
+| **Page `h1`** | **20–24px** | One only |
+
+**Rules:**
+
+1. Host type tokens win when they already set a readable admin scale — **do not undercut them** for “more columns.”  
+2. If columns don’t fit: **horizontal scroll**, hide nonessential columns, or progressive disclosure — **not** sub-13px body.  
+3. `html { font-size: 16px }` (or browser default) unless the host already defines rem; don’t shrink the root to fake density.  
+4. Check **computed** px in devtools on a large viewport; design intent is the rendered size, not the rem string alone.  
+5. Dense **padding** (8–12px) is fine; dense **type** below the floor is not.
+
 ### Type scale reminder for data
 
 ```text
-label / meta:  12–12.5px, muted, weight 500
-body / name:   13–14px, primary, weight 500–600
-metric value:  22–28px, semibold, tabular
-guid / code:   12px, mono, muted
+label / meta:     12px, muted, weight 500–600
+body / name:      13–14px, primary, weight 500–600
+table body:       14px preferred (13px floor)
+guid / code:      12px mono muted (not < 12)
+quiet metric:     16–18px tabular
+marketing metric: avoid on debug/admin queues
+page title:       20–24px
 ```
 
-Match host tokens when they exist.
+Match host tokens when they exist — only if they meet these floors.
+
+### Debug-oriented field notes
+
+| Kind | Extra |
+| --- | --- |
+| **Account GUID (loader)** | Full value in mono input; paste-friendly; not repeated as five hero stats |
+| **Truncated entity id** | Mono + muted + `title` = full; selected list row = background + weight, not a disabled pill |
+| **ISO timestamp** | Tabular, muted, smaller than body; optional `title` with full Zulu if you show local |
+| **Score / confidence float** | Fixed fraction digits (e.g. 2); end-align; empty = `—` |
+| **Long topic / prompt prose** | Max-width + line clamp in tables; full text on detail or expand |
+| **Outcome chips** | Compact; never larger/heavier than the primary identity column |
+
+### Emphasis on failure rows
+
+- Soft row tint ± **straight** stripe (square ends).  
+- Status text remains (“incorrect”), not color alone.  
+- If the job is “why did the latest attempt fail,” prefer **newest failure** emphasis or an “incorrect only” filter over tinting half the table equally.
 
 ## App shell
 
@@ -510,7 +629,7 @@ Admin delight is **feeling fast, clear, and trustworthy** — not landing-page t
 ### Attention and scanning
 
 - **Needs-attention strip** above the table when count > 0: plain language (“14 learners need a nudge”), link that applies the filter, not a second dashboard  
-- **Row emphasis:** soft tint and/or **full-height** `border-inline-start` for `at-risk` / failed / overdue — still show status text. **Never** `box-shadow: inset 2px 0 0` lips  
+- **Row emphasis:** soft tint and/or a **straight** full-height stripe (`::before`, square ends) for `at-risk` / failed / overdue — still show status text. **Never** fingernail lips (curved rail ends from inset shadow or `border-inline-start` on rounded boxes)  
 - **Primary column weight:** name/id medium-strong; meta muted on a second line  
 - **Action reveal:** row actions visible on focus-within / hover (fine pointer); always available to keyboard (never `display:none` only)
 
@@ -538,22 +657,25 @@ Admin delight is **feeling fast, clear, and trustworthy** — not landing-page t
 - Hero gradients, glassmorphism stacks, 3D product spins in the admin shell  
 - Stagger-animate every table row on load  
 - Confetti, celebration for routine saves  
-- Inset box-shadow “lips” on nav or rows  
+- Fingernail lips (curved side rails) on nav, cards, or rows — any property that causes them  
 - Parallel color theme that ignores host tokens  
 - Card grids as the default inventory pattern  
 
 ## Checklist
 
-- [ ] Mode is admin/product-dense, not Brand
+- [ ] Mode is admin/product-dense, not Brand (or debug/internal with stricter hierarchy)
 - [ ] Task verb and operator persona stated
-- [ ] Density chosen and held (tool-tight default for tables)
+- [ ] Density chosen and held — **padding** dense OK; **type** meets size floors
+- [ ] Multi-panel: primary work surface named; peers demoted
+- [ ] Metrics are orientation only (no equal stat posters over the queue)
 - [ ] Visual hierarchy: work surface wins; labels demoted vs values
 - [ ] Container choice justified (table vs cards vs key-value)
 - [ ] Alignment: numbers end, text start, actions column consistent
-- [ ] Field types presented correctly (tabular money/%, mono GUID, etc.)
-- [ ] Host theme tokens used; light/dark legibility checked if both modes exist
-- [ ] No inset lip shadows for selection/emphasis
-- [ ] Shell: nav + main + clear primary action
+- [ ] Field types presented correctly (tabular money/%, mono GUID, timestamps, etc.)
+- [ ] Table/list body ≥13–14px computed; not ~11–12px “compact”
+- [ ] Host theme tokens used; light/dark APCA polarity checked if both modes exist
+- [ ] No fingernail lips (straight stripes or background only)
+- [ ] Shell: nav + main + clear primary action (one primary for loaders)
 - [ ] Tabular data in a real table when comparing records
 - [ ] Filters shareable via URL/form
 - [ ] Loading, empty, error present

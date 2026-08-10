@@ -96,11 +96,12 @@ Tidy anti-slop layouts can still feel **forgettable**. Raise elevation with 2–
 Details live in [visual-craft.md](references/visual-craft.md). Non-negotiables:
 
 - One focal point per view; weight and color hierarchy beat size mush
+- Product/admin body and table cells meet **type size floors** (≥13–14px body; see visual-craft) — not ~11px “compact”
 - Spacing on a 4/8px scale; uneven rhythm between groups; **alignment** held (see visual-craft § Alignment)
 - One depth strategy (borders / subtle shadow / surface steps)
 - **Theme consistency:** host semantic tokens; no parallel palette
 - **Light/dark legibility** checked for every mode the product supports
-- No inset box-shadow “lips” (`inset 2px 0 0`) as selected markers
+- No **fingernail lips** (curved side rails on rounded boxes — any property); straight stripes OK
 - States: default, hover (fine pointer), active, focus-visible, disabled; data regions need loading/empty/error
 - Accessibility floor: real controls, keyboard, focus-visible; **APCA Lc** contrast (not WCAG 2 ratios); no color-only status
 
@@ -160,10 +161,11 @@ One table, one row per issue.
 
 - [ ] Mode named (Brand / Product)
 - [ ] Intent brief answered
-- [ ] Plan critiqued against anti-slop list (including no inset lips)
+- [ ] Plan critiqued against anti-slop list (including no fingernail lips)
 - [ ] Signature + material finish named (Brand)
 - [ ] Elevation levers chosen (2–3); anti-flat check passed
 - [ ] Focal point, hierarchy, and alignment clear
+- [ ] Type size floors met where product/admin UI is in scope
 - [ ] Host theme tokens; light/dark APCA polarity check
 - [ ] Spacing scale and one depth strategy
 - [ ] Realistic copy; empty/error considered

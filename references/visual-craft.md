@@ -111,24 +111,51 @@ AI-generated UI clusters. Unless the brief *asks* for one of these, do not ship 
 | Shadow stacks on every card | Noise and cost | One depth strategy (borders *or* subtle shadow *or* surface shift) |
 | Lorem / fake metrics | Hides overflow and wrapping | Realistic copy and numbers |
 | Color as the only status signal | Fails a11y | Icon + text + color |
-| **Inset lip / rail** — `box-shadow: inset 2px 0 0 …` (or `3px`) on nav items, cards, or rows as a “selected” tell | Looks like AI chrome; harsh edge; breaks on rounded corners and RTL | Soft background change, full `border`, or full-height `border-inline-start` on the **row/container** with matching radius — never a partial inner lip |
+| **Fingernail lip** — a short side rail whose ends **curve or cap** with the box radius (looks like a rounded fingernail on the corner) | Agent chrome slop; draws the eye to the corner, not the row | Soft **background** change, and/or a **straight** full-height stripe (no curved caps) |
 | Random parallel palette beside host tokens | Theme drift | Extend host semantic tokens only |
 
-**Inset lip (explicit ban):** Do **not** use `box-shadow: inset Npx 0 0 var(--*)` as a selected/active marker on list rows, nav links, or cards. It reads as generic agent slop and creates ugly “capped” ends on boxes. Prefer:
+**Fingernail lip (explicit ban — the look, not one property):**  
+The slop is the **visual**: a partial vertical accent on a rounded box that ends in a **curved, capped “fingernail”** at the top and/or bottom corner. That happens with *any* technique that paints a thick edge **following the border-radius**:
+
+- `box-shadow: inset 2px 0 0 var(--text-primary)` (classic)
+- `border-inline-start: 3px solid …` on an element with `border-radius`
+- `outline` / gradient “edge” hacks that round off with the corner
+- Using `--content-primary` / text color as the rail so it reads as a hard ink lip
+
+**Straight stripes are fine.** A full-height, **rectangular** indicator (square ends, no radius on the stripe itself) is a clean status cue. Prefer a `::before` bar, or a left border only on **unrounded** table rows.
 
 ```css
-/* Good: surface change */
+/* Good: selection via surface only */
 .nav-link[aria-current="page"] {
   background: var(--surface-inset);
   color: var(--content-primary);
+  /* no side rail on rounded nav chips */
 }
 
-/* Good: full-height edge on the row, not an inset lip */
+/* Good: straight stripe (square ends) — not a fingernail */
 .row--risk {
-  border-inline-start: 3px solid var(--warning);
+  position: relative;
   background: color-mix(in srgb, var(--warning) 8%, var(--surface-raised));
 }
+.row--risk::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 3px;
+  background: var(--warning);
+  border-radius: 0; /* square ends — required */
+}
+
+/* Bad: edge follows rounded corner → fingernail */
+.card-selected {
+  border-radius: 8px;
+  border-inline-start: 3px solid var(--content-primary); /* slop */
+  box-shadow: inset 3px 0 0 var(--content-primary); /* same slop */
+}
 ```
+
+**Litmus:** Zoom the top-leading corner of the selected control. If you see a **rounded cap** of accent color, rewrite it. If you see a clean vertical rule or only a background shift, you’re fine.
 
 **Litmus:** If another model given a similar prompt would produce substantially the same UI, you have defaulted. Revise until direction is specific to *this* subject and mode.
 
@@ -222,6 +249,20 @@ Rules:
 - Headings: slightly tighter tracking as size grows; body line-height ~1.4–1.6.
 - Dynamic numbers (tables, KPIs, timers): `font-variant-numeric: tabular-nums`.
 - `text-wrap: balance` on short headings when supported; avoid orphan-heavy marketing lines.
+
+### Type size floors (product / admin)
+
+Do not “win” density by shrinking type until tables are ~11–12px on a large screen.
+
+| Role | Floor (CSS px) |
+| --- | --- |
+| Product / admin body and table primary cells | **14px** preferred, **13px** minimum |
+| Labels, column headers, meta, mono ids in tables | **12px** minimum |
+| Form control text | **14px** (match body) |
+
+- Prefer tighter **padding** and fewer columns over sub-floor type.  
+- Don’t shrink `html` font-size below 16px (or host root) just to pack admin.  
+- Verify **computed** px in devtools. Full admin tables: [admin-patterns.md](./admin-patterns.md) § *Type size floors*.
 
 ## Color tokens (semantic)
 

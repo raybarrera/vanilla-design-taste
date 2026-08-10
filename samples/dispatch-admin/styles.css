@@ -47,8 +47,9 @@
 
   --font: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  /* Type floors: body/table ≥13–14px; labels/meta ≥12px */
   --text-xs: 0.75rem;
-  --text-sm: 0.8125rem;
+  --text-sm: 0.875rem;
   --text-base: 0.875rem;
   --text-lg: 1.125rem;
   --text-xl: 1.45rem;
@@ -183,7 +184,7 @@ a:hover {
   background: var(--surface-raised);
   color: var(--accent);
   font-weight: 600;
-  /* no inset box-shadow lip — banned agent slop */
+  /* no side rail on rounded chips — fingernail lips are slop */
 }
 
 .admin-nav__section {
@@ -401,7 +402,7 @@ label.button {
 
 .metric__label {
   margin: 0;
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -411,7 +412,7 @@ label.button {
 
 .metric__value {
   margin: 0.15rem 0 0;
-  font-size: 1.3rem;
+  font-size: 1.125rem;
   font-weight: 650;
   font-variant-numeric: tabular-nums;
   font-family: var(--font-data);
@@ -422,7 +423,7 @@ label.button {
 
 .metric__delta {
   margin: 0.15rem 0 0;
-  font-size: 0.6875rem;
+  font-size: var(--text-xs);
   font-weight: 500;
   color: var(--content-muted);
 }
@@ -569,7 +570,7 @@ label.button {
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
 }
 
 .data-table th,
@@ -588,7 +589,7 @@ label.button {
   font-weight: 600;
   color: var(--content-muted);
   white-space: nowrap;
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-family: var(--font-data);
@@ -619,9 +620,21 @@ label.button {
   background: color-mix(in srgb, var(--accent) 10%, var(--surface-raised));
 }
 
+/* Straight stripe (square ends) — not a fingernail lip */
 .row--risk {
-  border-inline-start: 3px solid var(--warning);
+  position: relative;
   background: color-mix(in srgb, var(--warning) 10%, var(--surface-raised));
+}
+
+.row--risk::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 3px;
+  background: var(--warning);
+  border-radius: 0;
+  pointer-events: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -667,7 +680,7 @@ label.button {
   display: block;
   margin-top: 0.15rem;
   font-family: var(--font-data);
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   font-weight: 500;
   color: var(--content-muted);
   letter-spacing: 0.02em;
@@ -714,7 +727,7 @@ label.button {
   gap: 0.35rem;
   padding: 0.12rem 0.4rem;
   border-radius: 2px;
-  font-size: 0.65rem;
+  font-size: var(--text-xs);
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
