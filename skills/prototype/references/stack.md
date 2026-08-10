@@ -10,8 +10,8 @@ Every skill in this pack must follow these rules. If a recipe or example conflic
 | Interaction | Links, forms, buttons; HTMX or similar hypermedia when the project already uses them |
 | Style | Vanilla CSS; design tokens as custom properties; `@media` and cascade |
 | Motion | CSS `transition`, CSS `@keyframes` only when justified, `@starting-style`, Web Animations API (`element.animate`) |
-| Script | Small progressive-enhancement scripts; custom elements (`HTMLElement`) with connect/disconnect cleanup |
-| Assets | Static CSS/JS files; no app bundler required |
+| Script | **None by default.** Add JS only when HTML/CSS (and optional hypermedia) cannot deliver a good affordance |
+| Assets | Static CSS/HTML; JS files only when justified (see ladder below); no app bundler required |
 
 ## Forbidden by default (require an explicit human decision)
 
@@ -48,13 +48,50 @@ Walk down. Stop at the first that works.
 - Static presentation lives in classes, not long inline `style` attributes
 - Scope feature CSS with a wrapper class when that is the local pattern
 
-## JavaScript rules
+## JavaScript minimization (non-negotiable posture)
 
-- One behavior per module or custom element; keep units small
-- Clean up listeners in `disconnectedCallback`
-- Prefer event delegation and `data-*` hooks over brittle class selectors for behavior
-- After HTMX swaps, re-bind idempotently if needed (`htmx:afterSettle` or project equivalent)
-- Never make JS the source of truth for business state the server already owns
+**Default: no JavaScript.** Skills and samples must try hard to ship affordances with semantic HTML + CSS (+ server/HTMX when the host has it). JS is a last resort for a specific gap — not a default layer for “interactivity.”
+
+### Affordances ladder
+
+Walk down. Stop at the first that is good enough:
+
+1. **Native HTML** — links, forms, GET filters, `<dialog>`, `<details>`, `<summary>`, checkboxes/radios, labels, `popover` / `popovertarget`, invoker commands where supported  
+2. **CSS** — `:has()`, `:target`, `:focus-within`, `@media`, `@starting-style`, scroll-driven animations, checkbox/radio-driven UI, pure-CSS show/hide  
+3. **Hypermedia** — server-rendered next state; HTMX (or host equivalent) partials; URL as state  
+4. **Tiny progressive enhancement** — only if 1–3 cannot provide a *top-notch* affordance (e.g. drag-to-dismiss velocity, complex focus orchestration after multi-swap, canvas)  
+5. **Custom element / WAAPI** — gestures, pointer capture, cleanup-heavy browser APIs  
+6. **Library** — human-approved only after CSS/WAAPI fail for a documented reason  
+
+### When JS is justified (examples)
+
+| Need | Prefer first | JS only if… |
+| --- | --- | --- |
+| Open/close panel | `<details>`, `popover`, CSS `:has()` | Complex nested focus trap the native control can’t do |
+| Filters / sort / page | Form GET + server (or static CSS `:has()` demos) | Client-only typeahead over large sets with no server |
+| Modal confirm | `<dialog>` + form, or `popover` | Focus restore after async destroy of invoker |
+| Tabs | radio/`role=tab` patterns, links + server | Rare |
+| Scroll reveal | CSS view timelines / accept static | Must support engines without scroll-driven CSS *and* motion is required |
+| Toast after action | Server flash partial, `:target` fragment | Multi-toast queue with timers |
+| Drag / momentum | — | Yes — pointer capture + velocity needs script |
+
+### When JS is *not* justified
+
+- Toggling a class a checkbox + `:has()` can toggle  
+- Filtering a small static table (use radios + `:has()`, or server GET)  
+- Scroll-fade “wow” that CSS can approximate or that Brand mode can skip under reduced motion  
+- Re-implementing `<select>`, `<dialog>`, or form validation in script  
+- Client state stores for filters the URL or server already owns  
+
+### Script rules (when you must ship JS)
+
+- Justify in a one-line comment or skill note: *what native path failed*  
+- One behavior per module or custom element; keep units small  
+- Clean up listeners in `disconnectedCallback` / `removeEventListener`  
+- Prefer event delegation and `data-*` hooks  
+- After HTMX swaps, re-bind idempotently only if needed  
+- Never make JS the source of truth for business state the server already owns  
+- Feature must degrade: without JS, core read path and primary actions still work when reasonable
 
 ## When the host project differs
 

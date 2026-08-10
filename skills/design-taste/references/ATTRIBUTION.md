@@ -17,16 +17,16 @@ Emil's original skills are MIT-licensed (Copyright (c) 2026 Emil Kowalski). See 
 
 ## What this pack is not
 
-This is **not a fork or a copy** of `emilkowalski/skills`.
+This is **not a fork or a copy** of `emilkowalski/skills`, Anthropic’s skill pack, or any other third-party skill repo.
 
 - We rewrote the skills in our own words for a different stack.
-- We **did not** copy large blocks of his `SKILL.md` files.
-- We **do not** ship his React / Motion / Tailwind / npm-library recommendations.
-- Concrete numbers (e.g. cubic-bezier curves, duration bands, `scale(0.97)` press feedback) are widely taught in his public material; when we use them, we treat them as **attributed craft defaults**, not as original invention.
+- We **did not** copy large blocks of third-party `SKILL.md` files.
+- We **do not** ship React / Motion / Tailwind / npm-library recommendations as defaults.
+- Concrete craft numbers (e.g. cubic-bezier curves, duration bands, `scale(0.97)` press feedback) are widely taught in public design-engineering material; when we use them, we treat them as **attributed craft defaults**, not as original invention.
 
 ## Our stack philosophy (the deliberate fork)
 
-Where Emil's pack optimizes for modern React product UI (Motion, Base UI, curated npm libraries), this pack optimizes for:
+Where many popular design skills optimize for React product UI (Motion, Base UI, Tailwind, curated npm libraries), this pack optimizes for:
 
 - **Vanilla CSS** (no Tailwind, Sass, or CSS-in-JS as the default)
 - **Server-rendered HTML** (templ, Rails, Laravel, plain HTML, etc.)
@@ -34,7 +34,21 @@ Where Emil's pack optimizes for modern React product UI (Motion, Base UI, curate
 - **Minimal JavaScript** (custom elements, WAAPI) — no React/Vue/Svelte SPA default
 - **No animation library** until CSS and WAAPI are proven insufficient
 
-If you want the original React-oriented skills, use Emil's pack: [github.com/emilkowalski/skills](https://github.com/emilkowalski/skills).
+If you want the original React-oriented Emil skills, use: [github.com/emilkowalski/skills](https://github.com/emilkowalski/skills).
+
+## Frontend and admin design influences
+
+The pack’s broader design-taste skills (`frontend-design`, `admin-ui`, shared `visual-craft` / `admin-patterns` references) synthesize durable ideas from widely used public skills and then rewrite them for this stack:
+
+| Source | What we drew from |
+| --- | --- |
+| [Anthropic `frontend-design`](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | Distinctive direction; ground in subject/audience/job; type as personality; plan-before-code; signature restraint; copy as design material; resisting templated AI aesthetics |
+| [Addy Osmani `frontend-ui-engineering`](https://github.com/addyosmani/agent-skills) (and similar production UI guidance) | Anti-AI-aesthetic failure modes; spacing and token discipline; loading/empty/error; production-quality bar (contrast in this pack uses APCA, not WCAG 2 ratios) |
+| [APCA / apcacontrast.com](https://apcacontrast.com/) (Myndex) | Polarity-aware perceptual contrast (Lc); Bronze targets by use case; dark-mode-capable readability checks |
+| [Dammyjay93 `interface-design`](https://github.com/Dammyjay93/interface-design) | Craft-first product/admin scope; intent-first briefs; hierarchy and density as decisions; subtle surfaces; states as mandatory; operator-focused UI |
+| [Impeccable](https://github.com/pbakaus/impeccable) / Paul Bakaus | Brand (persuade) vs product (operate) mode split so marketing and tools do not share one aesthetic vocabulary |
+
+We do **not** vendor those repositories. Agents should not expect their command names, file ceremonies, or React/Tailwind recipes here.
 
 ## Additional influences
 
@@ -50,8 +64,9 @@ If you reuse or adapt **this** repository:
 
 1. Keep this `ATTRIBUTION.md` (or an equivalent notice).
 2. Keep our `LICENSE` copyright notice.
-3. Continue to credit Emil Kowalski for the design-engineering ideas this pack builds on.
+3. Continue to credit Emil Kowalski for the design-engineering and motion ideas this pack builds on.
+4. When you reuse our frontend/admin synthesis, keep credit for the sources listed above as inspirations.
 
 Suggested one-liner for a README or skill header:
 
-> Motion and UI craft rules inspired by [Emil Kowalski](https://emilkowal.ski/) and [emilkowalski/skills](https://github.com/emilkowalski/skills); rewritten for vanilla CSS and server-rendered hypermedia in [vanilla-design-taste](https://github.com/raybarrera/vanilla-design-taste).
+> Design taste, admin UI craft, and motion rules inspired by [Emil Kowalski](https://emilkowal.ski/), popular public frontend/admin skills, and rewritten for vanilla CSS and server-rendered hypermedia in [vanilla-design-taste](https://github.com/raybarrera/vanilla-design-taste).

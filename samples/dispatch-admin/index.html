@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jobs · Linehaul Dispatch</title>
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link
+      href="https://fonts.bunny.net/css?family=ibm-plex-mono:500,600,700|ibm-plex-sans:400,500,600,700"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="admin">
+    <!--
+      admin-ui · alternate theme · zero JS
+      Theme: night yard / steel / high-viz amber
+      Same affordances as learner-admin (:has filters, popover, :target toast)
+    -->
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="admin-shell">
+      <details class="nav-drawer">
+        <summary class="nav-drawer__summary">Menu</summary>
+        <aside class="admin-nav" aria-label="Primary">
+          <div class="admin-nav__brand">
+            <span class="admin-nav__mark">Linehaul</span>
+            <span class="admin-nav__sub">Dispatch · West region</span>
+          </div>
+          <nav>
+            <ul class="admin-nav__list">
+              <li><a class="admin-nav__link" href="#" aria-current="page">Jobs</a></li>
+              <li><a class="admin-nav__link" href="#">Drivers</a></li>
+              <li><a class="admin-nav__link" href="#">Yards</a></li>
+              <li><a class="admin-nav__link" href="#">Exceptions</a></li>
+            </ul>
+            <p class="admin-nav__section">System</p>
+            <ul class="admin-nav__list">
+              <li><a class="admin-nav__link" href="#">Settings</a></li>
+              <li><a class="admin-nav__link" href="#">Audit log</a></li>
+            </ul>
+          </nav>
+          <div class="admin-nav__footer">
+            Signed in as <strong>Alex Ruiz</strong><br />
+            Night dispatcher
+          </div>
+        </aside>
+      </details>
+
+      <aside class="admin-nav admin-nav--desktop" aria-label="Primary">
+        <div class="admin-nav__brand">
+          <span class="admin-nav__mark">Linehaul</span>
+          <span class="admin-nav__sub">Dispatch · West region</span>
+        </div>
+        <nav>
+          <ul class="admin-nav__list">
+            <li><a class="admin-nav__link" href="#" aria-current="page">Jobs</a></li>
+            <li><a class="admin-nav__link" href="#">Drivers</a></li>
+            <li><a class="admin-nav__link" href="#">Yards</a></li>
+            <li><a class="admin-nav__link" href="#">Exceptions</a></li>
+          </ul>
+          <p class="admin-nav__section">System</p>
+          <ul class="admin-nav__list">
+            <li><a class="admin-nav__link" href="#">Settings</a></li>
+            <li><a class="admin-nav__link" href="#">Audit log</a></li>
+          </ul>
+        </nav>
+        <div class="admin-nav__footer">
+          Signed in as <strong>Alex Ruiz</strong><br />
+          Night dispatcher
+        </div>
+      </aside>
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <p class="admin-topbar__meta">SHIFT 02 · live · zero JS sample</p>
+          <div class="admin-topbar__actions">
+            <input type="checkbox" id="demo-empty" class="visually-hidden" />
+            <label class="button button--ghost button--sm" for="demo-empty">Toggle empty</label>
+            <a class="button button--ghost button--sm" href="../dispatch-landing/index.html">Marketing</a>
+            <a class="button button--ghost button--sm" href="../learner-admin/index.html">Other admin theme</a>
+          </div>
+        </header>
+
+        <main id="main" class="admin-content">
+          <header class="page-header">
+            <div class="page-header__text">
+              <ol class="breadcrumb" aria-label="Breadcrumb">
+                <li><a href="#">Linehaul</a></li>
+                <li aria-current="page">Jobs</li>
+              </ol>
+              <h1 class="page-title">Job board</h1>
+              <p class="page-desc">
+                Clear blocked runs, reassign drivers, and keep the yard moving before the next wave.
+              </p>
+            </div>
+            <div class="page-header__actions">
+              <a class="button button--secondary" href="#">Export manifest</a>
+              <a class="button button--primary" href="#">Create job</a>
+            </div>
+          </header>
+
+          <section class="metric-strip" aria-label="Summary">
+            <div class="metric">
+              <p class="metric__label">Open</p>
+              <p class="metric__value">42</p>
+              <p class="metric__delta">Waiting assignment</p>
+            </div>
+            <div class="metric">
+              <p class="metric__label">Blocked</p>
+              <p class="metric__value">7</p>
+              <p class="metric__delta metric__delta--warn">Needs dispatcher</p>
+            </div>
+            <div class="metric">
+              <p class="metric__label">En route</p>
+              <p class="metric__value">19</p>
+              <p class="metric__delta metric__delta--up">On the road</p>
+            </div>
+            <div class="metric">
+              <p class="metric__label">Done (shift)</p>
+              <p class="metric__value">61</p>
+              <p class="metric__delta metric__delta--up">↑ 8 vs last night</p>
+            </div>
+          </section>
+
+          <div class="attention" role="status">
+            <p>
+              <strong>3 blocked</strong> on this page.
+              <label class="attention__link" for="status-blocked">Show blocked only</label>
+            </p>
+          </div>
+
+          <form class="filter-bar" method="get" action="#">
+            <fieldset class="field">
+              <legend class="field-legend">Status</legend>
+              <div class="segmented">
+                <input type="radio" name="status" id="status-all" value="" checked />
+                <label for="status-all">All</label>
+                <input type="radio" name="status" id="status-open" value="open" />
+                <label for="status-open">Open</label>
+                <input type="radio" name="status" id="status-en-route" value="en-route" />
+                <label for="status-en-route">En route</label>
+                <input type="radio" name="status" id="status-blocked" value="blocked" />
+                <label for="status-blocked">Blocked</label>
+                <input type="radio" name="status" id="status-done" value="done" />
+                <label for="status-done">Done</label>
+              </div>
+            </fieldset>
+            <fieldset class="field">
+              <legend class="field-legend">Yard</legend>
+              <div class="segmented">
+                <input type="radio" name="yard" id="yard-all" value="" checked />
+                <label for="yard-all">All</label>
+                <input type="radio" name="yard" id="yard-north" value="north" />
+                <label for="yard-north">North</label>
+                <input type="radio" name="yard" id="yard-south" value="south" />
+                <label for="yard-south">South</label>
+                <input type="radio" name="yard" id="yard-port" value="port" />
+                <label for="yard-port">Port</label>
+              </div>
+            </fieldset>
+            <p class="filter-hint">
+              Night polarity · APCA Lc · table work surface · CSS <code>:has()</code> filters
+            </p>
+          </form>
+
+          <div class="bulk-bar">
+            <p class="bulk-bar__count">Selection active</p>
+            <a class="button button--secondary button--sm" href="#toast-reassign">Reassign</a>
+            <button
+              type="button"
+              class="button button--danger-outline button--sm"
+              popovertarget="confirm-cancel"
+              popovertargetaction="show"
+            >
+              Cancel jobs…
+            </button>
+          </div>
+
+          <div class="table-panel">
+            <div class="table-wrap" role="region" aria-label="Jobs" tabindex="0">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th class="col-check" scope="col"><span class="visually-hidden">Select</span></th>
+                    <th scope="col">Job</th>
+                    <th scope="col">Yard</th>
+                    <th class="num" scope="col">ETA</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Driver</th>
+                    <th class="col-actions" scope="col"><span class="visually-hidden">Actions</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-status="blocked" data-yard="north" class="row--risk">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" value="LH-2401" />
+                        <span class="visually-hidden">Select LH-2401</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="job-id">LH-2401</span>
+                      <span class="job-route">SEA → PDX reefer</span>
+                      <span class="job-meta">Dock 4 · seal mismatch</span>
+                      <span class="job-guid" title="3f2a9c1e-8b44-4d0a-9c2e-11a0b7d4e801">3f2a9c1e…e801</span>
+                    </td>
+                    <td class="yard-cell">North</td>
+                    <td class="num eta eta--none">—</td>
+                    <td><span class="status status--blocked">Blocked</span></td>
+                    <td class="driver-cell driver-cell--empty">Unassigned</td>
+                    <td class="col-actions">
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="en-route" data-yard="port">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" value="LH-2398" />
+                        <span class="visually-hidden">Select LH-2398</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="job-id">LH-2398</span>
+                      <span class="job-route">PORT → BOI dry van</span>
+                      <span class="job-meta">Mile 142 · on schedule</span>
+                      <span class="job-guid" title="91c0e2b4-55aa-4f18-8d3c-02b9e771a002">91c0e2b4…a002</span>
+                    </td>
+                    <td class="yard-cell">Port</td>
+                    <td class="num eta">14:20</td>
+                    <td><span class="status status--en-route">En route</span></td>
+                    <td class="driver-cell">Kim Ortega</td>
+                    <td class="col-actions">
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="open" data-yard="south">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" value="LH-2410" />
+                        <span class="visually-hidden">Select LH-2410</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="job-id">LH-2410</span>
+                      <span class="job-route">PDX → EUG LTL</span>
+                      <span class="job-meta">Priority · customer window 16:00</span>
+                      <span class="job-guid" title="c7d11820-0ef1-4a2b-b901-88cc44110003">c7d11820…0003</span>
+                    </td>
+                    <td class="yard-cell">South</td>
+                    <td class="num eta">16:00</td>
+                    <td><span class="status status--open">Open</span></td>
+                    <td class="driver-cell driver-cell--empty">Unassigned</td>
+                    <td class="col-actions">
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="blocked" data-yard="port" class="row--risk">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" value="LH-2388" />
+                        <span class="visually-hidden">Select LH-2388</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="job-id">LH-2388</span>
+                      <span class="job-route">PORT → SLC hazmat</span>
+                      <span class="job-meta">Scale hold · docs pending</span>
+                      <span class="job-guid" title="a01bb902-77c3-4e90-a112-dd0099000004">a01bb902…0004</span>
+                    </td>
+                    <td class="yard-cell">Port</td>
+                    <td class="num eta eta--none">—</td>
+                    <td><span class="status status--blocked">Blocked</span></td>
+                    <td class="driver-cell">Devon Hale</td>
+                    <td class="col-actions">
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="done" data-yard="north">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" value="LH-2371" />
+                        <span class="visually-hidden">Select LH-2371</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="job-id">LH-2371</span>
+                      <span class="job-route">SEA → YVR cross-dock</span>
+                      <span class="job-meta">Arrived 02:14</span>
+                      <span class="job-guid" title="55ee0011-2233-44aa-bbcc-ddeeff000005">55ee0011…0005</span>
+                    </td>
+                    <td class="yard-cell">North</td>
+                    <td class="num eta">02:14</td>
+                    <td><span class="status status--done">Done</span></td>
+                    <td class="driver-cell">Sam Okonkwo</td>
+                    <td class="col-actions">
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="en-route" data-yard="south">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" value="LH-2405" />
+                        <span class="visually-hidden">Select LH-2405</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="job-id">LH-2405</span>
+                      <span class="job-route">EUG → MED flatbed</span>
+                      <span class="job-meta">Weather delay +18m</span>
+                      <span class="job-guid" title="deadbeef-0001-4000-8000-000000000006">deadbeef…0006</span>
+                    </td>
+                    <td class="yard-cell">South</td>
+                    <td class="num eta">15:45</td>
+                    <td><span class="status status--en-route">En route</span></td>
+                    <td class="driver-cell">Priya Nair</td>
+                    <td class="col-actions">
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="open" data-yard="north">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" value="LH-2412" />
+                        <span class="visually-hidden">Select LH-2412</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="job-id">LH-2412</span>
+                      <span class="job-route">SEA → GEG team</span>
+                      <span class="job-meta">Needs sleeper team</span>
+                      <span class="job-guid" title="0f0f0f0f-1111-4222-8333-444455556667">0f0f0f0f…6667</span>
+                    </td>
+                    <td class="yard-cell">North</td>
+                    <td class="num eta">22:00</td>
+                    <td><span class="status status--open">Open</span></td>
+                    <td class="driver-cell driver-cell--empty">Unassigned</td>
+                    <td class="col-actions">
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="blocked" data-yard="south" class="row--risk">
+                    <td class="col-check">
+                      <label>
+                        <input type="checkbox" class="row-check" value="LH-2390" />
+                        <span class="visually-hidden">Select LH-2390</span>
+                      </label>
+                    </td>
+                    <td>
+                      <span class="job-id">LH-2390</span>
+                      <span class="job-route">PDX → RDM bulk</span>
+                      <span class="job-meta">Equipment not ready</span>
+                      <span class="job-guid" title="abcdef01-2345-4678-89ab-cdef01230008">abcdef01…0008</span>
+                    </td>
+                    <td class="yard-cell">South</td>
+                    <td class="num eta eta--none">—</td>
+                    <td><span class="status status--blocked">Blocked</span></td>
+                    <td class="driver-cell driver-cell--empty">Unassigned</td>
+                    <td class="col-actions">
+                      <div class="row-actions">
+                        <a class="button button--ghost button--sm" href="#">Open</a>
+                        <a class="button button--ghost button--sm" href="#toast-reassign">Reassign</a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="empty-state" role="status">
+              <h2>No jobs in view</h2>
+              <p>Clear filters or create a job for the next wave.</p>
+              <a class="button button--primary" href="#">Create job</a>
+            </div>
+
+            <div class="filter-empty" role="status">
+              <h2>No rows for this filter</h2>
+              <p>
+                <label for="status-all">Clear status</label>
+                or
+                <label for="yard-all">clear yard</label>.
+              </p>
+            </div>
+
+            <footer class="table-footer">
+              <p>Showing filtered page · 8 in sample data</p>
+              <div class="pagination">
+                <button type="button" class="button button--secondary button--sm" disabled>Previous</button>
+                <button type="button" class="button button--secondary button--sm" disabled>Next</button>
+              </div>
+            </footer>
+          </div>
+        </main>
+
+        <p class="sample-note">
+          Sample for <code>admin-ui</code> · theme: night yard ·
+          <a href="../dispatch-landing/index.html">Landing</a>
+          ·
+          <a href="../learner-admin/index.html">Course ops admin</a>
+        </p>
+      </div>
+    </div>
+
+    <div id="confirm-cancel" popover class="dialog-popover">
+      <div class="dialog__body">
+        <h2 class="dialog__title">Cancel selected jobs?</h2>
+        <p class="dialog__text">
+          Drivers are notified. Freight returns to the open pool. This cannot be undone from the board.
+        </p>
+      </div>
+      <div class="dialog__actions">
+        <button
+          type="button"
+          class="button button--secondary"
+          popovertarget="confirm-cancel"
+          popovertargetaction="hide"
+        >
+          Keep jobs
+        </button>
+        <a
+          class="button button--danger"
+          href="#toast-cancelled"
+          popovertarget="confirm-cancel"
+          popovertargetaction="hide"
+          >Cancel jobs</a
+        >
+      </div>
+    </div>
+
+    <div id="toast-reassign" class="toast" tabindex="-1">
+      <p>Reassign queued. (Static sample — no server.)</p>
+      <a class="toast__close" href="#" aria-label="Dismiss">Close</a>
+    </div>
+    <div id="toast-cancelled" class="toast" tabindex="-1">
+      <p>Cancel requested. Board unchanged in this sample.</p>
+      <a class="toast__close" href="#" aria-label="Dismiss">Close</a>
+    </div>
+  </body>
+</html>
