@@ -97,7 +97,8 @@ Default flow: **Load identity → select entity → primary evidence table → s
 - Long prose in cells: clamp / max-width  
 - Empty: one `—` convention  
 - Failure rows: tint ± **straight** stripe (no fingernail lip)  
-- Selected list item: surface + weight (not a disabled pill)
+- Selected list item: surface + weight (not a disabled pill)  
+- **Form controls:** native text/number/select/checkbox/radio/date — **styled** with host field tokens (shared height, inset fill, focus). No naked browser chrome in filters/settings ([visual-craft.md](references/visual-craft.md) § *Native form controls*; [admin-patterns.md](references/admin-patterns.md) § *Form controls*)
 
 ## Shell and navigation
 
@@ -137,6 +138,7 @@ High-frequency chrome: little/no animation. Press + dialog only per [motion-toke
 | Host theme + APCA Lc | WCAG 2 ratio chasing; private palettes |
 | Server tables/forms | Client-only filter source of truth |
 | Readable rem/px floors | `0.72rem` table body on 16px root |
+| Tokenized native fields | Unstyled system inputs/selects next to designed buttons |
 
 **JS:** none by default — [stack.md](references/stack.md).
 
@@ -150,6 +152,7 @@ High-frequency chrome: little/no animation. Press + dialog only per [motion-toke
 | Fingernail lip on failure rows | Tint + straight `::before` stripe | Curved caps are slop |
 | GUID as primary body text | Mono muted + `title` | Field type |
 | Long topic full-width | Clamped cell | Column scan |
+| Naked browser select in filter bar | Tokenized `.select` + chevron | Native + styled |
 
 ## Checklist
 
@@ -158,6 +161,7 @@ High-frequency chrome: little/no animation. Press + dialog only per [motion-toke
 - [ ] Type size floors met (body ≥13–14px computed)  
 - [ ] Metrics orientation-only  
 - [ ] Field types + alignment correct  
+- [ ] Native form controls styled to host tokens (filters, settings, loaders)  
 - [ ] Host theme; APCA polarity if dual mode  
 - [ ] No fingernail lips; straight stripes OK  
 - [ ] Loader: one primary action  

@@ -113,6 +113,7 @@ AI-generated UI clusters. Unless the brief *asks* for one of these, do not ship 
 | Color as the only status signal | Fails a11y | Icon + text + color |
 | **Fingernail lip** — a short side rail whose ends **curve or cap** with the box radius (looks like a rounded fingernail on the corner) | Agent chrome slop; draws the eye to the corner, not the row | Soft **background** change, and/or a **straight** full-height stripe (no curved caps) |
 | Random parallel palette beside host tokens | Theme drift | Extend host semantic tokens only |
+| **Naked browser form chrome** next to designed UI | System widgets break cohesion | Style native controls with host tokens (see § Native form controls) |
 
 **Fingernail lip (explicit ban — the look, not one property):**  
 The slop is the **visual**: a partial vertical accent on a rounded box that ends in a **curved, capped “fingernail”** at the top and/or bottom corner. That happens with *any* technique that paints a thick edge **following the border-radius**:
@@ -238,9 +239,134 @@ Rules:
 
 - Elevation steps are **whisper-quiet** (few % lightness or soft shadow). Dramatic jumps look broken.
 - **Sidebars:** same background as canvas + subtle border — not a second “sidebar world” color.
-- **Inputs:** slightly inset (often a touch darker than surroundings), not raised like buttons.
+- **Inputs:** slightly inset (often a touch darker than surroundings), not raised like buttons. Full control system: § *Native form controls* below.
 - **Borders:** low-opacity edges that disappear until you look for structure; solid harsh hex lines are a last resort.
 - Nested radii: `outer ≈ inner + padding` (concentric), not the same radius on parent and child.
+
+## Native form controls (style them)
+
+**Native markup ≠ unstyled chrome.** Prefer real `<input>`, `<select>`, `<textarea>`, checkbox, radio, etc. — then **style them with the same tokens as the rest of the product**. Shipping a polished layout with default OS/browser widgets is a craft failure: the eye reads “unfinished,” not “semantic.”
+
+### Doctrine
+
+| Do | Do not |
+| --- | --- |
+| Keep native elements (a11y, keyboard, forms, progressive enhancement) | Re-implement selects/checkboxes in JS only for looks |
+| One shared control system (classes or element rules) from host tokens | One-off hex/radius per field |
+| Match type, radius, border, focus, and height to buttons/chrome | Mix designed buttons with naked system inputs |
+| Style **every** control type the screen uses | Style text inputs, leave `<select>` / checkbox as browser default |
+| Use host control CSS when it already exists | Invent a parallel field kit beside a working system |
+
+**Litmus:** screenshot the form next to a primary button. If controls look like a different product (or like Windows/macOS defaults), restyle before shipping.
+
+### What must match the aesthetic
+
+Apply the product’s surface, type, radius, and border strategy to:
+
+| Control | Notes |
+| --- | --- |
+| Text-like | `text`, `search`, `email`, `password`, `url`, `tel`, `number` — same base field class |
+| Multiline | `textarea` — same border/fill/type; min-height for 2–3 lines |
+| Select | Native `<select>` — same field chrome + custom chevron (`appearance` reset); keep real `<option>`s |
+| Checkbox / radio | Native input — `accent-color` minimum; for full cohesion, restyle with `appearance: none` + tokenized box **on the real input** (not a fake div) |
+| Date / time / file | Style the **field shell** like text inputs; accept some OS picker UI inside the dialog |
+| Range | Track/thumb from tokens if used |
+
+### Shared field system (required properties)
+
+Host tokens first. Greenfield / samples should define one base rule set, e.g. `.input` / `.select` / `.textarea` or a grouped selector:
+
+```css
+/* Pattern — names follow the host; tokens are required */
+.input,
+.select,
+.textarea {
+  font: inherit;
+  font-size: 0.875rem; /* 14px floor — match body */
+  line-height: 1.4;
+  color: var(--content-primary);
+  background: var(--surface-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  min-height: 2.25rem; /* share with buttons in the same row */
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: var(--border-strong);
+}
+
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-color: var(--focus-ring);
+}
+
+.input:disabled,
+.select:disabled,
+.textarea:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.input[aria-invalid="true"],
+.input:user-invalid {
+  border-color: var(--danger);
+}
+
+.select {
+  appearance: none;
+  background-image: /* token-colored chevron SVG or mask */;
+  background-repeat: no-repeat;
+  background-position: right 0.65rem center;
+  padding-inline-end: 2rem;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--accent); /* floor */
+  width: 1.05rem;
+  height: 1.05rem;
+  /* Prefer full restyle with appearance: none when accent alone still looks foreign */
+}
+```
+
+| Rule | Practice |
+| --- | --- |
+| **Height** | Text, select, and adjacent buttons share one control height (e.g. 36px / `2.25rem`) |
+| **Type** | Form control text ≥ **14px**, same family as body (mono only for GUID/code fields) |
+| **Fill** | Inset surface — not raised like primary buttons |
+| **Focus** | Same `--focus-ring` language as the rest of the app |
+| **Invalid** | Border + message text; not color alone |
+| **Number** | Same shell as text; `tabular-nums` when values are compared; don’t leave default spinners clashing if the rest is custom (hide or restyle consistently) |
+| **Dual theme** | `color-scheme: light` / `dark` on `html` or form roots so native pickers/scrollbars track polarity; still paint field chrome with tokens |
+| **Density** | Tool-tight padding OK; do not shrink type below floors |
+
+### Checkbox and radio (keep native)
+
+1. Real `<input type="checkbox|radio">` + associated `<label>` (wrapping or `for`/`id`).  
+2. Minimum: `accent-color: var(--accent)` and size that hits the hit-target floor (expand label hit area).  
+3. When system widgets still clash: `appearance: none`, draw box/dot with borders/background from tokens, style `:checked` / `:indeterminate` / `:focus-visible` / `:disabled` on the **input** — not a separate non-focusable decoration.  
+4. Segmented filters may hide the input visually (`visually-hidden` / clipped) **only** when the visible label is clearly selected/unselected and keyboard focus is visible on the label or input.
+
+### Anti-patterns
+
+| Smell | Fix |
+| --- | --- |
+| Unstyled gray system text field in a tokenized admin | Apply shared `.input` (or host equivalent) |
+| Designed primary button beside default blue checkbox | Tokenize checkbox/radio |
+| Custom dropdown div soup “for branding” | Style native `<select>` first |
+| Placeholder as the only label | Visible `<label>` + optional hint |
+| Different radius/border on every field | One control radius + border token |
+| File/date left raw while text is styled | At least match the field shell |
+
+Admin field layout and type-by-kind presentation: [admin-patterns.md](./admin-patterns.md) § *Field types* / *Form controls*.
 
 ## Typography
 
@@ -285,7 +411,7 @@ Prefer roles over raw hex in components:
 
 - Real controls: `<button>`, `<a href>`, labeled inputs — not `<div onclick>`
 - Keyboard: every action reachable; visible `:focus-visible`
-- Prefer native `<dialog>`, `<details>`, form validation where they fit
+- Prefer native `<dialog>`, `<details>`, form validation where they fit — **and style those controls** (§ *Native form controls*)
 - Do not rely on color alone for state
 - Hit targets: aim 44×44px; if the glyph is smaller, expand the hit area
 - Honor `prefers-reduced-motion` (see motion-tokens)
@@ -294,6 +420,7 @@ Prefer roles over raw hex in components:
 ## States (not optional)
 
 Every interactive control: default, hover (fine pointer), active, focus-visible, disabled.  
+Form fields also need **invalid** (and checked/indeterminate for checkbox/radio).  
 Every data region: loading, empty (with next action), error (with recovery).
 
 Missing states are the fastest “unfinished” tell.
@@ -310,7 +437,7 @@ Missing states are the fastest “unfinished” tell.
 - Semantic HTML + server templates; smallest HTMX partial that swaps cleanly
 - Static presentation in classes + custom properties — not long inline style soup
 - **No JS by default** — see [stack.md](./stack.md) affordances ladder. Prefer `popover`, `:has()`, forms, and CSS motion over classList scripts
-- Native control → host partial → (only if needed) small custom element — never invent a client SPA for chrome
+- Native control → style with host tokens → host partial → (only if needed) small custom element — never invent a client SPA for chrome or for form-widget cosplay
 - Animate only when motion-tokens allow; Brand motion prefers CSS (`@starting-style`, view timelines, hover) over IntersectionObserver
 
 ## Wow without slop (elevation bar)
@@ -406,6 +533,7 @@ Type:       roles + scale
 Density:    tight | default | airy + px band
 Depth:      one strategy
 Alignment:  edges / number columns / action column
+Controls:   shared native field system from tokens (not browser defaults)
 Signature:  one memorable element (Brand) or “quiet competence” (Admin)
 Material:   finish from the subject’s world (paper, chalk, steel, …)
 Elevation:  which 2–3 wow levers we are using

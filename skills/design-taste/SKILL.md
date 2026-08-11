@@ -57,6 +57,7 @@ If the task is clearly a full visual redesign or a dense admin screen, prefer th
 | CSS transitions, `@starting-style`, WAAPI | Framer Motion / GSAP unless human-approved |
 | HTMX / forms / links for interaction | Client state stores for page chrome |
 | Small custom elements **only** when HTML/CSS cannot | Hand-rolled focus traps when a native dialog/popover works; JS toggles for `:has()`-solvable UI |
+| Native form controls **styled** with host tokens | Naked browser inputs/selects/checkboxes next to designed chrome |
 
 **JS:** none by default — [stack.md](references/stack.md) affordances ladder.
 
@@ -112,6 +113,10 @@ Tables in [motion-tokens.md](references/motion-tokens.md). Never invent random c
 
 Subtle scale (about 0.95–0.98). Applies to any pressable control that is not a pure text link.
 
+### Form controls (native + styled)
+
+Prefer real `<input>`, `<select>`, `<textarea>`, checkbox, radio — **and style them** with the same tokens as buttons and surfaces. Unstyled system widgets break product cohesion. One shared field system (height, type ≥14px, inset fill, border, focus ring); do not rebuild selects in JS for looks. Full rules: [visual-craft.md](references/visual-craft.md) § *Native form controls*.
+
 ### Entry without a client framework
 
 Prefer CSS when the node is in the document:
@@ -154,6 +159,7 @@ For toasts, toggles, and anything fired twice quickly: **CSS transitions** that 
 - Honor `prefers-reduced-motion` (gentler, not always none)
 - Gate hover motion with fine pointer media queries
 - Prefer native `<dialog>`, focusable controls, and labels over custom div soup
+- Style native form controls to host tokens (see form-controls section above)
 - Motion must not be the only way to understand state
 
 ## Cohesion
@@ -172,6 +178,7 @@ Match motion to product personality:
 - [ ] Host theme tokens used; light/dark APCA polarity check if both modes
 - [ ] Tokens extended, not forked
 - [ ] No fingernail lips on selection chrome (straight stripes OK)
+- [ ] Native form controls match product tokens (no naked browser chrome)
 - [ ] `transform`/`opacity` preferred
 - [ ] Reduced motion + hover gating considered
 - [ ] Press feedback on primary actions

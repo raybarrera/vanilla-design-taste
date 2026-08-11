@@ -195,14 +195,20 @@ Present data by **type and role**, not all as the same 14px string.
 
 ### Form controls by type
 
+Use **native** elements, then apply the host **shared field system** so every control matches product chrome. Full doctrine and CSS pattern: [visual-craft.md](./visual-craft.md) § *Native form controls*. Unstyled system widgets in an otherwise tokenized admin is a review fail.
+
 | Input | Notes |
 | --- | --- |
-| Text | Visible label; hint under; error next to field |
-| Number | `inputmode` / step as needed; right-align value in dense tables when displayed read-only |
+| Text | Visible label; hint under; error next to field; shared `.input` (or host) shell |
+| Number | Same shell as text; `inputmode` / step as needed; right-align when read-only in tables; `tabular-nums` when compared |
 | Money | Explicit currency; avoid float surprises in copy (server formats) |
-| Select / enum | Native or host partial; don’t invent custom without keyboard |
-| Date | Prefer native or host date control; show format expectation in hint |
+| Select / enum | Native `<select>` with same field chrome + chevron; don’t invent custom without keyboard |
+| Checkbox / radio | Native; `accent-color` minimum or full token restyle on the real input; labeled |
+| Date | Prefer native or host date control; style field shell like text; show format expectation in hint |
 | GUID search | Mono input; paste-friendly; don’t uppercase unless the system requires |
+| Textarea | Same border/fill/type as text; min-height for 2–3 lines |
+
+**Filter bars and settings:** text, select, date, and adjacent buttons share one control height and tokenized borders. Segmented radios (CSS `:has()` demos) still need selected/unselected label styles that match the theme — not raw browser radios beside designed buttons.
 
 ### Type size floors (legibility over packing)
 
@@ -672,6 +678,7 @@ Admin delight is **feeling fast, clear, and trustworthy** — not landing-page t
 - [ ] Container choice justified (table vs cards vs key-value)
 - [ ] Alignment: numbers end, text start, actions column consistent
 - [ ] Field types presented correctly (tabular money/%, mono GUID, timestamps, etc.)
+- [ ] Native form controls styled to host tokens (text, number, select, checkbox, radio, date…) — no naked browser chrome
 - [ ] Table/list body ≥13–14px computed; not ~11–12px “compact”
 - [ ] Host theme tokens used; light/dark APCA polarity checked if both modes exist
 - [ ] No fingernail lips (straight stripes or background only)
