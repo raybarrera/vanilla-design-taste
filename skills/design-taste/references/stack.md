@@ -47,6 +47,7 @@ Walk down. Stop at the first that works.
 - Extend existing project tokens; do not invent a parallel design system
 - Static presentation lives in classes, not long inline `style` attributes
 - Scope feature CSS with a wrapper class when that is the local pattern
+- **Native controls must look like the product.** Prefer native form elements, then style them with host tokens (shared field system). Unstyled browser chrome next to designed UI is not “following the stack” — see [visual-craft.md](./visual-craft.md) § *Native form controls*. Do not replace native controls with JS widgets only for looks.
 
 ## JavaScript minimization (non-negotiable posture)
 
@@ -56,7 +57,7 @@ Walk down. Stop at the first that works.
 
 Walk down. Stop at the first that is good enough:
 
-1. **Native HTML** — links, forms, GET filters, `<dialog>`, `<details>`, `<summary>`, checkboxes/radios, labels, `popover` / `popovertarget`, invoker commands where supported  
+1. **Native HTML** — links, forms, GET filters, `<dialog>`, `<details>`, `<summary>`, checkboxes/radios, labels, `popover` / `popovertarget`, invoker commands where supported — **styled to the product** (not left as browser defaults)  
 2. **CSS** — `:has()`, `:target`, `:focus-within`, `@media`, `@starting-style`, scroll-driven animations, checkbox/radio-driven UI, pure-CSS show/hide  
 3. **Hypermedia** — server-rendered next state; HTMX (or host equivalent) partials; URL as state  
 4. **Tiny progressive enhancement** — only if 1–3 cannot provide a *top-notch* affordance (e.g. drag-to-dismiss velocity, complex focus orchestration after multi-swap, canvas)  
@@ -80,7 +81,7 @@ Walk down. Stop at the first that is good enough:
 - Toggling a class a checkbox + `:has()` can toggle  
 - Filtering a small static table (use radios + `:has()`, or server GET)  
 - Scroll-fade “wow” that CSS can approximate or that Brand mode can skip under reduced motion  
-- Re-implementing `<select>`, `<dialog>`, or form validation in script  
+- Re-implementing `<select>`, `<dialog>`, or form validation in script (style the native control instead)  
 - Client state stores for filters the URL or server already owns  
 
 ### Script rules (when you must ship JS)

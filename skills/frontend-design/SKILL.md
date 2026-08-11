@@ -103,6 +103,7 @@ Details live in [visual-craft.md](references/visual-craft.md). Non-negotiables:
 - **Light/dark legibility** checked for every mode the product supports
 - No **fingernail lips** (curved side rails on rounded boxes — any property); straight stripes OK
 - States: default, hover (fine pointer), active, focus-visible, disabled; data regions need loading/empty/error
+- **Native form controls styled** to host tokens (text, number, select, checkbox, radio, etc.) — not browser defaults next to designed chrome ([visual-craft.md](references/visual-craft.md) § *Native form controls*)
 - Accessibility floor: real controls, keyboard, focus-visible; **APCA Lc** contrast (not WCAG 2 ratios); no color-only status
 
 ### Brand-specific
@@ -137,7 +138,7 @@ Words are design material:
 | --- | --- |
 | Semantic HTML + server templates | SPA frameworks by default |
 | Vanilla CSS + custom properties | Tailwind / CSS-in-JS by default |
-| Native controls, `popover`, `:has()`, CSS motion | JS for toggles, reveals, or filters HTML/CSS can do |
+| Native controls **styled** to the product, `popover`, `:has()`, CSS motion | JS for toggles, reveals, or filters HTML/CSS can do; unstyled system form chrome |
 | Smallest HTMX partial for state | Client store for page chrome |
 | Match host tokens and conventions | Parallel design system beside an existing one |
 
@@ -168,6 +169,7 @@ One table, one row per issue.
 - [ ] Type size floors met where product/admin UI is in scope
 - [ ] Host theme tokens; light/dark APCA polarity check
 - [ ] Spacing scale and one depth strategy
+- [ ] Native form controls share tokenized field system (no naked browser chrome)
 - [ ] Realistic copy; empty/error considered
 - [ ] A11y floor met (keyboard/semantics + APCA, not WCAG 2 ratios)
 - [ ] Motion purposeful, budgeted, reduced-motion safe
