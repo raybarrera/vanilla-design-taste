@@ -90,10 +90,11 @@ Name the mode before designing. A landing page and a dashboard live by contradic
 | --- | --- | --- | --- | --- |
 | **Brand** (persuade) | Marketing, landing, portfolios, campaigns | Decide and act | Higher: signature type, bold layout, one memorable moment | Occasional explanatory or delight (still purposeful) |
 | **Product** (operate) | App chrome, tools, settings, most SaaS screens | Complete a task | Lower: scanability and consistency beat flourish | Mostly feedback and state; high-frequency = little/none |
-| **Admin** (operate, dense) | Dashboards, CRMs, internal tools, data tables | Find, filter, act on records | Lowest decorative budget; density and hierarchy are the craft | Almost none on chrome; use the `admin-ui` skill and its `admin-patterns` reference |
+| **Admin** (operate, dense) | Dashboards, CRMs, internal tools, data tables | Find, filter, act on records | Lowest *decorative* budget; density, hierarchy, and quiet domain finish are the craft | Almost none on chrome; use the `admin-ui` skill and its `admin-patterns` reference |
 
 - Pick mode from the **surface**, not the company brand book alone. A tool’s marketing site is still Brand; a fashion house’s order admin is still Admin.
-- Never apply Brand maximalism to Admin density, or Admin flatness to a Brand hero.
+- Never apply Brand maximalism to Admin density, or generic gray-correct Admin flatness to a Brand hero.
+- Admin “no marketing” is not “no beauty”: optical polish and a named domain finish are required. Brand grain, display theses, and page choreography are not.
 
 ## Anti-slop (defaults to refuse)
 
@@ -135,10 +136,13 @@ The slop is the **visual**: a partial vertical accent on a rounded box that ends
 
 /* Good: straight stripe (square ends) — not a fingernail */
 .row--risk {
-  position: relative;
   background: color-mix(in srgb, var(--warning) 8%, var(--surface-raised));
 }
-.row--risk::before {
+/* On <table> rows, paint on the first cell. tr::before becomes an extra column. */
+.row--risk td:first-child {
+  position: relative;
+}
+.row--risk td:first-child::before {
   content: "";
   position: absolute;
   inset-block: 0;
@@ -448,8 +452,8 @@ Correct structure alone often still looks **flat**. “Wow” is not more decora
 
 | Lever | Brand (landing / marketing) | Product / Admin |
 | --- | --- | --- |
-| **Material** | Paper grain, chalk, metal, film grain, ink bleed — from the subject’s world | Quiet materials: hairline rules, inset fields, same-hue elevation |
-| **Type drama** | Display size jump (display 40–72px), italic or weight contrast on **one** phrase | Hierarchy via weight/opacity; rarely a display face |
+| **Material** | Paper grain, chalk, metal, film grain, ink bleed — from the subject’s world | Quiet **domain finish** in chrome: hairlines, inset fields, same-hue elevation, paper vs steel vs enamel tokens |
+| **Type drama** | Display size jump (display 40–72px), italic or weight contrast on **one** phrase | Hierarchy via weight/opacity; optional data/mono face for codes — not a display thesis |
 | **Asymmetry** | Uneven columns, overlapping frame, editorial crop | Steady grid; asymmetry only in empty/hero zero-states |
 | **Depth** | One premium stack (soft layered shadow **or** perspective frame) | Borders / 1-step surface shift; no floating marketing cards |
 | **Light** | Controlled wash, vignette, or section ink band | Even, work-light; accent only on status/action |
@@ -470,19 +474,24 @@ Do not stop at hex values. Describe **finish**:
 - Soft chalk dust vs hard enamel  
 - Brass rule vs plastic divider  
 
-Encode finish in CSS: grain (`repeating-linear` / SVG noise), rule rhythm, border opacity, background attachment, section band contrast. Generic “off-white + accent” is incomplete.
+**Brand:** encode finish as page theater when the brief earns it — grain (`repeating-linear` / SVG noise), rule rhythm, background attachment, section band contrast.
+
+**Product / Admin:** encode the same world in **chrome**, not a marketing ground. Surface hue, hairline opacity, radius tightness, inset wells, and an optional data/mono face. Host tokens still win: name the finish, then map it onto existing roles. Generic “off-white + accent” or “neutral gray admin” is incomplete.
 
 ### Optical polish checklist
 
+Required in every mode. Brand adds display wrap and hero rhythm; Product/Admin still ship the rest.
+
 - Nested radii: `outer ≈ inner + padding`  
 - Icon/text optical centering (nudge play triangles, balance icon buttons)  
-- `text-wrap: balance` on display; `pretty` on body when supported  
+- `text-wrap: balance` on display and short `h1`s; `pretty` on body when supported  
 - Tabular nums on every dynamic number  
 - Hairline separators at ~6–12% ink, not solid gray bars  
 - Hover gated with `(hover: hover) and (pointer: fine)`  
 - Focus-visible rings that match accent, 2px + offset  
 - Press feedback `scale(0.97–0.98)` on primary actions  
-- No accidental equal padding on hero, section, and footer (rhythm must vary)
+- Uneven rhythm: tight inside a filter/metric group, real air before the work surface — not one gap everywhere  
+- No accidental equal padding on hero, section, and footer (Brand)
 
 ### Brand motion budget (vanilla)
 
@@ -497,20 +506,32 @@ Always honor `prefers-reduced-motion`: keep opacity fades, drop travel. Do not a
 
 ### Product / Admin “wow”
 
-Operators feel quality as **competence**, not spectacle:
+Operators feel quality as **competence plus a tool that belongs to this domain** — not landing-page theater. Correct alignment with generic gray chrome still fails.
+
+**Competence (required):**
 
 - Instant press feedback; keyboard-visible focus  
 - Selection and bulk bars that appear without layout jump (reserved space or stable height)  
 - Empty/error states with a clear next action and a touch of domain illustration (CSS/SVG, not stock art)  
-- At-risk / attention rows that are scannable (left rule, tint) without screaming  
+- At-risk / attention rows that are scannable (straight stripe, tint) without screaming  
 - Command-style search or filter that feels like a tool, not a form from 2009  
 - Dense tables that still breathe: consistent column rhythm, sticky header, no mystery icon-only actions  
 
-If admin “wow” needs marketing motion, you are in the wrong mode — hand off to Brand surfaces.
+**Flourish that transfers (required).** Execute with 2–3 Product/Admin levers from the table above — not all seven, and never Brand-column moves:
+
+- **Material in chrome:** name a finish from the subject’s world (warm paper classroom, night steel yard, enamel lab) and encode it in tokens — not grain overlays or section ink bands  
+- **One signature:** the thing an operator would name in five seconds besides “a table” — data/mono face for codes, command filter, attention strip, or the finish itself. Fail: “gray SaaS admin.” “Quiet system” is allowed only after finish + optical polish are named  
+- **Optical polish:** the checklist above. Unseen details are how admin looks finished without getting louder  
+- **Copy:** operator verbs, realistic records, empty/error that give a next step (see *Copy as design material*)  
+- **Spend boldness once.** Accent is scarce. Do not also add a gradient hero, card-stat wall, or display serif  
+
+If admin “wow” needs marketing motion, type drama, or asymmetry as the page idea, you are in the wrong mode — hand those to Brand surfaces.
 
 ### Anti-flat self-critique
 
 Before shipping, answer:
+
+**Brand**
 
 1. What is the signature? (one sentence)  
 2. Where did we spend boldness? (one place)  
@@ -518,7 +539,15 @@ Before shipping, answer:
 4. Would a screenshot still be recognizable without the logo?  
 5. Did we use motion only where purpose is named?
 
-If (1) or (4) fails, raise elevation before adding sections.
+**Product / Admin**
+
+1. What is the signature? (competence move + named finish — not “quiet gray”)  
+2. Where did we spend boldness? (one place)  
+3. What material/finish is visible in chrome (hue, hairline, radius, data face)?  
+4. Would an operator recognize this as *this* tool vs generic admin?  
+5. Did motion stay at press / dialog / toast?
+
+If (1) or (4) fails, raise elevation before adding sections or more cards.
 
 ## Pre-build checkpoint
 
@@ -534,7 +563,7 @@ Density:    tight | default | airy + px band
 Depth:      one strategy
 Alignment:  edges / number columns / action column
 Controls:   shared native field system from tokens (not browser defaults)
-Signature:  one memorable element (Brand) or “quiet competence” (Admin)
+Signature:  one memorable element (Brand) or competence move + named finish (Admin)
 Material:   finish from the subject’s world (paper, chalk, steel, …)
 Elevation:  which 2–3 wow levers we are using
 Modes:      light / dark checked with APCA (or single-mode stated)

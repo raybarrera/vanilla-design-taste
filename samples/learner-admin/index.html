@@ -4,6 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Learners · Course ops</title>
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link
+      href="https://fonts.bunny.net/css?family=ibm-plex-mono:500,600|source-sans-3:400,500,600,700"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="admin">
@@ -103,6 +108,7 @@
             </div>
           </header>
 
+          <div class="orient">
           <section class="metric-strip" aria-label="Summary">
             <div class="metric">
               <p class="metric__label">Active</p>
@@ -135,6 +141,18 @@
 
           <!-- Filters: production would be GET → server; static demo uses radios + :has() -->
           <form class="filter-bar" id="filters" method="get" action="#">
+            <div class="field field--search">
+              <label class="field-legend" for="q">Find</label>
+              <input
+                id="q"
+                class="input"
+                type="search"
+                name="q"
+                placeholder="Name, email, or id"
+                spellcheck="false"
+                autocomplete="off"
+              />
+            </div>
             <fieldset class="field field--grow">
               <legend class="field-legend">Status</legend>
               <div class="segmented" role="presentation">
@@ -167,6 +185,7 @@
               CSS <code>:has()</code> filters · table is the work surface · APCA contrast (not WCAG ratios)
             </p>
           </form>
+          </div>
 
           <div class="bulk-bar" data-bulk-bar>
             <p class="bulk-bar__count">Selection active</p>
@@ -443,6 +462,10 @@
             </div>
 
             <div class="empty-state" id="empty-state" role="status">
+              <svg class="empty-mark" viewBox="0 0 48 36" aria-hidden="true">
+                <rect x="3" y="3" width="42" height="30" rx="2" fill="none" stroke="currentColor" stroke-width="1.5" />
+                <path d="M9 12h30M9 18h30M9 24h18" fill="none" stroke="currentColor" stroke-width="1.5" />
+              </svg>
               <h2>No learners match</h2>
               <p>Adjust filters or invite someone new to this cohort.</p>
               <a class="button button--primary" href="#">Invite learner</a>

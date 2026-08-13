@@ -3,14 +3,15 @@ name: admin-ui
 description: >
   Dense admin panels, dashboards, CRMs, debug/QA consoles, and data-heavy internal
   tools on vanilla CSS and server-rendered hypermedia. Multi-panel hierarchy,
-  type size floors, field types, rows vs cards, alignment, shells, tables, filters.
-  Use when building or reviewing admin UI, back-office screens, or /admin-ui. Not
-  for marketing or landing pages (use frontend-design).
+  type size floors, field types, rows vs cards, alignment, shells, tables, filters,
+  domain finish, optical polish. Use when building or reviewing admin UI,
+  back-office screens, or /admin-ui. Not for marketing or landing pages
+  (use frontend-design).
 ---
 
 # Admin UI (Vanilla / Hypermedia)
 
-You help agents build **operator-first** interfaces: find, filter, act on records — without marketing aesthetics, debug-dashboard slop, or microscopic type.
+You help agents build **operator-first** interfaces that are **correct and beautiful**: find, filter, act on records — without marketing theater, debug-dashboard slop, or microscopic type. Correct structure that looks like generic gray admin still fails.
 
 **Stack authority:** [references/stack.md](references/stack.md)  
 **Visual doctrine:** [references/visual-craft.md](references/visual-craft.md)  
@@ -25,7 +26,7 @@ Craft-first product/admin hierarchy, density, and intent discipline are **inspir
 
 When invoked with no specific question, reply only:
 
-> Ready to craft dense admin and data UI with vanilla CSS and hypermedia. What tool or screen are we building?
+> Ready to craft dense admin and data UI that is both correct and beautiful — vanilla CSS and hypermedia. What tool or screen are we building?
 
 Do not dump the whole skill until the user asks a concrete question.
 
@@ -41,7 +42,8 @@ Do not dump the whole skill until the user asks a concrete question.
 2. **Verb** — single primary job (e.g. “load account → inspect diary”)  
 3. **Density** — tool-tight **padding** OK; type must meet **size floors**  
 4. **Primary work surface** — name it before drawing peer cards  
-5. **Theme** — host tokens; **APCA** polarity for light/dark (not WCAG 2 ratios)
+5. **Feel** — concrete, domain-true (“warm paper classroom”, “cold steel yard”) — never only “clean admin”  
+6. **Theme** — host tokens; **APCA** polarity for light/dark (not WCAG 2 ratios)
 
 ## Visual hierarchy (required)
 
@@ -120,6 +122,21 @@ Default flow: **Load identity → select entity → primary evidence table → s
 
 High-frequency chrome: little/no animation. Press + dialog only per [motion-tokens.md](references/motion-tokens.md).
 
+## Elevation (required)
+
+Tidy anti-slop admin can still feel **forgettable**. Raise elevation with 2–3 Product/Admin levers from [visual-craft.md](references/visual-craft.md) § *Wow without slop*. Recipes: [admin-patterns.md](references/admin-patterns.md) § *Operator polish*.
+
+| Required | Admin form (not Brand) |
+| --- | --- |
+| **Signature** | One competence move an operator would name besides “a table” (command filter, attention strip, data/mono codes, or the finish). Fail: “gray SaaS admin.” |
+| **Material finish** | Encode the subject’s world in **chrome** — paper, steel, enamel via hue, hairlines, inset wells, radius. Not grain overlays, ink bands, or display-serif theses. |
+| **Optical polish** | Nested radii, hairline ink, tabular nums, press + focus, uneven group rhythm. |
+| **Copy** | Operator verbs; realistic records; empty/error give a next step. |
+
+Spend boldness in **one** place. Hierarchy and type floors still win. “No marketing” is not “no beauty.”
+
+**Anti-flat:** would an operator recognize this as *this* tool vs generic admin?
+
 ## Operator polish
 
 | Polish | Example |
@@ -128,8 +145,9 @@ High-frequency chrome: little/no animation. Press + dialog only per [motion-toke
 | Row emphasis | Soft tint + square-end stripe |
 | Selection | Background + weight |
 | Feedback | Quiet toast; focus return |
+| Domain finish | Warm paper classroom vs night steel yard — tokens, not a second palette |
 
-**Anti-patterns:** debug dashboard, equal peer cards, microtype body, fingernail lips, accent spray, card-stat walls, confetti.
+**Anti-patterns:** debug dashboard, equal peer cards, microtype body, fingernail lips, accent spray, card-stat walls, confetti, generic gray-correct chrome.
 
 ## Implementation posture
 
@@ -153,10 +171,15 @@ High-frequency chrome: little/no animation. Press + dialog only per [motion-toke
 | GUID as primary body text | Mono muted + `title` | Field type |
 | Long topic full-width | Clamped cell | Column scan |
 | Naked browser select in filter bar | Tokenized `.select` + chevron | Native + styled |
+| Neutral gray chrome, no subject link | Domain finish in tokens (paper / steel) | Flat-but-correct fails |
+| One gap everywhere; no press/hairlines | Optical polish + uneven group rhythm | Unseen details compound |
 
 ## Checklist
 
 - [ ] Verb + primary work surface named  
+- [ ] Feel + named domain finish (not only “clean admin”)  
+- [ ] Elevation: 2–3 Product/Admin levers; anti-flat check passed  
+- [ ] Optical polish (nested radii, hairlines, press, focus, uneven rhythm)  
 - [ ] Multi-panel hierarchy (primary vs secondary vs meta)  
 - [ ] Type size floors met (body ≥13–14px computed)  
 - [ ] Metrics orientation-only  
@@ -165,4 +188,5 @@ High-frequency chrome: little/no animation. Press + dialog only per [motion-toke
 - [ ] Host theme; APCA polarity if dual mode  
 - [ ] No fingernail lips; straight stripes OK  
 - [ ] Loader: one primary action  
+- [ ] Copy: operator language; empty/error give a next step  
 - [ ] States, filters, stack rules  

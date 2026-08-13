@@ -16,7 +16,9 @@ Static demos that exercise pack skills. Open HTML files in a browser — **no bu
 | [dispatch-admin/](./dispatch-admin/) | `admin-ui` | Night yard — dark polarity, APCA-tuned, steel + amber, mono codes/GUIDs |
 | [dispatch-landing/](./dispatch-landing/) | `frontend-design` (Brand) | Blueprint grid, stencil type, amber signal |
 
-Same craft rules (hierarchy, multi-panel primary work surface, type size floors ≥13–14px body, field types, zero-JS filters/`popover`/`:target`, Brand elevation) — **different material and personality** so agents see how doctrine travels across domains.
+Same craft rules (hierarchy, multi-panel primary work surface, type size floors ≥13–14px body, field types, zero-JS filters/`popover`/`:target`, Brand elevation, admin domain finish + optical polish) — **different material and personality** so agents see how doctrine travels across domains.
+
+Still frames for review: [previews/](./previews/).
 
 ### Cross-links
 
