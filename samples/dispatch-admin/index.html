@@ -100,6 +100,7 @@
             </div>
           </header>
 
+          <div class="orient">
           <section class="metric-strip" aria-label="Summary">
             <div class="metric">
               <p class="metric__label">Open</p>
@@ -131,6 +132,18 @@
           </div>
 
           <form class="filter-bar" method="get" action="#">
+            <div class="field field--search">
+              <label class="field-legend" for="q">Find</label>
+              <input
+                id="q"
+                class="input"
+                type="search"
+                name="q"
+                placeholder="Job, route, or driver"
+                spellcheck="false"
+                autocomplete="off"
+              />
+            </div>
             <fieldset class="field">
               <legend class="field-legend">Status</legend>
               <div class="segmented">
@@ -163,6 +176,7 @@
               Night polarity · APCA Lc · table work surface · CSS <code>:has()</code> filters
             </p>
           </form>
+          </div>
 
           <div class="bulk-bar">
             <p class="bulk-bar__count">Selection active</p>
@@ -388,6 +402,16 @@
             </div>
 
             <div class="empty-state" role="status">
+              <svg class="empty-mark" viewBox="0 0 48 36" aria-hidden="true">
+                <path
+                  d="M6 26h36M10 26V12h8l4 6h16v8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                />
+                <circle cx="16" cy="26" r="2.5" fill="currentColor" />
+                <circle cx="34" cy="26" r="2.5" fill="currentColor" />
+              </svg>
               <h2>No jobs in view</h2>
               <p>Clear filters or create a job for the next wave.</p>
               <a class="button button--primary" href="#">Create job</a>

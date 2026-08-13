@@ -69,7 +69,7 @@ Work in two passes (thinking may stay private; show the plan when confidence is 
    - **Color:** 4–6 named values or host tokens
    - **Type:** display (Brand) + body + optional data/utility face
    - **Layout:** one-sentence concept (+ ASCII wireframe if helpful)
-   - **Signature:** one element the page will be remembered by (Brand); Product may choose “quiet system” as the signature
+   - **Signature:** one element the page will be remembered by (Brand); Product/Admin may choose “quiet system” only after a named finish + optical polish
 2. **Self-critique vs defaults** — revise anything that matches the anti-slop list in [visual-craft.md](references/visual-craft.md)
 3. **Build** only from the revised plan; derive color/type from tokens, not one-off hex in every rule
 
@@ -121,7 +121,7 @@ Details live in [visual-craft.md](references/visual-craft.md). Non-negotiables:
 - System or host fonts are fine; hierarchy still required
 - Prefer quiet surfaces; accent is scarce and meaningful
 - High-frequency chrome: little or no motion
-- “Wow” = competence (feedback, states, density) — see `admin-ui` for dense tools
+- “Wow” = competence + quiet domain finish (feedback, states, density, optical polish) — see `admin-ui` for dense tools
 
 ## Copy
 

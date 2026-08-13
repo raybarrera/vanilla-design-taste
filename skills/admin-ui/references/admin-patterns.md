@@ -7,11 +7,12 @@ Dense, task-first patterns for dashboards, CRMs, internal tools, and settings on
 ## Operating principles
 
 1. **The verb is the UI.** Approve, find, filter, edit, export — design for the action, not a card collage.
-2. **Scan first.** Operators skim; hierarchy and alignment beat decoration.
+2. **Scan first.** Operators skim; hierarchy and alignment beat decoration. Domain finish is not decoration.
 3. **Same chrome everywhere.** Shell, table density, button sizes, and filter placement should feel like one product.
 4. **High frequency → still.** Nav toggles, row selection, pagination: no animation theater (see frequency gate in motion-tokens).
 5. **Server owns business state.** Filters, sort, page, selection that must survive refresh: URL or form fields, not a client store by default.
 6. **Theme is the host’s.** Consume project tokens; do not invent a second admin palette ([visual-craft.md](./visual-craft.md) § theme consistency + light/dark check).
+7. **Correct is the floor.** After hierarchy and type floors, apply a named domain finish and optical polish ([visual-craft.md](./visual-craft.md) § *Wow without slop*). Generic gray that “follows the table rules” still fails.
 
 ## Visual hierarchy (admin)
 
@@ -627,36 +628,70 @@ Press feedback on primary buttons still applies (`scale` on `:active`) — that 
 | Icon-only actions without names | Visible text or `aria-label` + title carefully |
 | Empty page is blank white | Empty state + next action |
 | Every KPI a rainbow gradient card | Quiet strip; accent only on status |
+| Correct table in generic gray chrome | Named domain finish + optical polish |
 
-## Operator polish (“wow” as competence)
+## Operator polish (competence + quiet flourish)
 
-Admin delight is **feeling fast, clear, and trustworthy** — not landing-page theater. Add these after structure works.
+Admin delight is **feeling fast, clear, trustworthy, and of this domain** — not landing-page theater. Apply after structure works. Elevation levers, optical-polish checklist, and the admin anti-flat questions live in [visual-craft.md](./visual-craft.md) § *Wow without slop*; this section is how they land on admin chrome.
+
+### Signature (one place)
+
+Name the thing an operator would remember besides “a table.” Spend boldness there only.
+
+| Pass | Fail |
+| --- | --- |
+| Command-style filter that feels like a yard tool | “Quiet gray” with no named finish |
+| Attention strip as the only loud chrome | Accent on buttons, chips, nav, and metrics |
+| Data/mono face for job codes / GUIDs | Display serif or 28px marketing KPIs |
+| Warm paper + chalkboard-teal tokens | Neutral slate + indigo “because admin” |
+
+### Material in chrome (not page theater)
+
+Encode the subject’s world in tokens and control chrome — not Brand grain, ink bands, or a marketing ground.
+
+| Domain (examples) | What the CSS should show |
+| --- | --- |
+| Classroom / course ops | Warm paper surfaces, tight hairlines, chalkboard-teal accent, human names as primary type |
+| Night dispatch / yard | Steel inset wells, harder radius, high-viz amber signal, mono codes |
+| Lab / finance / legal | Enamel or bond-paper neutrals, scarce accent, tabular money that leads |
+
+- Hairline borders (~6–12% ink), inset inputs, same-hue elevation  
+- Optional **dark rail / light canvas** only if APCA Lc holds in both polarities and both stay in one hue family  
+- Nested radii on chips, filters, and dialogs inside the shell  
+- Metric values use `tabular-nums` and a clear unit; avoid icon-stat cards  
+
+Host tokens still win: name the finish, then map it onto existing roles.
+
+### Optical polish (admin surfaces)
+
+Apply the shared checklist. Admin-specific:
+
+- Filter bar, table, and footer share one content edge  
+- Tight gaps inside the filter/metric group; real air before the primary table  
+- Sticky page header + sticky table header  
+- Press scale on primary actions; `:focus-visible` on every control  
+- `text-wrap: balance` on the page `h1` only  
 
 ### Attention and scanning
 
 - **Needs-attention strip** above the table when count > 0: plain language (“14 learners need a nudge”), link that applies the filter, not a second dashboard  
-- **Row emphasis:** soft tint and/or a **straight** full-height stripe (`::before`, square ends) for `at-risk` / failed / overdue — still show status text. **Never** fingernail lips (curved rail ends from inset shadow or `border-inline-start` on rounded boxes)  
+- **Row emphasis:** soft tint and/or a **straight** full-height stripe (square ends) for `at-risk` / failed / overdue — still show status text. On a `<table>`, paint the stripe on the first `td` (`td:first-child::before`), not on `tr` — `tr::before` becomes an extra column. **Never** fingernail lips (curved rail ends from inset shadow or `border-inline-start` on rounded boxes)  
 - **Primary column weight:** name/id medium-strong; meta muted on a second line  
 - **Action reveal:** row actions visible on focus-within / hover (fine pointer); always available to keyboard (never `display:none` only)
 
 ### Toolchrome
 
 - **Command-style filter:** search field feels like a tool (inset, `/` shortcut hint optional, large hit area)  
-- **Sticky page header + sticky table header** so filters and columns stay oriented while scrolling  
 - **Bulk bar** occupies stable space or slides without shifting the whole page jumpy amounts  
 - **Keyboard:** `Esc` closes dialogs; focus returns to invoker; skip link works  
 
-### Feedback
+### Feedback and copy
 
 - **Toast / inline flash** after nudge, export, save — quiet, interruptible, not confetti  
 - **Optimistic label** on buttons while “pending” only if the host can reconcile; otherwise disable + spinner text  
-- **Empty state** with domain-specific line art (CSS/SVG gradebook, inbox) — still one CTA  
-
-### Material (quiet)
-
-- Hairline borders, inset inputs, same-hue surfaces  
-- Optional **dark rail / light canvas** only if APCA Lc holds for text/chrome in both polarities and both stay in one hue family  
-- Metric values use `tabular-nums` and a clear unit; avoid icon-stat cards  
+- **Empty / error** with a next step and optional domain line art (CSS/SVG gradebook, yard, inbox) — still one CTA  
+- Operator language, not system jargon; same verb through the flow (“Nudge” → “Nudged”)  
+- Realistic records while designing — never lorem-only tables  
 
 ### Do not
 
@@ -666,11 +701,15 @@ Admin delight is **feeling fast, clear, and trustworthy** — not landing-page t
 - Fingernail lips (curved side rails) on nav, cards, or rows — any property that causes them  
 - Parallel color theme that ignores host tokens  
 - Card grids as the default inventory pattern  
+- Brand grain overlays, display-serif theses, or section ink bands as the admin page idea  
+- Shipping a correct table in generic gray chrome and calling it done  
 
 ## Checklist
 
 - [ ] Mode is admin/product-dense, not Brand (or debug/internal with stricter hierarchy)
 - [ ] Task verb and operator persona stated
+- [ ] Feel + named domain finish (chrome, not Brand theater)
+- [ ] Elevation: 2–3 Product/Admin levers; anti-flat check passed
 - [ ] Density chosen and held — **padding** dense OK; **type** meets size floors
 - [ ] Multi-panel: primary work surface named; peers demoted
 - [ ] Metrics are orientation only (no equal stat posters over the queue)
@@ -688,5 +727,7 @@ Admin delight is **feeling fast, clear, and trustworthy** — not landing-page t
 - [ ] Loading, empty, error present
 - [ ] Destructive paths confirmed
 - [ ] High-frequency chrome not animated
+- [ ] Optical polish on shell, filters, table, and controls
 - [ ] Operator polish: attention strip / row emphasis / feedback where relevant
+- [ ] Copy: operator verbs; empty/error give a next step
 - [ ] Stack rules respected (no surprise React/Tailwind deps)

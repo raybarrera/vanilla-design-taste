@@ -82,7 +82,7 @@ If your agent only scans a vendor path, copy or symlink the same skill directori
 | --- | --- |
 | [design-taste](./skills/design-taste/SKILL.md) | General UI polish, component feel, craft review; routes to specialists |
 | [frontend-design](./skills/frontend-design/SKILL.md) | Distinctive visual design for product **and** marketing; anti-slop; type, hierarchy, copy |
-| [admin-ui](./skills/admin-ui/SKILL.md) | Dense admin panels, dashboards, tables, filters, settings, internal tools |
+| [admin-ui](./skills/admin-ui/SKILL.md) | Dense admin panels, dashboards, tables, filters, settings — correct *and* beautiful |
 | [animate](./skills/animate/SKILL.md) | Build a specific animation or transition from scratch |
 | [review-animations](./skills/review-animations/SKILL.md) | Strict review of motion in a diff or surface |
 | [find-animation-opportunities](./skills/find-animation-opportunities/SKILL.md) | Hunt places that should (and should not) move |

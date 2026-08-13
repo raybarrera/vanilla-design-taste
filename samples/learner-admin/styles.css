@@ -1,4 +1,7 @@
-/* Learner admin sample — tokens + admin patterns from vanilla-design-taste */
+/* Learner admin — warm paper classroom (not Brand grain / Fraunces)
+   Signature: command Find + attention strip
+   Material: uncoated paper, chalkboard teal, hairline rules
+   Elevation: material, detail density, even work-light */
 
 :root {
   /*
@@ -6,16 +9,16 @@
    * Contrast bar: APCA Lc @ https://apcacontrast.com/ — not WCAG 2 ratios.
    * Tuned for |Lc| ~60+ UI text, ~75 body-ish primary, muted still spot-readable (~30+).
    */
-  --surface-page: #f4f1eb;
-  --surface-raised: #fffcf7;
-  --surface-inset: #ebe6de;
-  --content-primary: #1a1714;
-  --content-secondary: #4a433c;
+  --surface-page: #f3eee4;
+  --surface-raised: #faf6ee;
+  --surface-inset: #e8e0d2;
+  --content-primary: #14110f;
+  --content-secondary: #3a342e;
   --content-muted: #5c554d;
-  --border-subtle: rgba(26, 23, 20, 0.1);
-  --border-strong: rgba(26, 23, 20, 0.18);
-  --accent: #0c6b63;
-  --accent-hover: #0a5c55;
+  --border-subtle: rgba(20, 17, 15, 0.1);
+  --border-strong: rgba(20, 17, 15, 0.18);
+  --accent: #10554c;
+  --accent-hover: #0c3d38;
   --accent-contrast: #f2fffc;
   --danger: #a61b1b;
   --danger-bg: #fdf2f2;
@@ -25,7 +28,7 @@
   --success-bg: #eef9f2;
   --info: #1a4fbf;
   --info-bg: #eef3fc;
-  --focus-ring: #0c6b63;
+  --focus-ring: #10554c;
 
   --admin-nav-width: 14.5rem;
   --content-max: none;
@@ -44,8 +47,8 @@
   --duration-modal: 200ms;
   --scale-press: 0.97;
 
-  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-data: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   /* Type floors: body/table ≥13–14px; labels/meta ≥12px (see admin-patterns) */
   --text-xs: 0.75rem; /* 12px @ 16 root — floor for labels/meta */
   --text-sm: 0.875rem; /* 14px — table body / controls */
@@ -63,6 +66,7 @@
 
 html {
   -webkit-font-smoothing: antialiased;
+  color-scheme: light;
 }
 
 body {
@@ -142,9 +146,9 @@ a:hover {
 
 .admin-nav__mark {
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.02em;
-  color: var(--content-primary);
+  color: var(--accent);
 }
 
 .admin-nav__sub {
@@ -210,6 +214,9 @@ a:hover {
 }
 
 .admin-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 4;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -228,10 +235,17 @@ a:hover {
   padding: var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-6);
   flex: 1;
-  /* Shared start/end edge for header, filters, table */
-  max-width: 72rem;
+  /* Shared start/end edge; table owns the main column */
+  max-width: none;
+}
+
+/* Tight group: metrics + attention + filters; air before the table */
+.orient {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
 /* —— Page header —— */
@@ -380,9 +394,9 @@ a:hover {
 .metric-strip {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-4) var(--space-6);
-  padding: var(--space-3) 0;
-  border-block: 1px solid var(--border-subtle);
+  gap: var(--space-3) var(--space-5);
+  padding: 0 0 var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 @media (max-width: 40rem) {
@@ -432,12 +446,23 @@ a:hover {
 
 /* —— Attention strip —— */
 .attention {
-  padding: var(--space-3) var(--space-4);
+  position: relative;
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-4);
   background: var(--warning-bg);
-  border: 1px solid color-mix(in srgb, var(--warning) 25%, transparent);
-  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--warning) 22%, transparent);
+  border-radius: var(--radius-sm);
   font-size: var(--text-sm);
   color: var(--content-primary);
+}
+
+.attention::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 3px;
+  background: var(--warning);
+  border-radius: 0;
 }
 
 .attention p {
@@ -456,10 +481,10 @@ a:hover {
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  gap: var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  background: var(--surface-raised);
+  align-items: flex-end;
+  gap: var(--space-3) var(--space-4);
+  padding: var(--space-3);
+  background: var(--surface-inset);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
 }
@@ -472,11 +497,71 @@ a:hover {
 }
 
 .field-legend {
+  display: block;
   padding: 0;
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-1);
   font-size: var(--text-xs);
   font-weight: 600;
   color: var(--content-secondary);
+}
+
+.field--search {
+  flex: 1 1 14rem;
+  min-width: 12rem;
+}
+
+.input {
+  display: block;
+  font: inherit;
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  color: var(--content-primary);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  min-height: 2.25rem;
+  padding: 0.4rem 0.65rem;
+  width: 100%;
+}
+
+.input::placeholder {
+  color: var(--content-muted);
+}
+
+.input:hover {
+  border-color: var(--border-strong);
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-color: var(--focus-ring);
+}
+
+.row-check {
+  appearance: none;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+  background: var(--surface-inset);
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.row-check:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23f2fffc' stroke-width='2' d='M2.5 6.2 5 8.7 9.5 3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 0.75rem;
+}
+
+.row-check:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
 .segmented {
@@ -484,7 +569,7 @@ a:hover {
   flex-wrap: wrap;
   gap: 2px;
   padding: 2px;
-  background: var(--surface-inset);
+  background: color-mix(in srgb, var(--content-primary) 5%, var(--surface-inset));
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle);
 }
@@ -555,11 +640,14 @@ a:hover {
 
 /* Straight stripe (square ends) — not a fingernail lip on rounded corners */
 .row--risk {
-  position: relative;
   background: color-mix(in srgb, var(--warning) 8%, var(--surface-raised));
 }
 
-.row--risk::before {
+.row--risk td:first-child {
+  position: relative;
+}
+
+.row--risk td:first-child::before {
   content: "";
   position: absolute;
   inset-block: 0;
@@ -575,7 +663,7 @@ a:hover {
 .table-panel {
   background: var(--surface-raised);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   flex: 1 1 auto;
   min-height: 16rem;
@@ -583,7 +671,7 @@ a:hover {
 
 .table-wrap {
   overflow: auto;
-  max-height: min(32rem, 70dvh);
+  max-height: min(46rem, 82dvh);
 }
 
 .data-table {
@@ -643,6 +731,10 @@ a:hover {
     background: var(--surface-inset);
   }
 
+  .data-table tbody tr.row--risk:hover {
+    background: color-mix(in srgb, var(--warning) 14%, var(--surface-raised));
+  }
+
   .data-table tbody tr:has(.row-check:checked):hover {
     background: color-mix(in srgb, var(--accent) 10%, var(--surface-raised));
   }
@@ -662,10 +754,16 @@ a:hover {
 }
 
 /* Field types: name primary, email muted, id mono, % tabular end-aligned */
+.data-table td:nth-child(2) {
+  min-width: 12rem;
+}
+
 .learner-name {
+  display: block;
   font-weight: 600;
   font-size: var(--text-sm);
   color: var(--content-primary);
+  white-space: nowrap;
 }
 
 .learner-id {
@@ -714,7 +812,7 @@ a:hover {
 .progress__bar {
   width: 4rem;
   height: 0.35rem;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   background: var(--surface-inset);
   overflow: hidden;
 }
@@ -739,7 +837,7 @@ a:hover {
   align-items: center;
   gap: 0.35rem;
   padding: 0.12rem 0.45rem;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   font-size: var(--text-xs);
   font-weight: 600;
   white-space: nowrap;
@@ -808,6 +906,15 @@ a:hover {
 }
 
 /* —— Empty / filter-empty / demo empty (all CSS) —— */
+.empty-mark {
+  display: block;
+  width: 2.75rem;
+  height: auto;
+  margin: 0 auto var(--space-3);
+  color: var(--accent);
+  opacity: 0.7;
+}
+
 .empty-state,
 .filter-empty {
   display: none;
