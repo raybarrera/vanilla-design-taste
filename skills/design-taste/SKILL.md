@@ -74,6 +74,7 @@ When reviewing UI code, use a **single markdown table**:
 | `ease-in` on a menu | `var(--ease-out)` | Ease-in delays the first motion |
 | No `:active` on button | `transform: scale(0.97)` on `:active` | Press must feel heard |
 | Hover scale without media query | Gate with `(hover: hover) and (pointer: fine)` | Touch fires false hovers |
+| Kicker + “Overview” + title + detail restating one idea | One heading; second line only if it adds a fact | Redundant title stack is a dump, not hierarchy |
 
 Never use a loose Before/After list. One table, one row per issue.
 
@@ -154,6 +155,10 @@ For toasts, toggles, and anything fired twice quickly: **CSS transitions** that 
 - Do not drive many children via a parent CSS variable that changes every frame
 - Prefer CSS for predetermined motion under load; WAAPI for programmatic control
 
+### Progressive disclosure
+
+Show what is needed to act now; hide the rest until asked. Ban the stacked heading dump: kicker + title-label + title + detail that all say the same thing. Heading is required. Kickers are optional — omit them by default. A second line only if it adds a fact; never an `Overview`-style label on top. Full rule: [visual-craft.md](references/visual-craft.md) § *Progressive disclosure*.
+
 ## Accessibility
 
 - Honor `prefers-reduced-motion` (gentler, not always none)
@@ -182,4 +187,5 @@ Match motion to product personality:
 - [ ] `transform`/`opacity` preferred
 - [ ] Reduced motion + hover gating considered
 - [ ] Press feedback on primary actions
+- [ ] No redundant title stacks (kicker / label / title / detail dump); extra facts disclosed on demand
 - [ ] Review output uses Before/After/Why table when reviewing

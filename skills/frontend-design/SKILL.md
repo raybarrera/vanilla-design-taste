@@ -96,6 +96,7 @@ Tidy anti-slop layouts can still feel **forgettable**. Raise elevation with 2–
 Details live in [visual-craft.md](references/visual-craft.md). Non-negotiables:
 
 - One focal point per view; weight and color hierarchy beat size mush
+- **Progressive disclosure:** show what is needed to act now; no stacked kicker + title-label + title + detail dumps ([visual-craft.md](references/visual-craft.md) § *Progressive disclosure*)
 - Product/admin body and table cells meet **type size floors** (≥13–14px body; see visual-craft) — not ~11px “compact”
 - Spacing on a 4/8px scale; uneven rhythm between groups; **alignment** held (see visual-craft § Alignment)
 - One depth strategy (borders / subtle shadow / surface steps)
@@ -110,7 +111,7 @@ Details live in [visual-craft.md](references/visual-craft.md). Non-negotiables:
 
 - Hero is a **thesis**, not a stock gradient card grid
 - Typography can carry personality; pair faces deliberately (load distinctive display if needed; avoid Inter/Space Grotesk as the personality)
-- Structural devices (numbers, eyebrows, rules) only when they encode real structure
+- Structural devices (numbers, eyebrows, rules) only when they encode real structure — kickers are optional; never a four-line title stack that restates one idea
 - Asymmetry and section ink bands over equal card grids
 - Product preview frames: one depth treatment (perspective or soft stack), caption that links to real UI when available
 - Motion: occasional explanatory or delight — still name a purpose ([motion-tokens.md](references/motion-tokens.md))
@@ -131,6 +132,7 @@ Words are design material:
 - Active voice; same action name through the flow (“Publish” → “Published”)
 - Empty and error states give **direction**, not mood
 - Realistic content while designing — never lorem-only layouts
+- One fact per line. Cut kicker / “Overview” labels / title / detail stacks that paraphrase each other; disclose extra copy on demand
 
 ## Implementation posture
 
@@ -154,6 +156,7 @@ Single markdown table:
 | --- | --- | --- |
 | Purple gradient hero, no subject link | Domain-derived palette + one signature image | Defaults read as AI-generic |
 | Flat type: everything 16px regular | Label muted/sm; value semibold; clear h1 | Hierarchy needs weight and role |
+| Kicker + “Overview” + title + detail restating one idea | One heading; second line only if it adds a fact | Redundant title stack is a dump, not hierarchy |
 | `transition: all 300ms` on cards | Named props + motion-token durations | Avoid `all`; stay under UI budgets |
 
 One table, one row per issue.
@@ -166,6 +169,7 @@ One table, one row per issue.
 - [ ] Signature + material finish named (Brand)
 - [ ] Elevation levers chosen (2–3); anti-flat check passed
 - [ ] Focal point, hierarchy, and alignment clear
+- [ ] Progressive disclosure: no stacked heading dump; extra facts on demand
 - [ ] Type size floors met where product/admin UI is in scope
 - [ ] Host theme tokens; light/dark APCA polarity check
 - [ ] Spacing scale and one depth strategy
