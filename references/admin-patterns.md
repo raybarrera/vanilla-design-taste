@@ -67,6 +67,7 @@ When a view has **more than one table or pane**, name the **primary work surface
 | Three peer cards above the real queue | One primary work surface; demote the rest |
 | Every label bold | Labels muted; values stronger |
 | Page title, section title, and card titles all same size | Step the type scale; one clear `h1` |
+| Kicker + “Overview” + title + lede restating the task | One `h1`; optional one-line constraint; rest in docs, `<details>`, or a pane ([visual-craft.md](./visual-craft.md) § *Progressive disclosure*) |
 | Status as a huge pill that steals the row | Compact status; identity stays lead |
 | All strings same weight (ids, prose, numbers) | Field-type presentation (below) |
 | Fingernail lip on nav/rows (curved rail ends) | Background and/or **straight** stripe — ban the look ([visual-craft.md](./visual-craft.md)) |
@@ -730,4 +731,5 @@ Apply the shared checklist. Admin-specific:
 - [ ] Optical polish on shell, filters, table, and controls
 - [ ] Operator polish: attention strip / row emphasis / feedback where relevant
 - [ ] Copy: operator verbs; empty/error give a next step
+- [ ] Progressive disclosure: no stacked heading dump; extra fields/meta on demand
 - [ ] Stack rules respected (no surprise React/Tailwind deps)

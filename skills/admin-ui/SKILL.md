@@ -106,7 +106,7 @@ Default flow: **Load identity → select entity → primary evidence table → s
 
 - Same surface sidebar + hairline border  
 - Current nav via **background**, no fingernail rails on rounded chips  
-- Page header: `h1` + optional short lede + **one** primary  
+- Page header: `h1` + optional short lede + **one** primary. No kicker + “Overview” + title + detail stack — the `h1` names the task; a second line only if it adds a constraint ([visual-craft.md](references/visual-craft.md) § *Progressive disclosure*)  
 
 ## Core patterns
 
@@ -173,6 +173,7 @@ Spend boldness in **one** place. Hierarchy and type floors still win. “No mark
 | Naked browser select in filter bar | Tokenized `.select` + chevron | Native + styled |
 | Neutral gray chrome, no subject link | Domain finish in tokens (paper / steel) | Flat-but-correct fails |
 | One gap everywhere; no press/hairlines | Optical polish + uneven group rhythm | Unseen details compound |
+| Kicker + “Overview” + title + lede restating the task | One `h1`; optional one-line constraint | Redundant title stack is a dump |
 
 ## Checklist
 
@@ -189,4 +190,5 @@ Spend boldness in **one** place. Hierarchy and type floors still win. “No mark
 - [ ] No fingernail lips; straight stripes OK  
 - [ ] Loader: one primary action  
 - [ ] Copy: operator language; empty/error give a next step  
+- [ ] Progressive disclosure: no stacked heading dump; extra fields/meta on demand  
 - [ ] States, filters, stack rules  

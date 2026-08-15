@@ -104,7 +104,7 @@ Shared doctrine (also vendored into each skill’s `references/`):
 
 - [references/stack.md](./references/stack.md) — hard stack rules (wins over any recipe)
 - [references/motion-tokens.md](./references/motion-tokens.md) — curves, durations, press feedback
-- [references/visual-craft.md](./references/visual-craft.md) — hierarchy, density, anti-slop, brand vs product modes
+- [references/visual-craft.md](./references/visual-craft.md) — hierarchy, progressive disclosure, density, anti-slop, brand vs product modes
 - [references/admin-patterns.md](./references/admin-patterns.md) — shells, tables, filters, data states
 - [ATTRIBUTION.md](./ATTRIBUTION.md) — credit and relationship to source inspirations
 

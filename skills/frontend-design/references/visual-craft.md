@@ -115,6 +115,7 @@ AI-generated UI clusters. Unless the brief *asks* for one of these, do not ship 
 | **Fingernail lip** — a short side rail whose ends **curve or cap** with the box radius (looks like a rounded fingernail on the corner) | Agent chrome slop; draws the eye to the corner, not the row | Soft **background** change, and/or a **straight** full-height stripe (no curved caps) |
 | Random parallel palette beside host tokens | Theme drift | Extend host semantic tokens only |
 | **Naked browser form chrome** next to designed UI | System widgets break cohesion | Style native controls with host tokens (see § Native form controls) |
+| **Stacked heading dump** — kicker + title-label + title + detail that all say the same thing | Fake hierarchy; same fact four times | One title that earns its keep; disclose the rest (see § *Progressive disclosure*) |
 
 **Fingernail lip (explicit ban — the look, not one property):**  
 The slop is the **visual**: a partial vertical accent on a rounded box that ends in a **curved, capped “fingernail”** at the top and/or bottom corner. That happens with *any* technique that paints a thick edge **following the border-radius**:
@@ -178,6 +179,47 @@ The slop is the **visual**: a partial vertical accent on a rounded box that ends
 | Flat | Decided |
 | --- | --- |
 | Label and value same size/weight/gray | Label: small, medium weight, muted, tracked; value: large, semibold, primary, `tabular-nums`; delta: small success/danger |
+
+## Progressive disclosure
+
+**Show what is needed to act now. Hide the rest until asked.** Extra labels are not hierarchy — they are a dump.
+
+### The redundant title stack (ban)
+
+AI UI often stacks four layers that say one thing:
+
+```text
+kicker        THE PLATFORM
+title label   Overview
+title         Welcome to the platform
+detail        A platform that helps you…
+```
+
+That is not a heading system. It is the same fact four times. Cut to the one line that does the job. A second line stays only if it adds a constraint, consequence, or next step the title does not already contain.
+
+| Layer | Keep when | Cut when |
+| --- | --- | --- |
+| Kicker / eyebrow (**optional**) | You chose to use one **and** it encodes real structure (section index, date, status, a named part of a sequence) | Defaulted in; restates the heading in small caps or tracking |
+| Title label (`Overview`, `Details`, `About`, `Features`) | Almost never — the heading *is* the label | Always, unless it names a distinct object the heading does not |
+| Heading | The one named thing in the block | Competing with a sibling heading of the same size, or paraphrasing a kicker |
+| Detail / lede / deck | Adds information the heading cannot hold | Paraphrases the heading |
+
+**Budget:** heading is required. **Kickers are optional** — omit them by default; use one only when it carries a fact the heading does not. Never add a title-label (`Overview`, `About`) on top of the heading. A supporting line stays only if it adds a constraint, consequence, or next step. Brand may use optional kicker + heading + lede when each line is distinct — still not a four-line stack, and never a paraphrase stack. Product and Admin: heading + optional one-line constraint; no kicker above an `h1` that already names the task.
+
+Same smell on cards, metrics, and feature grids: kicker + title + blurb that restate each other. One line of identity is enough; the control or next heading carries the rest.
+
+### Disclose, don't dump
+
+Facts that are not needed to take the next action belong behind:
+
+- `<details>`, `popover`, or `<dialog>`
+- a detail page or secondary pane
+- clamp + expand, or `title` for full GUID / ISO / long prose
+- a filter, tab, or “more” the user chose
+
+Do not pre-explain what the next heading, table, field, or control already makes obvious. Do not repeat the page title as a card title, then as a section lede.
+
+**Litmus:** read the stack aloud. If deleting a line loses no new information, delete it.
 
 ## Density
 
@@ -435,6 +477,7 @@ Missing states are the fastest “unfinished” tell.
 - Active voice; sentence case; same action name through the flow
 - Errors: what failed + how to fix — no vague apology
 - Empty: invite the next step, not a dead end
+- One fact per line. Do not restack the same idea as kicker + label + title + detail — see § *Progressive disclosure*
 
 ## Implementation posture (this stack)
 
@@ -557,6 +600,7 @@ State briefly before writing UI:
 Mode:       brand | product | admin
 Intent:     who / task verb / feel (concrete)
 Hierarchy:  focal element + how it wins
+Disclosure: one title that earns it; rest on demand (no kicker/label/title/detail dump)
 Palette:    host tokens first; named colors only if greenfield
 Type:       roles + scale
 Density:    tight | default | airy + px band
