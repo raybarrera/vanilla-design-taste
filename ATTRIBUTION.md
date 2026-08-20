@@ -57,6 +57,7 @@ We do **not** vendor those repositories. Agents should not expect their command 
 | Apple WWDC *Designing Fluid Interfaces* (2018) and related design talks | Fluid motion, interruptibility, springs — also cited in Emil's and many industry notes |
 | 37signals / Basecamp frontend practice | HTML-first, vanilla-is-plenty, progressive enhancement |
 | Project conventions from hypermedia apps (templ, HTMX, progressive enhancement) | Token CSS, custom elements, HTMX partials |
+| [Jakub Antalík / transitions.dev](https://github.com/Jakubantalik/transitions.dev) | Catalog of common UI transition *jobs* (dropdown, modal, toast, tabs, …) and the idea of matching motion to usage rather than nearest numbers. This pack **does not** vendor that repo, its `t-*` snippets, npm CLI, or Refine panel. `ui-transitions` and `polish-transitions` rewrite the catalog against this pack’s stack ladder and [motion-tokens.md](./references/motion-tokens.md). |
 
 ## How to credit this pack
 

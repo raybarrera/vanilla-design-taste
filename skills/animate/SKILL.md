@@ -4,8 +4,9 @@ description: >
   Build a UI animation from scratch on vanilla CSS and minimal JS — decide
   whether to animate, pick purpose, tool, properties, curve, and duration, then
   implement. Use when asked to animate something, add motion, make a control
-  feel alive, or /animate. For review use review-animations; for audits use
-  improve-animations.
+  feel alive, or /animate. For a known chrome pattern (dialog, menu, toast,
+  tabs) use ui-transitions; for review use review-animations; for audits use
+  improve-animations; for off-token timing use polish-transitions.
 ---
 
 # Building Animations (Vanilla)
@@ -14,7 +15,8 @@ Turn a motion request into an implementation that would pass a strict review —
 
 **Stack authority:** [references/stack.md](references/stack.md)  
 **Tokens:** [references/motion-tokens.md](references/motion-tokens.md)  
-**Recipes:** [RECIPES.md](./RECIPES.md)
+**Recipes:** [RECIPES.md](./RECIPES.md)  
+**Catalog (named chrome):** [`ui-transitions`](../ui-transitions/SKILL.md)
 
 ## Inspiration and attribution
 

@@ -53,6 +53,28 @@ If the host app already defines `--ease-out`, `--duration-fast`, etc., **use tho
 
 **UI motion should usually stay under 300ms** unless it is a deliberate sheet or rare delight moment.
 
+## Open / close asymmetry
+
+Opening is the invitation. Closing should get out of the way.
+
+| Surface | Open | Close |
+| --- | --- | --- |
+| Tooltip | `--duration-tooltip` after a short intent delay | Faster than open; **no delay** |
+| Dropdown / popover | `--duration-popover` | Shorter (~150ms) |
+| Modal | `--duration-modal` | Shorter (~150–200ms) |
+| Drawer / sheet | `--duration-drawer` | Slightly shorter |
+| Toast | Personality; often ~300–400ms in | Faster out |
+
+Do **not** bounce a close. Overshoot belongs to rare entrances only.
+
+Keep **the same duration both ways** when the motion is one reversible path, not an open/close pair: page slide, sliding tabs pill, accordion height, icon swap, in-place text swap.
+
+## Intent delay
+
+A tooltip (or similar hover hint) may wait ~80ms before appearing so a passing pointer does not trigger it. Use delay to filter accidents or sequence two beats — not to pad a slow animation. **Never delay a close or a hover-out.**
+
+If motion feels late, shorten **duration** before adding delay.
+
 ## Frequency gate
 
 | How often the user sees it | Decision |
