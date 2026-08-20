@@ -37,6 +37,8 @@ Do not dump the whole skill until the user asks a concrete question.
 | Distinctive page/component look, anti-slop, type, marketing or general product chrome | `frontend-design` |
 | Admin panel, CRM, dashboard, dense table, settings IA, internal tool | `admin-ui` |
 | Build, review, or audit a specific animation | `animate`, `review-animations`, and other motion skills |
+| Named UI chrome transition (dialog, menu, toast, tabs) | `ui-transitions` |
+| Existing motion to retoken (durations/easing off) | `polish-transitions` |
 | Component press/feel, restraint, general craft review without a full redesign | **this skill** (`design-taste`) |
 
 If the task is clearly a full visual redesign or a dense admin screen, prefer the specialist skill and still apply this pack’s stack and motion rules.

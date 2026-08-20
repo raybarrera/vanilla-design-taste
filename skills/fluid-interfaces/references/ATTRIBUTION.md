@@ -43,6 +43,7 @@ If you want the original React-oriented skills, use Emil's pack: [github.com/emi
 | Apple WWDC *Designing Fluid Interfaces* (2018) and related design talks | Fluid motion, interruptibility, springs — also cited in Emil's and many industry notes |
 | 37signals / Basecamp frontend practice | HTML-first, vanilla-is-plenty, progressive enhancement |
 | Project conventions from hypermedia apps (templ, HTMX, progressive enhancement) | Token CSS, custom elements, HTMX partials |
+| [Jakub Antalík / transitions.dev](https://github.com/Jakubantalik/transitions.dev) | Catalog of common UI transition jobs; rewritten here as `ui-transitions` / `polish-transitions` (pack tokens, no `t-*` snippets, CLI, or Refine panel) |
 
 ## How to credit this pack
 

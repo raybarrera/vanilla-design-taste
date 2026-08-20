@@ -104,6 +104,6 @@ At least 2–5 deliberate rejects with the gate reason. This is what proves rest
 
 ### Part 3 — Verdict
 
-How much motion this surface needs; single highest-leverage suggestion; handoff to `improve-animations` or `animate` if the user wants implementation next.
+How much motion this surface needs; single highest-leverage suggestion; handoff to `improve-animations`, `ui-transitions`, or `animate` if the user wants implementation next.
 
 If nothing survives the gate, say so — that is success.

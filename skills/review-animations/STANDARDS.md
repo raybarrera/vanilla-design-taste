@@ -39,6 +39,8 @@ Never `ease-in` on UI response motion.
 
 UI default ceiling: **300ms**.
 
+Open/close: closes are faster and quieter. See [motion-tokens.md](references/motion-tokens.md) § *Open / close asymmetry*.
+
 ## Physicality
 
 - No `scale(0)` — use ~0.95 + opacity  

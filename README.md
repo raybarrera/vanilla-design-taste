@@ -84,6 +84,8 @@ If your agent only scans a vendor path, copy or symlink the same skill directori
 | [frontend-design](./skills/frontend-design/SKILL.md) | Distinctive visual design for product **and** marketing; anti-slop; type, hierarchy, copy |
 | [admin-ui](./skills/admin-ui/SKILL.md) | Dense admin panels, dashboards, tables, filters, settings — correct *and* beautiful |
 | [animate](./skills/animate/SKILL.md) | Build a specific animation or transition from scratch |
+| [ui-transitions](./skills/ui-transitions/SKILL.md) | Apply a known UI transition (dialog, menu, toast, tabs, …) |
+| [polish-transitions](./skills/polish-transitions/SKILL.md) | Tune existing motion to pack tokens (usage, not nearest ms) |
 | [review-animations](./skills/review-animations/SKILL.md) | Strict review of motion in a diff or surface |
 | [find-animation-opportunities](./skills/find-animation-opportunities/SKILL.md) | Hunt places that should (and should not) move |
 | [improve-animations](./skills/improve-animations/SKILL.md) | Audit a codebase and write execution plans (read-only) |
@@ -97,7 +99,9 @@ If your agent only scans a vendor path, copy or symlink the same skill directori
 | --- | --- |
 | Distinctive page/component look, anti-slop, type, marketing or general product chrome | `frontend-design` |
 | Admin panel, CRM, dashboard, dense table, settings IA, internal tool | `admin-ui` |
-| Build, review, or audit a specific animation | motion skills (`animate`, `review-animations`, …) |
+| Build, review, or audit a specific animation | motion skills (`animate`, `ui-transitions`, `review-animations`, …) |
+| Named chrome transition (modal, dropdown, toast, tabs) | `ui-transitions` |
+| Existing motion that is justified but off-token | `polish-transitions` |
 | Component press/feel + general craft without a full redesign | `design-taste` |
 
 Shared doctrine (also vendored into each skill’s `references/`):
@@ -121,6 +125,7 @@ Shared doctrine (also vendored into each skill’s `references/`):
 | Tailwind / CVA styling path | Vanilla CSS tokens only |
 | JSX mount-flag patterns as primary entry | Prefer `@starting-style`, server HTML, class toggles |
 | Shipping third-party skills verbatim | We rewrite popular FE/admin craft for hypermedia; see ATTRIBUTION |
+| transitions.dev `t-*` snippets, npm CLI, Refine panel | Catalog *jobs* rewritten as `ui-transitions` / `polish-transitions`; pack tokens win |
 
 ## Contributing
 
